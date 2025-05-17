@@ -4,6 +4,8 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const runtimeConfig = useRuntimeConfig();
     console.log(body);
+    console.log(runtimeConfig.public.backendUrl);
+    console.log(runtimeConfig.backendUrl);
 
     // Forward the request to the external API
     const response = await fetch(`${runtimeConfig.public.backendUrl}/predict`, {
