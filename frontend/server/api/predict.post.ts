@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     console.log(runtimeConfig.backendUrl);
 
     // Forward the request to the external API
-    const response = await fetch('dermatitis_backend/predict', { //}`${runtimeConfig.public.backendUrl}/predict`, {
+    const response = await fetch(`${runtimeConfig.public.backendUrl}/predict`, {
         method: 'POST',
         body,
         headers: {
