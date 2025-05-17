@@ -58,6 +58,20 @@ async def predict(content: MultimodalInput):
     return {"result": result, "percentage": percentage}
 
 
+@app.post("/predict2")
+async def predict2(text: str, image_path: str):
+    # Check if image exists
+    if not os.path.exists(image_path):
+        raise HTTPException(status_code=404, detail="Image not found.")
+
+    image = Image.open(image_path).convert("RGB")
+
+    result, percentage = predictor.predict(text, image)
+    print(result)
+
+    return {"result": result, "percentage": percentage}
+
+
 @app.post("/upload-image/")
 async def upload_image(file: UploadFile = File(...)):
     # Basic MIME type check
