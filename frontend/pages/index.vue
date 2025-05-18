@@ -9,7 +9,7 @@ interface AnamnesysForm {
   faktor_pencetus_penyakit_sekarang: string;
   lama_sakit: string;
   lokasi_lesi: string;
-  apakah_terdapat_lesi_di_area_tubuh_lainnya: boolean;
+  // apakah_terdapat_lesi_di_area_tubuh_lainnya: boolean;
   kriteria_mayor: string;
   kriteria_minor: string;
   riwayat_penyakit_dahulu: string;
@@ -26,7 +26,7 @@ const formAnamnesys = ref<AnamnesysForm>({
   faktor_pencetus_penyakit_sekarang: "",
   lama_sakit: "",
   lokasi_lesi: "",
-  apakah_terdapat_lesi_di_area_tubuh_lainnya: false,
+  // apakah_terdapat_lesi_di_area_tubuh_lainnya: false,
   kriteria_mayor: "",
   kriteria_minor: "",
   riwayat_penyakit_dahulu: "",
@@ -55,7 +55,7 @@ const createSummary = (form: typeof formAnamnesys.value): string => {
     `Faktor pencetus penyakit saat ini: ${form.faktor_pencetus_penyakit_sekarang}. ` +
     `Lama sakit: ${form.lama_sakit}. ` +
     `Lokasi lesi: ${form.lokasi_lesi}. ` +
-    `Apakah terdapat lesi di area tubuh lainnya: ${form.apakah_terdapat_lesi_di_area_tubuh_lainnya}. ` +
+    // `Apakah terdapat lesi di area tubuh lainnya: ${form.apakah_terdapat_lesi_di_area_tubuh_lainnya}. ` +
     `Kriteria mayor: ${form.kriteria_mayor}. ` +
     `Kriteria minor: ${form.kriteria_minor}. ` +
     `Riwayat penyakit dahulu: ${form.riwayat_penyakit_dahulu}. ` +
@@ -76,7 +76,7 @@ const getInputType = (key: keyof AnamnesysForm): string => {
     key.includes("kriteria")
   )
     return "textarea";
-  if (key === "apakah_terdapat_lesi_di_area_tubuh_lainnya") return "checkbox";
+  // if (key === "apakah_terdapat_lesi_di_area_tubuh_lainnya") return "checkbox";
   return "text";
 };
 
