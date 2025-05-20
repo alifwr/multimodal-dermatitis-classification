@@ -9,11 +9,13 @@ export const SUMBER_INFEKSI = [
 ];
 export const LAMA_SAKIT = ["1 minggu", "2 minggu", "3 minggu", "4 minggu", "> 4 minggu"];
 export const KRITERIA_MAYOR = [
+    "Tidak Ada",
     "Pruritus",
     "Likenifikasi fleksural / linearitas pada pasien dewasa, keterlibatan area wajah / ekstensor pada pasien bayi dan anak",
     "Dermatitis kronik / kronis berulang", "Riwayat atopi pada diri / keluarga (asma bronkial, rinitis alergi, dermatitis atopik)"
 ];
 export const KRITERIA_MINOR = [
+    "Tidak Ada",
     "Xerosis",
     "Iktiosis / hiperlinear palmar / keratosis pilaris", "Reaksi tipe cepat (tipe 1) pada uji kulit",
     "Peningkatan IgE serum",

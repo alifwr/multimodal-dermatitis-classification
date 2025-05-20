@@ -16,23 +16,20 @@ const formAnamnesys = ref<AnamnesysForm>({
   usia: "",
   keluhan_utama_dan_onset: "",
   riwayat_kontak_dengan_bahan_alergen_atau_iritan: "",
-  sumber_infeksi: "",
   sumber_infeksi_lainnya: "",
   faktor_pencetus_penyakit_sekarang: "",
   lama_sakit: "",
   lokasi_lesi: "",
   // apakah_terdapat_lesi_di_area_tubuh_lainnya: false,
-  kriteria_mayor: "",
-  kriteria_minor: "",
-  riwayat_penyakit_dahulu: "",
-  riwayat_penyakit_keluarga: "",
+  sumber_infeksi: [],
+  kriteria_mayor: [],
+  kriteria_minor: [],
+  riwayat_penyakit_dahulu: [],
+  riwayat_penyakit_keluarga: [],
 });
 
 const runtimeConfig = useRuntimeConfig();
 const imageUrl = ref("");
-const formKeys = computed(
-  () => Object.keys(formAnamnesys.value) as (keyof AnamnesysForm)[]
-);
 const file_path = ref("");
 const error = ref(null);
 const isLoading = ref(false);
@@ -40,13 +37,102 @@ const errors = ref<Partial<Record<keyof AnamnesysForm, string>>>({});
 const result = ref<{ classname: string; confidence: number } | null>(null);
 const showModal = ref(false);
 
+watch(
+    [
+      () => formAnamnesys.value.kriteria_mayor,
+      () => formAnamnesys.value.kriteria_minor,
+      () => formAnamnesys.value.riwayat_penyakit_dahulu,
+      () => formAnamnesys.value.riwayat_penyakit_keluarga
+    ],
+    (
+        [newKriteriaMayor, newKriteriaMinor, newRiwayatDahulu, newRiwayatKeluarga],
+        [oldKriteriaMayor, oldKriteriaMinor, oldRiwayatDahulu, oldRiwayatKeluarga],
+    ) => {
+      // Kriteria Mayor
+      if(oldKriteriaMayor.includes('Tidak Ada') && newKriteriaMayor.length > 1){
+        formAnamnesys.value.kriteria_mayor = newKriteriaMayor.filter(item => item !== 'Tidak Ada');
+      }
+      if(!oldKriteriaMayor.includes('Tidak Ada') && newKriteriaMayor.includes('Tidak Ada')){
+        formAnamnesys.value.kriteria_mayor = newKriteriaMayor.filter(item => item === 'Tidak Ada');
+      }
+
+      // Kriteria Minor
+      if(oldKriteriaMinor.includes('Tidak Ada') && newKriteriaMinor.length > 1){
+        formAnamnesys.value.kriteria_minor = newKriteriaMinor.filter(item => item !== 'Tidak Ada');
+      }
+      if(!oldKriteriaMinor.includes('Tidak Ada') && newKriteriaMinor.includes('Tidak Ada')){
+        formAnamnesys.value.kriteria_minor = newKriteriaMinor.filter(item => item === 'Tidak Ada');
+      }
+
+      // Riwayat Dahulu
+      if(oldRiwayatDahulu.includes('Tidak ada riwayat') && newRiwayatDahulu.length > 1){
+        formAnamnesys.value.riwayat_penyakit_dahulu = newRiwayatDahulu.filter(item => item !== 'Tidak ada riwayat');
+      }
+      if(!oldRiwayatDahulu.includes('Tidak ada riwayat') && newRiwayatDahulu.includes('Tidak ada riwayat')){
+        formAnamnesys.value.riwayat_penyakit_dahulu = newRiwayatDahulu.filter(item => item === 'Tidak ada riwayat');
+      }
+
+      // Riwayat Keluarga
+      if(oldRiwayatKeluarga.includes('Tidak ada riwayat') && newRiwayatKeluarga.length > 1){
+        formAnamnesys.value.riwayat_penyakit_keluarga = newRiwayatKeluarga.filter(item => item !== 'Tidak ada riwayat');
+      }
+      if(!oldRiwayatKeluarga.includes('Tidak ada riwayat') && newRiwayatKeluarga.includes('Tidak ada riwayat')){
+        formAnamnesys.value.riwayat_penyakit_keluarga = newRiwayatKeluarga.filter(item => item === 'Tidak ada riwayat');
+      }
+    },
+    { deep: true }
+);
+
+const isFormFilled = computed((): boolean => {
+  // Define string fields
+  const stringFields: (keyof AnamnesysForm)[] = [
+    'jenis_kelamin',
+    'usia',
+    'keluhan_utama_dan_onset',
+    'riwayat_kontak_dengan_bahan_alergen_atau_iritan',
+    'faktor_pencetus_penyakit_sekarang',
+    'lama_sakit',
+    'lokasi_lesi',
+  ];
+
+  // Check if all string fields are non-empty
+  const areStringsFilled = stringFields.every(key => {
+        const str = formAnamnesys.value[key] as string;
+        return str.trim() !== '';
+      }
+  );
+
+  // Define array fields
+  const arrayFields: (keyof AnamnesysForm)[] = [
+    'sumber_infeksi',
+    'kriteria_mayor',
+    'kriteria_minor',
+    'riwayat_penyakit_dahulu',
+    'riwayat_penyakit_keluarga',
+  ];
+
+  // Check if all array fields are non-empty and contain no empty strings
+  const areArraysFilled = arrayFields.every(key => {
+    const array = formAnamnesys.value[key] as string[]; // Type assertion since these keys are string[]
+    return array.length > 0;
+  });
+
+  return areStringsFilled && areArraysFilled;
+});
+
 const createSummary = (form: typeof formAnamnesys.value): string => {
+  let sumber_infeksi = form.sumber_infeksi;
+  if(sumber_infeksi.includes("Lain-lain (sebutkan pada kolom berikutnya)")){
+    sumber_infeksi = sumber_infeksi.filter(item => item !== 'Lain-lain (sebutkan pada kolom berikutnya)');
+    sumber_infeksi.push(form.sumber_infeksi_lainnya);
+  }
+
   return (
     `Pasien dengan jenis kelamin: ${form.jenis_kelamin}, ` +
     `usia: ${form.usia}. ` +
     `Keluhan utama dan onset: ${form.keluhan_utama_dan_onset}. ` +
     `Riwayat kontak dengan bahan alergen atau iritan: ${form.riwayat_kontak_dengan_bahan_alergen_atau_iritan}. ` +
-    `Sumber infeksi: ${form.sumber_infeksi.join(', ')}. ` +
+    `Sumber infeksi: ${sumber_infeksi.join(', ')}. ` +
     `Faktor pencetus penyakit saat ini: ${form.faktor_pencetus_penyakit_sekarang}. ` +
     `Lama sakit: ${form.lama_sakit}. ` +
     `Lokasi lesi: ${form.lokasi_lesi}. ` +
@@ -96,55 +182,50 @@ const onFileChange = async (event: any) => {
 };
 
 const handleSubmit = async () => {
-  if (true) {
-    // validateForm()
-    try {
-      // const externalUrl = `${runtimeConfig.public.backendUrl}/predict2?text=${createSummary(formAnamnesys.value)}&image_path=${file_path.value}`;
-      const payload = {
-        text: createSummary(formAnamnesys.value),
-        image_path: file_path.value,
-      };
+  try {
+    // const externalUrl = `${runtimeConfig.public.backendUrl}/predict2?text=${createSummary(formAnamnesys.value)}&image_path=${file_path.value}`;
+    const payload = {
+      text: createSummary(formAnamnesys.value),
+      image_path: file_path.value,
+    };
 
-      // const formData = new FormData();
-      // formData.append('text', createSummary(formAnamnesys.value));
-      // formData.append('image_path', file_path.value);
-      // console.log(payload);
+    // const formData = new FormData();
+    // formData.append('text', createSummary(formAnamnesys.value));
+    // formData.append('image_path', file_path.value);
+    // console.log(payload);
 
-      const res = await fetch("/api/predict", {
-        method: "POST",
-        // headers: {
-          // accept: "application/x-www-form-urlencoded",
-          // "Content-Type": "application/json",
-        // },
-        body: JSON.stringify(payload),
-        // keepalive: true,
-      });
+    const res = await fetch("/api/predict", {
+      method: "POST",
+      // headers: {
+        // accept: "application/x-www-form-urlencoded",
+        // "Content-Type": "application/json",
+      // },
+      body: JSON.stringify(payload),
+      // keepalive: true,
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      console.log(data)
+    console.log(data)
 
-      // const res = await fetch(externalUrl, {
-      //   method: 'POST',
-      //   body: {
-      //     text: createSummary(formAnamnesys.value),
-      //     image_path: file_path.value
-      //   }
-      // });
+    // const res = await fetch(externalUrl, {
+    //   method: 'POST',
+    //   body: {
+    //     text: createSummary(formAnamnesys.value),
+    //     image_path: file_path.value
+    //   }
+    // });
 
-      // Assuming the response has { classname: string, confidence: number }
-      result.value = {
-        classname: data.result,
-        confidence: data.percentage,
-      };
+    // Assuming the response has { classname: string, confidence: number }
+    result.value = {
+      classname: data.result,
+      confidence: data.percentage,
+    };
 
-      showModal.value = true;
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("Failed to submit form. Please try again later.");
-    }
-  } else {
-    alert("Please fix form errors.");
+    showModal.value = true;
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    alert("Failed to submit form. Please try again later.");
   }
 };
 </script>
@@ -333,7 +414,7 @@ const handleSubmit = async () => {
 
         <button
           @click="handleSubmit"
-          v-if="imageUrl"
+          v-if="isFormFilled"
           :disabled="isLoading"
           :class="isLoading ? 'bg-gray-400' : 'bg-blue-400'"
           class="py-2 px-8 h-full rounded-tr-lg rounded-lg my-8"
