@@ -2,7 +2,10 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/icon'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxt/icon', '@formkit/nuxt'],
+  formkit:{
+    autoImport: true,
+  },
   runtimeConfig:{
     public:{
       backendUrl: "http://152.118.31.20:8081" //http://152.118.31.20:8081"

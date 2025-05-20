@@ -1,28 +1,23 @@
 <script setup lang="ts">
-interface AnamnesysForm {
-  jenis_kelamin: string;
-  usia: string;
-  klasifikasi_usia: string;
-  keluhan_utama_dan_onset: string;
-  riwayat_kontak_dengan_bahan_alergen_atau_iritan: string;
-  sumber_infeksi: string;
-  faktor_pencetus_penyakit_sekarang: string;
-  lama_sakit: string;
-  lokasi_lesi: string;
-  // apakah_terdapat_lesi_di_area_tubuh_lainnya: boolean;
-  kriteria_mayor: string;
-  kriteria_minor: string;
-  riwayat_penyakit_dahulu: string;
-  riwayat_penyakit_keluarga: string;
-}
+import {
+  JENIS_KELAMIN,
+  RIWAYAT_KONTAK,
+  SUMBER_INFEKSI,
+  LAMA_SAKIT,
+  KRITERIA_MAYOR,
+  KRITERIA_MINOR,
+  RIWAYAT_PENYAKIT_DAHULU,
+  RIWAYAT_PENYAKIT_KELUARGA
+} from "~/constants/options";
+import type AnamnesysForm from "~/types/anamnesys";
 
 const formAnamnesys = ref<AnamnesysForm>({
   jenis_kelamin: "",
   usia: "",
-  klasifikasi_usia: "",
   keluhan_utama_dan_onset: "",
   riwayat_kontak_dengan_bahan_alergen_atau_iritan: "",
   sumber_infeksi: "",
+  sumber_infeksi_lainnya: "",
   faktor_pencetus_penyakit_sekarang: "",
   lama_sakit: "",
   lokasi_lesi: "",
@@ -48,36 +43,19 @@ const showModal = ref(false);
 const createSummary = (form: typeof formAnamnesys.value): string => {
   return (
     `Pasien dengan jenis kelamin: ${form.jenis_kelamin}, ` +
-    `usia: ${form.usia} (klasifikasi usia: ${form.klasifikasi_usia}). ` +
+    `usia: ${form.usia}. ` +
     `Keluhan utama dan onset: ${form.keluhan_utama_dan_onset}. ` +
     `Riwayat kontak dengan bahan alergen atau iritan: ${form.riwayat_kontak_dengan_bahan_alergen_atau_iritan}. ` +
-    `Sumber infeksi: ${form.sumber_infeksi}. ` +
+    `Sumber infeksi: ${form.sumber_infeksi.join(', ')}. ` +
     `Faktor pencetus penyakit saat ini: ${form.faktor_pencetus_penyakit_sekarang}. ` +
     `Lama sakit: ${form.lama_sakit}. ` +
     `Lokasi lesi: ${form.lokasi_lesi}. ` +
     // `Apakah terdapat lesi di area tubuh lainnya: ${form.apakah_terdapat_lesi_di_area_tubuh_lainnya}. ` +
-    `Kriteria mayor: ${form.kriteria_mayor}. ` +
-    `Kriteria minor: ${form.kriteria_minor}. ` +
-    `Riwayat penyakit dahulu: ${form.riwayat_penyakit_dahulu}. ` +
-    `Riwayat penyakit keluarga: ${form.riwayat_penyakit_keluarga}.`
+    `Kriteria mayor: ${form.kriteria_mayor.join(', ')}. ` +
+    `Kriteria minor: ${form.kriteria_minor.join(', ')}. ` +
+    `Riwayat penyakit dahulu: ${form.riwayat_penyakit_dahulu.join(', ')}. ` +
+    `Riwayat penyakit keluarga: ${form.riwayat_penyakit_keluarga.join(', ')}.`
   );
-};
-
-const formatLabel = (key: keyof AnamnesysForm): string =>
-  key
-    .split("_")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-
-const getInputType = (key: keyof AnamnesysForm): string => {
-  if (
-    key.includes("riwayat") ||
-    key.includes("keluhan") ||
-    key.includes("kriteria")
-  )
-    return "textarea";
-  // if (key === "apakah_terdapat_lesi_di_area_tubuh_lainnya") return "checkbox";
-  return "text";
 };
 
 const onFileChange = async (event: any) => {
@@ -115,17 +93,6 @@ const onFileChange = async (event: any) => {
   } finally {
     isLoading.value = false;
   }
-};
-
-const validateForm = (): boolean => {
-  errors.value = {};
-  if (!formAnamnesys.value.jenis_kelamin) {
-    errors.value.jenis_kelamin = "Jenis Kelamin harus diisi";
-  }
-  if (!formAnamnesys.value.usia || Number(formAnamnesys.value.usia) <= 0) {
-    errors.value.usia = "Usia harus diisi dan lebih dari 0";
-  }
-  return Object.keys(errors.value).length === 0;
 };
 
 const handleSubmit = async () => {
@@ -211,20 +178,157 @@ const handleSubmit = async () => {
 
         <div
           v-if="imageUrl"
-          v-for="key in formKeys"
-          class="flex items-center justify-between w-full py-2 px-8"
+          class="flex flex-col items-left self-center justify-between py-2 px-8"
         >
-          <label class="w-[20%] font-bold" :for="key">{{
-            formatLabel(key)
-          }}</label>
-          <span class="text-center w-[2%]">:</span>
-          <input
-            :id="key"
-            v-model="formAnamnesys[key]"
-            :type="getInputType(key)"
-            class="form-input w-full py-2 px-4 border rounded-lg"
-            :placeholder="formatLabel(key)"
+          <FormKit
+              v-model="formAnamnesys['jenis_kelamin']"
+              type="radio"
+              name="jenis_kelamin"
+              id="jenis_kelamin"
+              label="Jenis Kelamin"
+              help="Pilih Jenis Kelamin"
+              placeholder="“Jenis Kelamin”"
+              :options="JENIS_KELAMIN"
           />
+          <hr class="my-2" />
+          <FormKit
+              v-model="formAnamnesys['usia']"
+              type="text"
+              name="usia"
+              id="usia"
+              label="Usia"
+              help="Masukkan Usia"
+              placeholder="“Usia”"
+          />
+          <hr class="my-2" />
+          <FormKit
+              v-model="formAnamnesys['keluhan_utama_dan_onset']"
+              type="text"
+              name="keluhan_utama_dan_onset"
+              id="keluhan_utama_dan_onset"
+              label="Keluhan Utama dan Onset"
+              help="Masukkan Keluhan Utama dan Onset"
+              placeholder="“Keluhan Utama dan Onset”"
+          />
+          <hr class="my-2" />
+          <FormKit
+              v-model="formAnamnesys['riwayat_kontak_dengan_bahan_alergen_atau_iritan']"
+              type="radio"
+              name="riwayat_kontak_dengan_bahan_alergen_atau_iritan"
+              id="riwayat_kontak_dengan_bahan_alergen_atau_iritan"
+              label="Riwayat Kontak dengan bahan Alergen atau Iritan"
+              help="Masukkan Riwayat Kontak dengan bahan Alergen atau Iritan"
+              placeholder="“Riwayat Kontak dengan bahan Alergen atau Iritan”"
+              :options="RIWAYAT_KONTAK"
+          />
+          <hr class="my-2" />
+          <FormKit
+              v-model="formAnamnesys['sumber_infeksi']"
+              type="checkbox"
+              name="sumber_infeksi"
+              id="sumber_infeksi"
+              label="Sumber Infeksi"
+              help="Masukkan Sumber Infeksi"
+              placeholder="“Sumber Infeksi”"
+              :options="SUMBER_INFEKSI"
+          />
+          <FormKit
+              v-if="formAnamnesys['sumber_infeksi'].includes('Lain-lain (sebutkan pada kolom berikutnya)')"
+              v-model="formAnamnesys['sumber_infeksi_lainnya']"
+              type="text"
+              name="sumber_infeksi_lainnya"
+              id="sumber_infeksi_lainnya"
+              label="Sumber Infeksi Lainnya"
+              help="Masukkan Sumber Infeksi Lainnya"
+              placeholder="“Sumber Infeksi Lainnya”"
+          />
+          <hr class="my-2" />
+          <FormKit
+              v-model="formAnamnesys['faktor_pencetus_penyakit_sekarang']"
+              type="text"
+              name="faktor_pencetus_penyakit_sekarang"
+              id="faktor_pencetus_penyakit_sekarang"
+              label="Faktor Pencetus Penyakit Sekarang"
+              help="Masukkan Faktor Pencetus Penyakit Sekarang"
+              placeholder="“Faktor Pencetus Penyakit Sekarang”"
+          />
+          <hr class="my-2" />
+          <FormKit
+              v-model="formAnamnesys['lama_sakit']"
+              type="radio"
+              name="lama_sakit"
+              id="lama_sakit"
+              label="Faktor Pencetus Penyakit Sekarang"
+              help="Masukkan Faktor Pencetus Penyakit Sekarang"
+              placeholder="“Faktor Pencetus Penyakit Sekarang”"
+              :options="LAMA_SAKIT"
+          />
+          <hr class="my-2" />
+          <FormKit
+              v-model="formAnamnesys['lokasi_lesi']"
+              type="text"
+              name="lokasi_lesi"
+              id="lokasi_lesi"
+              label="Lokasi Lesi"
+              help="Masukkan Lokasi Lesi"
+              placeholder="“Lokasi Lesi”"
+          />
+          <hr class="my-2" />
+          <FormKit
+              v-model="formAnamnesys['kriteria_mayor']"
+              type="checkbox"
+              name="kriteria_mayor"
+              id="kriteria_mayor"
+              label="Kriteria Mayor"
+              help="Masukkan Kriteria Mayor"
+              placeholder="“Kriteria Mayor”"
+              :options="KRITERIA_MAYOR"
+          />
+          <hr class="my-2" />
+          <FormKit
+              v-model="formAnamnesys['kriteria_minor']"
+              type="checkbox"
+              name="kriteria_minor"
+              id="kriteria_minor"
+              label="Kriteria Minor"
+              help="Masukkan Kriteria Minor"
+              placeholder="“Kriteria Minor”"
+              :options="KRITERIA_MINOR"
+          />
+          <hr class="my-2" />
+          <FormKit
+              v-model="formAnamnesys['riwayat_penyakit_dahulu']"
+              type="checkbox"
+              name="riwayat_penyakit_dahulu"
+              id="riwayat_penyakit_dahulu"
+              label="Riwayat Penyakit Dahulu"
+              help="Masukkan Riwayat Penyakit Dahulu"
+              placeholder="“Riwayat Penyakit Dahulu”"
+              :options="RIWAYAT_PENYAKIT_DAHULU"
+          />
+          <hr class="my-2" />
+          <FormKit
+              v-model="formAnamnesys['riwayat_penyakit_keluarga']"
+              type="checkbox"
+              name="riwayat_penyakit_keluarga"
+              id="riwayat_penyakit_keluarga"
+              label="Riwayat Penyakit Keluarga"
+              help="Masukkan Riwayat Penyakit Keluarga"
+              placeholder="“Riwayat Penyakit Keluarga”"
+              :options="RIWAYAT_PENYAKIT_KELUARGA"
+          />
+          <hr class="my-2" />
+<!--          <label class="w-[20%] font-bold" :for="key">{{-->
+<!--            formatLabel(key)-->
+<!--          }}</label>-->
+<!--          <span class="text-center w-[2%]">:</span>-->
+<!--          <input-->
+<!--            :id="key"-->
+<!--            v-model="formAnamnesys[key]"-->
+<!--            :type="getInputType(key)"-->
+<!--            class="form-input w-full py-2 px-4 border rounded-lg"-->
+<!--            :placeholder="formatLabel(key)"-->
+<!--          />-->
         </div>
 
         <button
