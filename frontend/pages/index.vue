@@ -33,7 +33,6 @@ const imageUrl = ref("");
 const file_path = ref("");
 const error = ref(null);
 const isLoading = ref(false);
-const errors = ref<Partial<Record<keyof AnamnesysForm, string>>>({});
 const result = ref<{ classname: string; confidence: number } | null>(null);
 const showModal = ref(false);
 
@@ -338,9 +337,9 @@ const handleSubmit = async () => {
               type="text"
               name="faktor_pencetus_penyakit_sekarang"
               id="faktor_pencetus_penyakit_sekarang"
-              label="Faktor Pencetus Penyakit Sekarang"
-              help="Masukkan Faktor Pencetus Penyakit Sekarang"
-              placeholder="“Faktor Pencetus Penyakit Sekarang”"
+              label="Lama Sakit"
+              help="Masukkan Lama Sakit"
+              placeholder="“Lama Sakit”"
           />
           <hr class="my-2" />
           <FormKit
