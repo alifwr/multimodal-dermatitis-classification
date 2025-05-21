@@ -337,9 +337,9 @@ const handleSubmit = async () => {
               type="text"
               name="faktor_pencetus_penyakit_sekarang"
               id="faktor_pencetus_penyakit_sekarang"
-              label="Lama Sakit"
-              help="Masukkan Lama Sakit"
-              placeholder="“Lama Sakit”"
+              label="Faktor Pencetus Penyakit Sekarang"
+              help="Masukkan Faktor Pencetus Penyakit Sekarang"
+              placeholder="“Faktor Pencetus Penyakit Sekarang”"
           />
           <hr class="my-2" />
           <FormKit
@@ -347,9 +347,9 @@ const handleSubmit = async () => {
               type="radio"
               name="lama_sakit"
               id="lama_sakit"
-              label="Faktor Pencetus Penyakit Sekarang"
-              help="Masukkan Faktor Pencetus Penyakit Sekarang"
-              placeholder="“Faktor Pencetus Penyakit Sekarang”"
+              label="Lama Sakit"
+              help="Masukkan Lama Sakit"
+              placeholder="“Lama Sakit”"
               :options="LAMA_SAKIT"
           />
           <hr class="my-2" />
