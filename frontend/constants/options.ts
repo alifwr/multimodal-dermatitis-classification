@@ -1,6 +1,7 @@
 export const JENIS_KELAMIN = ["Laki-laki", "Perempuan"];
 export const RIWAYAT_KONTAK = ["Ada", "Tidak Ada"];
 export const SUMBER_INFEKSI = [
+    "Tidak Ada",
     "ISPA",
     "ISK",
     "Infeksi gigi dan gusi",

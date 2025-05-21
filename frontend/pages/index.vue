@@ -39,15 +39,24 @@ const showModal = ref(false);
 
 watch(
     [
+      () => formAnamnesys.value.sumber_infeksi,
       () => formAnamnesys.value.kriteria_mayor,
       () => formAnamnesys.value.kriteria_minor,
       () => formAnamnesys.value.riwayat_penyakit_dahulu,
       () => formAnamnesys.value.riwayat_penyakit_keluarga
     ],
     (
-        [newKriteriaMayor, newKriteriaMinor, newRiwayatDahulu, newRiwayatKeluarga],
-        [oldKriteriaMayor, oldKriteriaMinor, oldRiwayatDahulu, oldRiwayatKeluarga],
+        [newSumberInfeksi, newKriteriaMayor, newKriteriaMinor, newRiwayatDahulu, newRiwayatKeluarga],
+        [oldSumberInfeksi, oldKriteriaMayor, oldKriteriaMinor, oldRiwayatDahulu, oldRiwayatKeluarga],
     ) => {
+      // Sumber Infeksi
+      if(oldSumberInfeksi.includes('Tidak Ada') && newSumberInfeksi.length > 1){
+        formAnamnesys.value.sumber_infeksi = newSumberInfeksi.filter(item => item !== 'Tidak Ada');
+      }
+      if(!oldSumberInfeksi.includes('Tidak Ada') && newSumberInfeksi.includes('Tidak Ada')){
+        formAnamnesys.value.sumber_infeksi = newSumberInfeksi.filter(item => item === 'Tidak Ada');
+      }
+
       // Kriteria Mayor
       if(oldKriteriaMayor.includes('Tidak Ada') && newKriteriaMayor.length > 1){
         formAnamnesys.value.kriteria_mayor = newKriteriaMayor.filter(item => item !== 'Tidak Ada');
