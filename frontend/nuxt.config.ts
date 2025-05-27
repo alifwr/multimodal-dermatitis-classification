@@ -12,5 +12,6 @@ export default defineNuxtConfig({
     },
     backendUrl: "http://dermatitis_backend:8000",
     // backendUrl: "http://152.118.31.20:8081"
-  }
+  },
+
 })
