@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     public:{
       backendUrl: "https://dermatutus.alif.top" //http://152.118.31.20:8081"
     },
-    backendUrl: "https://dermatutus.alif.top"//http://dermatitis_backend:8000",
+    backendUrl: "http://localhost:8000"//https://dermatutus.alif.top"//http://dermatitis_backend:8000",
   },
 
 })

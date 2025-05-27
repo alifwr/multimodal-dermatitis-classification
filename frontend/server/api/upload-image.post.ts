@@ -4,6 +4,7 @@ import FormData from 'form-data'
 import fs from 'fs/promises'
 import { createReadStream } from 'fs'
 import fetch from 'node-fetch'
+import {readFile} from "fs/promises";
 
 export default defineEventHandler(async (event) => {
     try {
@@ -28,18 +29,18 @@ export default defineEventHandler(async (event) => {
         const formData = new FormData()
 
         // Add text fields
-        Object.entries(fields).forEach(([key, value]) => {
-            if (Array.isArray(value)) {
-                value.forEach(v => formData.append(key, v))
-            } else if (value) {
-                formData.append(key, value)
-            }
-        })
+        // Object.entries(fields).forEach(([key, value]) => {
+        //     if (Array.isArray(value)) {
+        //         value.forEach(v => formData.append(key, String(v)))
+        //     } else if (value) {
+        //         formData.append(key, String(value))
+        //     }
+        // })
 
         // Store file paths for cleanup
         const tempFilePaths: string[] = []
 
-        // Add files using streams
+        // Add files using streams - but handle single file case properly
         for (const [fieldName, fileArray] of Object.entries(files)) {
             const fileList = Array.isArray(fileArray) ? fileArray : [fileArray]
 
@@ -49,13 +50,21 @@ export default defineEventHandler(async (event) => {
                     tempFilePaths.push(file.filepath)
 
                     try {
-                        // Use stream for better memory management
-                        const fileStream = createReadStream(file.filepath)
+                        // Create file stream
+                        const fileStream = await createReadStream(file.filepath)
+                        const fileBuffer = await readFile(file.filepath);
 
-                        formData.append(fieldName, fileStream, {
-                            filename: file.originalFilename || 'upload.jpg',
-                            contentType: file.mimetype || 'image/jpeg'
-                        })
+                        // Append the file to the FormData
+                        formData.append('file', fileStream, {
+                            filename: 'gps.jpg',
+                            contentType: 'image/jpeg',
+                        });
+
+                        // Use 'file' as the field name for FastAPI compatibility
+                        // formData.append('file', fileStream, {
+                        //     filename: file.originalFilename || 'upload.jpg',
+                        //     contentType: file.mimetype || 'image/jpeg'
+                        // })
 
                         console.log(`Added file stream to FormData: ${file.originalFilename}`)
 
@@ -76,41 +85,34 @@ export default defineEventHandler(async (event) => {
 
         console.log(`Forwarding request to: ${TARGET_SERVICE_URL}`)
 
-        // Get FormData headers
-        const formHeaders = formData.getHeaders()
-        console.log('Content-Type:', formHeaders['content-type'])
-        console.log('All headers being sent:', formHeaders)
-
-        // Debug: Log form data details
-        console.log('FormData summary:')
-        console.log('- Text fields:', Object.keys(fields).length)
-        console.log('- Files:', Object.keys(files).length)
-        Object.entries(files).forEach(([key, fileArray]) => {
-            const fileList = Array.isArray(fileArray) ? fileArray : [fileArray]
-            fileList.forEach(file => {
-                if (file) {
-                    console.log(`  - ${key}: ${file.originalFilename} (${file.mimetype}, ${file.size} bytes)`)
-                }
-            })
-        })
-
         try {
             // Use node-fetch with proper stream handling
             const response = await fetch(TARGET_SERVICE_URL, {
                 method: 'POST',
-                headers: formHeaders,
-                body: formData
+                body: formData,
+                // Let form-data set the headers automatically with boundary
+                headers: {
+                    accept: 'application/json',
+                    // "Content-Type": "multipart/form-data",
+                    ...formData.getHeaders()
+                }
             })
 
             console.log(`Target service responded with status: ${response.status}`)
 
             // Get response data first (before cleanup in case of errors)
             let responseData
+            const contentType = response.headers.get('content-type')
+
             try {
-                responseData = await response.json()
-            } catch (jsonError) {
-                console.log('Failed to parse JSON, trying text...')
-                responseData = await response.text()
+                if (contentType && contentType.includes('application/json')) {
+                    responseData = await response.json()
+                } else {
+                    responseData = await response.text()
+                }
+            } catch (parseError) {
+                console.log('Failed to parse response, using empty object')
+                responseData = { error: 'Failed to parse response' }
             }
 
             // Log the response for debugging
@@ -122,9 +124,10 @@ export default defineEventHandler(async (event) => {
             // Forward the response status (including error statuses)
             setResponseStatus(event, response.status)
 
-            // Forward response headers
+            // Forward response headers (excluding problematic ones)
             response.headers.forEach((value, key) => {
-                if (!['connection', 'keep-alive', 'transfer-encoding', 'content-encoding'].includes(key.toLowerCase())) {
+                const excludeHeaders = ['connection', 'keep-alive', 'transfer-encoding', 'content-encoding', 'content-length']
+                if (!excludeHeaders.includes(key.toLowerCase())) {
                     setHeader(event, key, value)
                 }
             })

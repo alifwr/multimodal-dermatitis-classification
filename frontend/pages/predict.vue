@@ -166,7 +166,7 @@ const onFileChange = async (event: any) => {
   try {
     const formData = new FormData();
     formData.append("file", file);
-    const externalUrl = `/api/upload-image`;
+    const externalUrl = `${runtimeConfig.public.backendUrl}/upload-image`;///api/upload-image`;
 
     const res = await fetch(externalUrl, {
       method: "POST",
