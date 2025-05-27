@@ -154,6 +154,7 @@ const createSummary = (form: typeof formAnamnesys.value): string => {
 
 const onFileChange = async (event: any) => {
   console.log("uploading");
+  const backendUrl = "https://dermatutus.alif.top";
   const file = event.target.files[0];
   if (!file) return;
 
@@ -165,7 +166,7 @@ const onFileChange = async (event: any) => {
   try {
     const formData = new FormData();
     formData.append("file", file);
-    const externalUrl = `${runtimeConfig.public.backendUrl}/upload-image`;
+    const externalUrl = `${backendUrl}/upload-image`;
 
     const res = await fetch(externalUrl, {
       method: "POST",
@@ -179,7 +180,7 @@ const onFileChange = async (event: any) => {
 
     const data = await res.json();
     console.log(data);
-    imageUrl.value = `${runtimeConfig.public.backendUrl}/${data.url}`;
+    imageUrl.value = `${backendUrl}/${data.url}`;
     file_path.value = data.file_path;
     console.log(imageUrl.value);
   } catch (e) {
