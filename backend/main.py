@@ -72,40 +72,44 @@ async def predict2(text: str, image_path: str):
     return {"result": result, "percentage": percentage}
 
 
-@app.post("/upload-image/")
+@app.post("/upload-image")
 async def upload_image(file: UploadFile = File(...)):
-    # Basic MIME type check
-    if not file.content_type.startswith("image/"):
-        raise HTTPException(status_code=400, detail="Only image files are allowed.")
-
-    # Read file bytes into memory
-    contents = await file.read()
-
-    # Validate file is an image using Pillow
     try:
-        image = Image.open(BytesIO(contents))
-        image.verify()  # Verify will raise exception if not an image
-    except Exception:
-        raise HTTPException(
-            status_code=400, detail="Uploaded file is not a valid image."
-        )
+        # Basic MIME type check
+        if not file.content_type.startswith("image/"):
+            raise HTTPException(status_code=400, detail="Only image files are allowed.")
 
-    # Generate unique filename with original extension
-    file_extension = os.path.splitext(file.filename)[1]
-    unique_filename = f"{uuid.uuid4().hex}{file_extension}"
-    file_path = os.path.join(UPLOAD_DIR, unique_filename)
+        # Read file bytes into memory
+        contents = await file.read()
 
-    # Write bytes to file
-    with open(file_path, "wb") as buffer:
-        buffer.write(contents)
+        # Validate file is an image using Pillow
+        try:
+            image = Image.open(BytesIO(contents))
+            image.verify()  # Verify will raise exception if not an image
+        except Exception:
+            raise HTTPException(
+                status_code=400, detail="Uploaded file is not a valid image."
+            )
 
-    # Return filename and path
-    response = {
-        "filename": unique_filename,
-        "url": f"public/{unique_filename}",
-        "file_path": file_path,
-    }
+        # Generate unique filename with original extension
+        file_extension = os.path.splitext(file.filename)[1]
+        unique_filename = f"{uuid.uuid4().hex}{file_extension}"
+        file_path = os.path.join(UPLOAD_DIR, unique_filename)
 
-    print(response)
+        # Write bytes to file
+        with open(file_path, "wb") as buffer:
+            buffer.write(contents)
 
-    return response
+        # Return filename and path
+        response = {
+            "filename": unique_filename,
+            "url": f"public/{unique_filename}",
+            "file_path": file_path,
+        }
+
+        print(response)
+
+        return response
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
