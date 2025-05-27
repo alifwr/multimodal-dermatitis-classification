@@ -6,9 +6,13 @@ import os
 import uuid
 from PIL import Image
 from io import BytesIO
+import logging
 
 from utils import Predictor
 
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 predictor = Predictor()
 app = FastAPI()
@@ -75,24 +79,38 @@ async def predict2(text: str, image_path: str):
 @app.post("/upload-image")
 async def upload_image(file: UploadFile = File(...)):
     try:
+        logger.info(
+            f"Received file upload: {file.filename}, content_type: {file.content_type}"
+        )
+
         # Basic MIME type check
-        if not file.content_type.startswith("image/"):
+        if not file.content_type or not file.content_type.startswith("image/"):
+            logger.error(f"Invalid content type: {file.content_type}")
             raise HTTPException(status_code=400, detail="Only image files are allowed.")
 
         # Read file bytes into memory
         contents = await file.read()
+        logger.info(f"File size: {len(contents)} bytes")
 
         # Validate file is an image using Pillow
         try:
-            image = Image.open(BytesIO(contents))
+            # Reset file position for validation
+            image_buffer = BytesIO(contents)
+            image = Image.open(image_buffer)
             image.verify()  # Verify will raise exception if not an image
-        except Exception:
+            logger.info(f"Image validation successful: {image.format}")
+        except Exception as e:
+            logger.error(f"Image validation failed: {e}")
             raise HTTPException(
                 status_code=400, detail="Uploaded file is not a valid image."
             )
 
         # Generate unique filename with original extension
-        file_extension = os.path.splitext(file.filename)[1]
+        if file.filename:
+            file_extension = os.path.splitext(file.filename)[1]
+        else:
+            file_extension = ".jpg"  # default extension
+
         unique_filename = f"{uuid.uuid4().hex}{file_extension}"
         file_path = os.path.join(UPLOAD_DIR, unique_filename)
 
@@ -107,9 +125,12 @@ async def upload_image(file: UploadFile = File(...)):
             "file_path": file_path,
         }
 
-        print(response)
-
+        logger.info(f"File upload successful: {response}")
         return response
 
+    except HTTPException:
+        # Re-raise HTTP exceptions
+        raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Unexpected error during file upload: {e}")
+        raise HTTPException(status_code=500, detail=f"File upload failed: {str(e)}")

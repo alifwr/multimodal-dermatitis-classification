@@ -79,6 +79,20 @@ export default defineEventHandler(async (event) => {
         // Get FormData headers
         const formHeaders = formData.getHeaders()
         console.log('Content-Type:', formHeaders['content-type'])
+        console.log('All headers being sent:', formHeaders)
+
+        // Debug: Log form data details
+        console.log('FormData summary:')
+        console.log('- Text fields:', Object.keys(fields).length)
+        console.log('- Files:', Object.keys(files).length)
+        Object.entries(files).forEach(([key, fileArray]) => {
+            const fileList = Array.isArray(fileArray) ? fileArray : [fileArray]
+            fileList.forEach(file => {
+                if (file) {
+                    console.log(`  - ${key}: ${file.originalFilename} (${file.mimetype}, ${file.size} bytes)`)
+                }
+            })
+        })
 
         try {
             // Use node-fetch with proper stream handling
@@ -90,16 +104,22 @@ export default defineEventHandler(async (event) => {
 
             console.log(`Target service responded with status: ${response.status}`)
 
-            // Clean up temporary files after request
+            // Get response data first (before cleanup in case of errors)
+            let responseData
+            try {
+                responseData = await response.json()
+            } catch (jsonError) {
+                console.log('Failed to parse JSON, trying text...')
+                responseData = await response.text()
+            }
+
+            // Log the response for debugging
+            console.log('Response from target service:', responseData)
+
+            // Clean up temporary files after getting response
             await cleanupTempFiles(tempFilePaths)
 
-            // Get response data
-            const responseData = await response.json().catch(async () => {
-                // If JSON parsing fails, try text
-                return await response.text()
-            })
-
-            // Forward the response
+            // Forward the response status (including error statuses)
             setResponseStatus(event, response.status)
 
             // Forward response headers
@@ -109,6 +129,7 @@ export default defineEventHandler(async (event) => {
                 }
             })
 
+            // Return response data (including error responses)
             return responseData
 
         } catch (fetchError: any) {
