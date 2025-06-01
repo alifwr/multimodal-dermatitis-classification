@@ -1,6 +1,8 @@
 services:
   dermatitis_frontend:
     build: ./frontend
+    env_file:
+      - ./frontend/.env
     container_name: dermatitis_frontend
     restart: unless-stopped
     ports:
