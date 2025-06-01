@@ -14,9 +14,9 @@ export default defineNuxtConfig({
     backendUrl: "https://dermatutus.alif.top",//http://dermatitis_backend:8000",
     oauth: {
       google: {
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        redirectURL: process.env.GOOGLE_REDIRECT_URL || 'http://localhost:3000/api/auth/google'
+        clientId: process.env.NUXT_OAUTH_GOOGLE_CLIENT_ID,
+        clientSecret: process.env.NUXT_OAUTH_GOOGLE_CLIENT_SECRET,
+        redirectURL: process.env.NUXT_PUBLIC_AUTH_URL
       }
     }
   },
