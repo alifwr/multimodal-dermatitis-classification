@@ -35,6 +35,14 @@ const error = ref(null);
 const isLoading = ref(false);
 const result = ref<{ classname: string; confidence: number } | null>(null);
 const showModal = ref(false);
+const { loggedIn } = await useUserSession()
+
+// Redirect to login if not authenticated
+watch(loggedIn, (isLoggedIn) => {
+  if (!isLoggedIn) {
+    navigateTo('/login')
+  }
+}, { immediate: true })
 
 watch(
     [
@@ -465,6 +473,7 @@ const handleSubmit = async () => {
       </div>
     </div>
   </transition>
+  <AuthButton />
 </template>
 
 <style scoped>
