@@ -467,7 +467,7 @@ const handleSubmit = async () => {
           >
         </p>
         <p class="text-xl">
-          Model AI menghasilkan jawaban tersebut dengan nilai prosentase
+          Model AI menghasilkan jawaban tersebut dengan nilai persentase
           <strong>{{ (result?.confidence).toFixed(2) }} %</strong>
         </p>
       </div>
