@@ -263,6 +263,8 @@ const handleSubmit = async () => {
         >
           Tolong upload foto lesi kulit
         </label>
+        <span class="text-lg text-red-500">Sebagai perhatian, sistem kami hanya menerima foto berupa lesi kulit. Jika Anda memberikan foto selain foto lesi kulit, akan mempengaruhi akurasi prediksi dari model AI.</span>
+        <span class="text-lg text-red-500">Kami tidak akan menyimpan/menggunakan informasi yang sudah Anda upload/berikan pada website ini.</span>
         <input
           :class="imageUrl ? 'mt-6 mb-3' : 'my-8'"
           type="file"
