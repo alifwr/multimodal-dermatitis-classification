@@ -246,7 +246,7 @@
         <span class="text-3xl font-opensans font-bold">Hasil Prediksi</span>
         <span class="text-xl font-opensans">Klasifikasi penyakit termasuk</span>
         <span class="text-xl font-opensans">{{result?.classname}}</span>
-        <span class="text-xl font-opensans">Multimodal AI menghasilkan jawaban tersebut dengan persentase {{result?.confidence}}</span>
+        <span class="text-xl font-opensans">Multimodal AI menghasilkan jawaban tersebut dengan persentase {{result?.confidence}}%</span>
       </div>
     </section>
 
