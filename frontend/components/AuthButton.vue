@@ -2,26 +2,56 @@
   <div>
     <AuthState v-slot="{ loggedIn, user, clear }">
       <!-- Logged in state -->
-      <div v-if="loggedIn" class="user-section">
-        <div class="user-info">
-          <img
-              v-if="user?.avatar"
-              :src="user.avatar"
-              :alt="user.name || 'User'"
-              class="user-avatar"
-          >
-          <input :value="user.name">
-          <div class="bg-blue-300 px-8 py-6 rounded-[25px] mt-10 border-2 border-gray-200">
-            <span class="text-xl font-bold font-alegreya">Welcome, {{ user?.name }}!</span>
-<!--            <p class="user-email">{{ user?.email }}</p>-->
-            <p class="text-xl font-bold font-opensauce">Logged in {{ formatTime(user?.loggedInAt) }}</p>
+      <div v-if="loggedIn" class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 max-w-md w-full shadow-2xl shadow-blue-500/20 hover:shadow-blue-400/30 transition-all duration-500 hover:-translate-y-1">
+
+        <!-- User Info Section -->
+        <div class="user-info text-center">
+
+          <!-- User Avatar -->
+          <div class="mb-6">
+            <img
+                v-if="user?.picture"
+                :src="user.picture"
+                :alt="user.name || 'User'"
+                class="w-28 h-28 rounded-full mx-auto object-cover border-4 border-white/30 shadow-lg shadow-blue-500/30"
+            >
+            <div v-else class="w-28 h-28 rounded-full mx-auto bg-gradient-to-br from-blue-400 to-purple-500 border-4 border-white/30 shadow-lg shadow-blue-500/30 flex items-center justify-center">
+              <span class="text-3xl text-white font-bold drop-shadow-lg">{{ (user?.name || 'U')[0].toUpperCase() }}</span>
+            </div>
           </div>
+
+          <!-- User Name Input -->
+          <div class="mb-6">
+            <input
+                :value="user.name"
+                class="w-full px-6 py-3 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-white placeholder-blue-200 text-center text-lg font-medium focus:bg-white/25 focus:border-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-400/30 transition-all duration-300"
+                placeholder="Enter your name"
+                readonly
+            >
+          </div>
+
+          <!-- Welcome Card -->
+          <div class="bg-white/15 backdrop-blur-lg border border-white/30 rounded-2xl px-6 py-5 mb-8 shadow-lg shadow-blue-500/10">
+            <h2 class="text-2xl font-bold text-white mb-2 drop-shadow-lg">
+              Welcome, {{ user?.name }}! ✨
+            </h2>
+            <p class="text-blue-100 text-lg font-medium drop-shadow-md">
+              Logged in {{ formatTime(user?.loggedInAt) }}
+            </p>
+          </div>
+
         </div>
-        <button
-            @click="clear"
-            class="bg-[#aa2222] mt-12 hover:shadow-2xl hover:border shadow-md font-bold px-16 py-3 rounded-full">
-          Sign Out
-        </button>
+
+        <!-- Sign Out Button -->
+        <div class="rounded-2xl">
+          <button
+              @click="clear"
+              class="w-full bg-gradient-to-r from-red-500/80 to-red-600/90 backdrop-blur-md border border-white/20 text-white font-bold px-8 py-4 rounded-2xl text-lg shadow-lg shadow-red-500/30 hover:shadow-red-400/40 hover:from-red-500/90 hover:to-red-600/100 hover:-translate-y-1 transition-all duration-300"
+          >
+            🚪 Sign Out
+          </button>
+        </div>
+
       </div>
 
       <!-- Not logged in state -->
