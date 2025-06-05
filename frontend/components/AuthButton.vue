@@ -20,16 +20,6 @@
             </div>
           </div>
 
-          <!-- User Name Input -->
-          <div class="mb-6">
-            <input
-                :value="user.name"
-                class="w-full px-6 py-3 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-white placeholder-blue-200 text-center text-lg font-medium focus:bg-white/25 focus:border-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-400/30 transition-all duration-300"
-                placeholder="Enter your name"
-                readonly
-            >
-          </div>
-
           <!-- Welcome Card -->
           <div class="bg-white/15 backdrop-blur-lg border border-white/30 rounded-2xl px-6 py-5 mb-8 shadow-lg shadow-blue-500/10">
             <h2 class="text-2xl font-bold text-white mb-2 drop-shadow-lg">
