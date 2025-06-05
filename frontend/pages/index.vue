@@ -242,22 +242,22 @@
           KIRIM
         </button>
       </div>
-      <div v-if="result" class="flex flex-col justify-center items-center text-center px-12 min-h-48 max-w-96 border">
-        <span class="text-3xl font-opensans font-bold">Hasil Prediksi</span>
-        <span class="text-xl font-opensans">Klasifikasi penyakit termasuk</span>
-        <span class="text-xl font-opensans">{{result?.classname}}</span>
-        <span class="text-xl font-opensans">Multimodal AI menghasilkan jawaban tersebut dengan persentase {{result?.confidence}}%</span>
+      <div
+          v-if="result"
+          class="flex justify-center bg-[#fbf6f3] py-16"
+      >
+        <div
+            class="flex flex-col justify-center items-center text-center px-12 py-4 min-h-48 max-w-96 rounded-[40px]"
+            :class="result.classname==='DA'?'bg-[#b1d8b7]':'bg-[#b83143]'"
+        >
+          <span class="text-3xl font-opensans font-bold">Hasil Prediksi</span>
+          <span class="text-xl font-opensans">Klasifikasi penyakit termasuk</span>
+          <span class="text-xl font-opensans">{{result?.classname}}</span>
+          <span class="text-xl font-opensans">Multimodal AI menghasilkan jawaban tersebut dengan persentase {{result?.confidence}}%</span>
+        </div>
       </div>
     </section>
 
-<!--    <section v-if="result" id="result" class="flex justify-center bg-[#fbf6f3] py-16">-->
-<!--      <div v-if="result" class="flex flex-col justify-center items-center text-center px-12 min-h-48 max-w-96 border">-->
-<!--        <span class="text-3xl font-opensans font-bold">Hasil Prediksi</span>-->
-<!--        <span class="text-xl font-opensans">Klasifikasi penyakit termasuk</span>-->
-<!--        <span class="text-xl font-opensans">{{result?.classname}}</span>-->
-<!--        <span class="text-xl font-opensans">Multimodal AI menghasilkan jawaban tersebut dengan persentase {{result?.confidence}}</span>-->
-<!--      </div>-->
-<!--    </section>-->
   </div>
 </template>
 
@@ -296,7 +296,7 @@ const filePath = ref("");
 const isLoading = ref(false);
 const error = ref(null);
 const showResult = ref(false);
-const result = ref<{ classname: string; confidence: number } | null>(null);
+const result = ref<{ classname: string; confidence: number } | null>();
 
 const isFormFilled = computed((): boolean => {
   // Define string fields
