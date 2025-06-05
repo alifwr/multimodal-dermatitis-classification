@@ -10,13 +10,16 @@
               :alt="user.name || 'User'"
               class="user-avatar"
           >
-          <div class="user-details">
-            <h3>Welcome back, {{ user?.name }}!</h3>
-            <p class="user-email">{{ user?.email }}</p>
-            <p class="login-time">Logged in {{ formatTime(user?.loggedInAt) }}</p>
+          <input :value="user">
+          <div class="bg-blue-300 px-8 py-6">
+            <span class="text-xl font-bold font-alegreya">Welcome, {{ user?.name }}!</span>
+<!--            <p class="user-email">{{ user?.email }}</p>-->
+            <p class="text-xl font-bold font-opensauce">Logged in {{ formatTime(user?.loggedInAt) }}</p>
           </div>
         </div>
-        <button @click="clear" class="logout-btn">
+        <button
+            @click="clear"
+            class="bg-[#aa2222] hover:shadow-2xl hover:border shadow-md font-bold px-16 py-3 rounded-full">
           Sign Out
         </button>
       </div>
