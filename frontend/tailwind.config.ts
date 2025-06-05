@@ -7,7 +7,13 @@ module.exports = {
     ],
     darkMode: 'class',
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                opensauce: ['OpenSauceOne', 'sans-serif'],
+                alegreya: ['Alegreya', 'sans-serif'],
+                opensans: ['OpenSans', 'sans-serif'],
+            }
+        },
     },
     plugins: [],
 }

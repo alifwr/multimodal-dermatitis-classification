@@ -1,1119 +1,477 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 p-8">
-    <div class="max-w-7xl mx-auto">
-      <!-- Header -->
-      <div class="flex items-center justify-between mb-8">
-        <div>
-          <h1 class="text-gray-700 text-lg mb-2">
-            Halo, Selamat Datang di Penelitian
-          </h1>
-          <h2 class="text-4xl font-bold text-cyan-600 mb-2">
-            Penggunaan <span class="italic">Artificial Intelligence</span> (AI)
-          </h2>
-          <h2 class="text-4xl font-bold text-cyan-600">
-            pada Dermatitis Atopik
-          </h2>
-        </div>
+  <div>
 
-        <!-- AI Icon -->
-        <div
-          class="w-24 h-24 bg-cyan-100 rounded-lg flex items-center justify-center border-2 border-cyan-300"
-        >
-          <svg
-            class="w-12 h-12 text-cyan-600"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM12 17.5c-2.33 0-4.31-1.46-5.11-3.5h10.22c-.8 2.04-2.78 3.5-5.11 3.5zM17 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"
+    <section id="header" class="bg-[#99aace] h-screen pt-24">
+      <div class="flex flex-col h-3/4 mx-auto max-w-6xl text-center mb-64">
+        <span class="text-8xl text-[#f0cdff] font-opensauce font-bold">
+          MULTIMODAL AI DERMATITIS ATOPIK
+        </span>
+        <div class="flex items-center justify-center h-full z-20">
+          <AuthButton label="MASUK DENGAN GOOGLE" />
+        </div>
+      </div>
+      <NuxtImg class="absolute bottom-[200px] left-1/2 -translate-x-1/2 w-2/5" src="/images/hands.svg" />
+      <NuxtImg class="absolute bottom-0 w-screen z-10" src="/images/derm.svg" />
+    </section>
+
+    <section id="introduction" class="bg-[#fbf6f3] h-screen pt-24 pb-12">
+      <div class="flex flex-col h-full mx-auto px-16">
+        <div class="max-w-4xl text-center mx-auto">
+      <span class="text-7xl text-[#f0cdff] font-opensauce font-bold">
+        Apa itu Multimodal AI Dermatitis Atopik?
+      </span>
+        </div>
+        <div class="flex items-center justify-evenly h-full px-48">
+          <div class="flex items-center justify-center h-full w-1/2 px-8">
+            <NuxtImg
+                class="h-4/5 w-full object-contain"
+                src="/images/digital-diag.png"
             />
-          </svg>
-        </div>
-      </div>
-
-      <!-- Main Content -->
-      <div class="flex gap-8 items-start">
-        <!-- Left Side - Description Card -->
-        <div class="flex-1">
-          <div
-            class="bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl p-8 border-4 border-black shadow-lg relative"
-          >
-            <!-- Decorative elements -->
-            <div class="absolute top-4 right-4">
-              <div class="flex gap-2">
-                <div class="w-4 h-4 bg-teal-500 rounded-full"></div>
-                <div class="w-4 h-4 bg-teal-500 rounded-full"></div>
-                <div class="w-4 h-4 bg-teal-500 rounded-full"></div>
-              </div>
-            </div>
-
-            <!-- Sparkle decorations -->
-            <div class="absolute top-6 left-6">
-              <svg
-                class="w-6 h-6 text-yellow-400 transform rotate-12"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 0l3.5 7.5L24 12l-8.5 4.5L12 24l-3.5-7.5L0 12l8.5-4.5z"
-                />
-              </svg>
-            </div>
-
-            <div class="absolute bottom-6 right-12">
-              <svg
-                class="w-8 h-8 text-yellow-400 transform -rotate-12"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 0l3.5 7.5L24 12l-8.5 4.5L12 24l-3.5-7.5L0 12l8.5-4.5z"
-                />
-              </svg>
-            </div>
-
-            <div class="text-gray-800 text-lg leading-relaxed mb-6">
-              <p class="mb-4">
-                Penelitian ini dilakukan dengan mengembangkan aplikasi yang
-                dapat membantu dokter dalam penegakan diagnosis dermatitis
-                atopik.
-              </p>
-              <p>
-                Dalam kuesioner ini, akan ditampilkan kasus penyakit kulit yang
-                didiagnosis oleh AI serta alasan dibalik diagnosis tersebut.
-                Anda kemudian akan diminta untuk mengisi kuesioner berdasarkan
-                informasi yang diberikan.
-              </p>
-            </div>
           </div>
-        </div>
-
-        <!-- Right Side - Medical Professional and System -->
-        <div class="flex-1 flex flex-col items-center gap-6">
-          <!-- Doctor Character -->
-          <div class="relative">
-            <div
-              class="w-32 h-32 bg-white rounded-full border-4 border-gray-200 flex items-center justify-center"
-            >
-              <!-- Doctor illustration -->
-              <div
-                class="w-24 h-24 bg-gradient-to-b from-orange-300 to-orange-400 rounded-full relative"
-              >
-                <!-- Hair -->
-                <div
-                  class="absolute -top-2 left-4 w-16 h-8 bg-red-400 rounded-full"
-                ></div>
-                <!-- Face -->
-                <div
-                  class="absolute top-2 left-2 w-20 h-20 bg-orange-200 rounded-full"
-                >
-                  <!-- Eyes -->
-                  <div
-                    class="absolute top-6 left-4 w-2 h-2 bg-black rounded-full"
-                  ></div>
-                  <div
-                    class="absolute top-6 right-4 w-2 h-2 bg-black rounded-full"
-                  ></div>
-                  <!-- Nose -->
-                  <div
-                    class="absolute top-8 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-orange-300 rounded-full"
-                  ></div>
-                  <!-- Mouth -->
-                  <div
-                    class="absolute top-10 left-1/2 transform -translate-x-1/2 w-3 h-1 bg-red-400 rounded-full"
-                  ></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Arm with skin condition -->
-            <div
-              class="absolute -bottom-4 -left-8 w-16 h-8 bg-orange-200 rounded-lg"
-            >
-              <div
-                class="w-3 h-3 bg-red-300 rounded-full absolute top-1 left-2"
-              ></div>
-              <div
-                class="w-2 h-2 bg-red-400 rounded-full absolute top-3 left-6"
-              ></div>
-              <div
-                class="w-2 h-2 bg-red-300 rounded-full absolute top-1 right-2"
-              ></div>
-            </div>
-          </div>
-
-          <!-- AI System Interface -->
-          <div
-            class="bg-white rounded-lg shadow-xl border-2 border-gray-200 p-4 w-80"
-          >
-            <div class="bg-gray-800 rounded-t-lg p-2 -mx-4 -mt-4 mb-4">
-              <div class="text-white font-semibold text-center">
-                Dermatitis AI
-              </div>
-              <div class="flex justify-center mt-1">
-                <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
-                <div class="w-8 h-1 bg-blue-400 rounded-full ml-1"></div>
-              </div>
-            </div>
-
-            <!-- Image analysis area -->
-            <div
-              class="bg-orange-200 rounded-lg h-32 mb-4 relative overflow-hidden"
-            >
-              <div
-                class="absolute inset-0 bg-gradient-to-br from-orange-200 to-red-300"
-              >
-                <div
-                  class="w-4 h-4 bg-red-400 rounded-full absolute top-4 left-6"
-                ></div>
-                <div
-                  class="w-3 h-3 bg-red-500 rounded-full absolute top-8 right-8"
-                ></div>
-                <div
-                  class="w-2 h-2 bg-red-300 rounded-full absolute bottom-6 left-4"
-                ></div>
-                <div
-                  class="w-5 h-5 bg-red-400 rounded-full absolute bottom-4 right-6"
-                ></div>
-              </div>
-            </div>
-
-            <!-- Diagnosis buttons -->
-            <div class="space-y-2">
-              <button
-                class="w-full bg-red-100 border-2 border-red-300 rounded-lg p-2 text-sm font-medium text-red-700 hover:bg-red-200 transition-colors"
-              >
-                Dermatitis Atopik
-              </button>
-              <button
-                class="w-full bg-gray-100 border-2 border-gray-300 rounded-lg p-2 text-sm font-medium text-gray-600 hover:bg-gray-200 transition-colors"
-              >
-                Bukan Dermatitis Atopik
-              </button>
-            </div>
-          </div>
-
-          <!-- Medical Professional -->
-          <div class="relative">
-            <div class="w-24 h-32 bg-blue-900 rounded-t-full">
-              <!-- Doctor's head -->
-              <div class="w-16 h-16 bg-orange-200 rounded-full mx-auto mb-2">
-                <!-- Hijab/Hair -->
-                <div
-                  class="w-20 h-12 bg-blue-900 rounded-full -mt-2 -mx-2"
-                ></div>
-                <!-- Face -->
-                <div
-                  class="w-14 h-14 bg-orange-200 rounded-full mx-auto relative"
-                >
-                  <div
-                    class="absolute top-4 left-3 w-1 h-1 bg-black rounded-full"
-                  ></div>
-                  <div
-                    class="absolute top-4 right-3 w-1 h-1 bg-black rounded-full"
-                  ></div>
-                </div>
-              </div>
-              <!-- Body -->
-              <div class="w-20 h-16 bg-white rounded-t-lg mx-auto">
-                <div class="w-full h-4 bg-blue-900 rounded-t-lg"></div>
-              </div>
-            </div>
-
-            <!-- Clipboard -->
-            <div
-              class="absolute -right-6 top-8 w-8 h-10 bg-orange-100 rounded border-2 border-orange-300"
-            >
-              <div class="w-6 h-1 bg-gray-400 rounded mx-auto mt-1"></div>
-              <div class="w-4 h-1 bg-gray-300 rounded mx-auto mt-1"></div>
-              <div class="w-5 h-1 bg-gray-300 rounded mx-auto mt-1"></div>
-            </div>
+          <div class="flex items-center justify-center h-full w-[540px] px-8">
+        <span class="font-alegreya text-xl text-justify">
+          Multimodal AI Dermatitis Atopik adalah aplikasi berbasis kecerdasan buatan yang membantu dokter umum mengidentifikasi kemungkinan dermatitis atopik. Dengan menginput foto lesi dan anamnesis klinis, aplikasi ini mengklasifikasikan kasus sebagai <strong>dermatitis atopik</strong> atau <strong>bukan dermatitis atopik</strong>. Kategori "bukan dermatitis atopik" mencakup kumpulan diagnosis banding seperti psoriasis vulgaris, liken simpleks kronik, dermatitis numularis, dan dermatitis kontak. Hasil yang diberikan bukan diagnosis final, <strong>keputusan akhir tetap bergantung pada penilaian klinis oleh dokter</strong>.
+        </span>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Questionnaire Section -->
-      <div
-        class="mt-16 bg-white rounded-2xl shadow-xl border border-gray-200 p-8"
-      >
-        <div class="text-center mb-8">
-          <h2 class="text-3xl font-bold text-gray-800 mb-2">
-            KUESIONER TINGKAT KEYAKINAN PENGGUNA
-          </h2>
-          <p class="text-gray-600 text-lg">
-            Silahkan isi kuesioner di bawah ini
-          </p>
+    <section id="howto" class="bg-[#99aace] h-screen pt-24 pb-12">
+      <div class="flex flex-col h-full mx-auto px-8">
+        <div class="max-w-6xl text-center mx-auto">
+          <span class="text-6xl text-[#f0cdff] font-opensauce font-bold">
+            Bagaimana cara penggunaannya?
+          </span>
         </div>
+        <div class="flex items-center justify-around h-full mt-24">
 
-        <form @submit.prevent="submitForm" class="space-y-12">
-          <!-- Bagian 1: Informasi Responden -->
-          <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6">
-            <h3
-              class="text-2xl font-bold text-gray-800 mb-6 border-b border-gray-300 pb-2"
-            >
-              Bagian 1: Informasi Responden
-            </h3>
-
-            <div class="space-y-6">
-              <!-- Question 1 -->
-              <div>
-                <label class="block text-lg font-semibold text-gray-700 mb-3">
-                  1. Apakah profesi Anda?
-                </label>
-                <div class="space-y-2">
-                  <label
-                    class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                  >
-                    <input
-                      type="radio"
-                      name="profession"
-                      value="dokter_umum"
-                      v-model="formData.profession"
-                      :disabled="isQuistionare1Submited"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                    />
-                    <span class="ml-3 text-gray-700">Dokter Umum</span>
-                  </label>
-                  <label
-                    class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                  >
-                    <input
-                      type="radio"
-                      name="profession"
-                      value="dokter_spesialis"
-                      v-model="formData.profession"
-                      :disabled="isQuistionare1Submited"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                    />
-                    <span class="ml-3 text-gray-700">Dokter Spesialis DVE</span>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Question 2 -->
-              <div>
-                <label class="block text-lg font-semibold text-gray-700 mb-3">
-                  2. Berapa lama Anda telah bekerja/praktik dalam bidang medis?
-                </label>
-                <div class="space-y-2">
-                  <label
-                    class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                  >
-                    <input
-                      type="radio"
-                      name="experience"
-                      value="kurang_5_tahun"
-                      v-model="formData.experience"
-                      :disabled="isQuistionare1Submited"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                    />
-                    <span class="ml-3 text-gray-700">Kurang dari 5 tahun</span>
-                  </label>
-                  <label
-                    class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                  >
-                    <input
-                      type="radio"
-                      name="experience"
-                      value="5_10_tahun"
-                      v-model="formData.experience"
-                      :disabled="isQuistionare1Submited"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                    />
-                    <span class="ml-3 text-gray-700">5 – 10 tahun</span>
-                  </label>
-                  <label
-                    class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                  >
-                    <input
-                      type="radio"
-                      name="experience"
-                      value="lebih_10_tahun"
-                      v-model="formData.experience"
-                      :disabled="isQuistionare1Submited"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                    />
-                    <span class="ml-3 text-gray-700">Lebih dari 10 tahun</span>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Question 3 -->
-              <div v-show="formData.profession === 'dokter_umum'">
-                <label class="block text-lg font-semibold text-gray-700 mb-3">
-                  3. Jika Anda Dokter Umum, apakah telah menyelesaikan
-                  <em>internship</em>?
-                </label>
-                <div class="space-y-2">
-                  <label
-                    class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                  >
-                    <input
-                      type="radio"
-                      name="internship"
-                      value="ya"
-                      v-model="formData.internship"
-                      :disabled="isQuistionare1Submited"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                    />
-                    <span class="ml-3 text-gray-700">Ya</span>
-                  </label>
-                  <label
-                    class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                  >
-                    <input
-                      type="radio"
-                      name="internship"
-                      value="tidak"
-                      v-model="formData.internship"
-                      :disabled="isQuistionare1Submited"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                    />
-                    <span class="ml-3 text-gray-700">Tidak</span>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Question 4 -->
-              <div
-                v-show="
-                  formData.profession === 'dokter_umum' &&
-                  formData.internship === 'ya'
-                "
-              >
-                <label class="block text-lg font-semibold text-gray-700 mb-3">
-                  4. Jika iya, berapa lama Anda telah menyelesaikan
-                  <em>internship</em>?
-                </label>
-                <div class="space-y-2">
-                  <label
-                    class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                  >
-                    <input
-                      type="radio"
-                      name="internship_duration"
-                      value="kurang_1_tahun"
-                      v-model="formData.internshipDuration"
-                      :disabled="isQuistionare1Submited"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                    />
-                    <span class="ml-3 text-gray-700">Kurang dari 1 tahun</span>
-                  </label>
-                  <label
-                    class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                  >
-                    <input
-                      type="radio"
-                      name="internship_duration"
-                      value="1_5_tahun"
-                      v-model="formData.internshipDuration"
-                      :disabled="isQuistionare1Submited"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                    />
-                    <span class="ml-3 text-gray-700">1 – 5 tahun</span>
-                  </label>
-                  <label
-                    class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                  >
-                    <input
-                      type="radio"
-                      name="internship_duration"
-                      value="lebih_5_tahun"
-                      v-model="formData.internshipDuration"
-                      :disabled="isQuistionare1Submited"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                    />
-                    <span class="ml-3 text-gray-700">> 5 tahun</span>
-                  </label>
-                </div>
-              </div>
+          <div class="flex flex-col h-full text-center items-center mx-7">
+            <div class="bg-[#fbf6f3] h-[240px] w-[240px] rounded-full">
+              <NuxtImg class="w-screen" src="/images/mobile-diag.png" />
+            </div>
+            <div class="flex flex-col px-8 mt-20">
+              <span class="text-2xl font-opensauce font-bold">
+                Ambil gambar lesi kulit
+              </span>
+              <span class="text-2xl font-alegreya text-justify mt-8">
+                Pastikan mengambil foto dari jarak dekat, fokus, dan menampilkan lesi kulit dengan pencahayaan yang optimal
+              </span>
             </div>
           </div>
 
-          <!-- Bagian 2: Pengalaman Penggunaan Sistem AI -->
-          <div
-            class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6"
-          >
-            <h3
-              class="text-2xl font-bold text-gray-800 mb-6 border-b border-gray-300 pb-2"
-            >
-              Bagian 2: Pengalaman Penggunaan Sistem AI
-            </h3>
-
-            <div>
-              <label class="block text-lg font-semibold text-gray-700 mb-3">
-                1. Seberapa sering Anda menggunakan sistem AI dalam praktik
-                klinis Anda?
-              </label>
-              <div class="space-y-2">
-                <label
-                  class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                >
-                  <input
-                    type="radio"
-                    name="ai_usage"
-                    value="sangat_sering"
-                    v-model="formData.aiUsage"
-                    :disabled="isQuistionare1Submited"
-                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 focus:ring-2"
-                  />
-                  <span class="ml-3 text-gray-700">Sangat sering</span>
-                </label>
-                <label
-                  class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                >
-                  <input
-                    type="radio"
-                    name="ai_usage"
-                    value="sering"
-                    v-model="formData.aiUsage"
-                    :disabled="isQuistionare1Submited"
-                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 focus:ring-2"
-                  />
-                  <span class="ml-3 text-gray-700">Sering</span>
-                </label>
-                <label
-                  class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                >
-                  <input
-                    type="radio"
-                    name="ai_usage"
-                    value="kadang_kadang"
-                    v-model="formData.aiUsage"
-                    :disabled="isQuistionare1Submited"
-                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 focus:ring-2"
-                  />
-                  <span class="ml-3 text-gray-700">Kadang-kadang</span>
-                </label>
-                <label
-                  class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                >
-                  <input
-                    type="radio"
-                    name="ai_usage"
-                    value="jarang"
-                    v-model="formData.aiUsage"
-                    :disabled="isQuistionare1Submited"
-                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 focus:ring-2"
-                  />
-                  <span class="ml-3 text-gray-700">Jarang</span>
-                </label>
-                <label
-                  class="flex items-center cursor-pointer hover:bg-white hover:bg-opacity-50 p-2 rounded-lg transition-colors"
-                >
-                  <input
-                    type="radio"
-                    name="ai_usage"
-                    value="tidak_pernah"
-                    v-model="formData.aiUsage"
-                    :disabled="isQuistionare1Submited"
-                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 focus:ring-2"
-                  />
-                  <span class="ml-3 text-gray-700">Tidak pernah</span>
-                </label>
-              </div>
+          <div class="flex flex-col h-full text-center items-center mx-7">
+            <div class="bg-[#fbf6f3] h-[240px] w-[240px] rounded-full">
+              <NuxtImg class="w-screen" src="/images/mobile-icon.png" />
+            </div>
+            <div class="flex flex-col px-8 mt-20">
+              <span class="text-2xl font-opensauce font-bold">
+                Unggah gambar & masukkan hasil anamnesis
+              </span>
+              <span class="text-2xl font-alegreya text-justify mt-8">
+                Masukkan foto yang telah diambil atau sudah disimpan kemudian lengkapi data anamnesis sesuai temuan klinis pasien
+              </span>
             </div>
           </div>
 
-          <!-- Submit Button -->
-          <div class="text-center pt-6">
-            <button
-              type="submit"
-              :disabled="!isFormValid"
-              :class="[
-                'font-bold py-4 px-12 rounded-xl shadow-lg transform transition-all duration-200 text-lg',
-                isFormValid
-                  ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white hover:scale-105'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed',
-              ]"
-            >
-              Selanjutnya
-            </button>
-
-            <!-- Form validation status -->
-            <div class="mt-4 text-sm text-gray-600">
-              <p v-if="!isFormValid" class="text-red-500">
-                Mohon lengkapi semua pertanyaan yang diperlukan
-              </p>
-              <p v-else class="text-green-600">Form siap untuk dikirim</p>
+          <div class="flex flex-col h-full text-center items-center mx-7">
+            <div class="bg-[#fbf6f3] h-[240px] w-[240px] rounded-full">
+              <NuxtImg class="w-screen" src="/images/pc.png" />
             </div>
-
-            <!-- Reset button -->
-            <!--            <button-->
-            <!--                type="button"-->
-            <!--                @click="resetForm"-->
-            <!--                class="mt-4 bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-6 rounded-lg transition-colors">-->
-            <!--              Reset Form-->
-            <!--            </button>-->
+            <div class="flex flex-col px-8 mt-20">
+              <span class="text-2xl font-opensauce font-bold">
+                Dapatkan Hasil
+              </span>
+              <span class="text-2xl font-alegreya text-justify mt-8">
+                Hasil akan segera muncul menunjukkan hasil lesi termasuk <strong>dermatitis</strong> atopik atau <strong>bukan dermatitis atopik</strong>
+              </span>
+            </div>
           </div>
-        </form>
-      </div>
 
-      <div
-        v-show="isQuistionare1Submited"
-        ref="imagePredictRef"
-        class="max-w-4xl mx-auto p-6 mt-[100px]"
-      >
-        <div class="text-center mb-8">
-          <h2 class="text-3xl font-bold text-gray-800 mb-2">
-            KLASIFIKASI DERMATITIS ATOPIK MULTIMODAL
-          </h2>
-          <p class="text-gray-600 text-lg">
-            Silahkan pilih sampel data di bawah untuk melihat hasil prediksi
-            dari sistem
-          </p>
         </div>
-
-        <div class="max-w-7xl mx-auto">
-          <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Sampel Kasus Dermatitis
-          </h1>
-
-          <!-- Image Grid -->
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8"
-          >
-            <div
-              v-for="sample in samples"
-              :key="sample.id"
-              @click="selectImage(sample)"
-              class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transform transition-all duration-200 hover:scale-105 hover:shadow-lg"
-            >
-              <div
-                class="aspect-square bg-gray-200 flex items-center justify-center"
-              >
-                <img
-                  :src="sample.image"
-                  :alt="`Case ${sample.id}`"
-                  class="w-full h-full object-cover"
-                  @error="handleImageError"
-                />
-              </div>
-              <div class="p-4">
-                <h3 class="font-semibold text-gray-900 mb-2">
-                  Case #{{ sample.id }}
-                </h3>
-                <p class="text-sm text-gray-600 line-clamp-3">
-                  {{ sample.description.substring(0, 100) }}...
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Image Detail Modal/Section -->
-          <div
-            v-if="selectedImage"
-            ref="imageDetailRef"
-            class="bg-white rounded-lg shadow-xl p-6 max-w-4xl mx-auto"
-          >
-            <div class="flex justify-between items-start mb-4">
-              <h2 class="text-2xl font-bold text-gray-900">
-                Case #{{ selectedImage.id }} Details
-              </h2>
-              <button
-                @click="closeDetail"
-                class="text-gray-500 hover:text-gray-700 transition-colors"
-              >
-                <svg
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <!-- Image Display -->
-              <div class="bg-gray-100 rounded-lg overflow-hidden">
-                <img
-                  :src="selectedImage.image"
-                  :alt="`Case ${selectedImage.id}`"
-                  class="w-full h-auto object-contain max-h-96"
-                  @error="handleImageError"
-                />
-              </div>
-
-              <!-- Description and Actions -->
-              <div class="space-y-4">
-                <div>
-                  <h3 class="text-lg font-semibold text-gray-900 mb-3">
-                    Description
-                  </h3>
-                  <p class="text-gray-700 leading-relaxed">
-                    {{ selectedImage.description }}
-                  </p>
-                </div>
-
-                <!-- Select Button -->
-                <div class="pt-4 border-t">
-                  <button
-                    @click="selectCase(selectedImage)"
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  >
-                    Select This Case
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Prediction Probabilities -->
-          <div v-if="predictionResult" class="mt-8">
-            <div
-              class="bg-white rounded-lg shadow-lg p-6 border border-gray-200"
-            >
-              <!-- Result Header -->
-              <div class="flex justify-between items-start mb-6">
-                <div>
-                  <h3 class="text-2xl font-bold text-gray-900 mb-2">
-                    Case #{{ predictionResult.caseId }} - AI Prediction Result
-                  </h3>
-                  <div class="flex items-center space-x-4">
-                    <div class="flex items-center">
-                      <span class="text-sm font-medium text-gray-600"
-                        >Predicted Class:</span
-                      >
-                      <span
-                        class="ml-2 px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 text-blue-800"
-                      >
-                        {{ predictionResult.predictedClass }}
-                      </span>
-                    </div>
-                    <div class="flex items-center">
-                      <span class="text-sm font-medium text-gray-600"
-                        >Confidence:</span
-                      >
-                      <span class="ml-2 text-lg font-bold text-green-600">
-                        {{ (predictionResult.confidence * 100).toFixed(1) }}%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  @click="clearPredictionResult"
-                  class="text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    ></path>
-                  </svg>
-                </button>
-              </div>
-
-              <!-- Visual Results Grid -->
-              <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                <!-- Original Image -->
-                <div class="space-y-3">
-                  <h4 class="font-semibold text-gray-800">Original Image</h4>
-                  <div
-                    class="bg-gray-100 rounded-lg overflow-hidden aspect-square"
-                  >
-                    <img
-                      :src="predictionResult.originalImage"
-                      :alt="`Original Case ${predictionResult.caseId}`"
-                      class="w-full h-full object-cover"
-                      @error="handleImageError"
-                    />
-                  </div>
-                </div>
-
-                <!-- GradCAM Visualization -->
-                <div class="space-y-3">
-                  <h4 class="font-semibold text-gray-800">GradCAM Heatmap</h4>
-                  <div
-                    class="bg-gray-100 rounded-lg overflow-hidden aspect-square"
-                  >
-                    <img
-                      :src="predictionResult.gradcamImage"
-                      :alt="`GradCAM for Case ${predictionResult.caseId}`"
-                      class="w-full h-full object-cover"
-                      @error="handleImageError"
-                    />
-                  </div>
-                  <p class="text-xs text-gray-600">
-                    Red areas indicate regions most influential for the AI's
-                    decision
-                  </p>
-                </div>
-
-                <!-- Force Bar Chart -->
-                <div class="space-y-3">
-                  <h4 class="font-semibold text-gray-800">
-                    Feature Importance
-                  </h4>
-                  <div
-                    class="bg-gray-100 rounded-lg overflow-hidden aspect-square flex items-center justify-center"
-                  >
-                    <img
-                      :src="predictionResult.forceBarImage"
-                      :alt="`Force bar chart for Case ${predictionResult.caseId}`"
-                      class="w-full h-full object-contain"
-                      @error="handleImageError"
-                    />
-                  </div>
-                  <p class="text-xs text-gray-600">
-                    Feature contributions to the prediction decision
-                  </p>
-                </div>
-              </div>
-
-              <!-- XAI Explanation -->
-              <div class="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-400">
-                <h4 class="font-semibold text-blue-900 mb-3 flex items-center">
-                  <svg
-                    class="w-5 h-5 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                    ></path>
-                  </svg>
-                  AI Explanation (XAI)
-                </h4>
-                <div class="text-blue-800 space-y-2">
-                  <p>
-                    <strong>Model Decision:</strong>
-                    {{ predictionResult.xaiExplanation.decision }}
-                  </p>
-                  <p>
-                    <strong>Key Visual Features:</strong>
-                    {{ predictionResult.xaiExplanation.keyFeatures }}
-                  </p>
-                  <p>
-                    <strong>Confidence Reasoning:</strong>
-                    {{ predictionResult.xaiExplanation.reasoning }}
-                  </p>
-                  <p>
-                    <strong>Alternative Considerations:</strong>
-                    {{ predictionResult.xaiExplanation.alternatives }}
-                  </p>
-                </div>
-              </div>
-
-              <!-- Prediction Probabilities -->
-              <div class="mt-4">
-                <h4 class="font-semibold text-gray-800 mb-3">
-                  Class Probabilities
-                </h4>
-                <div class="space-y-2">
-                  <div
-                    v-for="prob in predictionResult.classProbabilities"
-                    :key="prob.class"
-                    class="flex items-center"
-                  >
-                    <span class="w-24 text-sm font-medium text-gray-700"
-                      >{{ prob.class }}:</span
-                    >
-                    <div class="flex-1 bg-gray-200 rounded-full h-2 ml-3 mr-3">
-                      <div
-                        class="h-2 rounded-full transition-all duration-300"
-                        :class="
-                          prob.probability > 0.5
-                            ? 'bg-green-500'
-                            : 'bg-blue-500'
-                        "
-                        :style="{ width: `${prob.probability * 100}%` }"
-                      ></div>
-                    </div>
-                    <span class="text-sm font-medium text-gray-900">
-                      {{ (prob.probability * 100).toFixed(1) }}%
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="flex flex-col h-full text-center items-center mx-7 mt-16">
+          <button
+              :disabled="!loggedIn"
+              :class="loggedIn ? 'bg-[#f6f6f6] text-black hover:bg-blue-300 active:bg-blue-500' : 'bg-gray-500 text-gray-300'"
+              class="shadow-lg px-16 py-3 rounded-full font-opensauce">
+            MULAI SEKARANG
+          </button>
         </div>
       </div>
-    </div>
+    </section>
+
+    <section v-if="loggedIn" id="ai-forms" class="relative bg-[#fbf6f3] z-0 pt-24 pb-12">
+      <NuxtImg class="absolute top-0 rotate-180 w-screen -z-10" src="/images/derm.svg" />
+      <div class="flex flex-col h-3/4 mx-auto items-center text-center mb-64 z-10">
+        <div class="max-w-3xl">
+          <span class="text-6xl font-opensauce font-bold">
+            MULTIMODAL AI DERMATITIS ATOPIK
+          </span>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full mt-32">
+          <span class="text-3xl font-opensauce font-bold">
+            Silakan unggah foto lesi kulit
+          </span>
+          <span class="text-2xl font-alegreya text-center mt-8 max-w-4xl">
+            Sebagai perhatian, sistem kami hanya menerima foto berupa lesi kulit. Jika Anda mengunggah foto selain foto lesi kulit, akan memengaruhi akurasi prediksi model. Kami tidak akan menyimpan/menggunakan informasi yang sudah Anda unggah/berikan pada website ini.
+          </span>
+
+          <div class="flex flex-col items-center justify-center mt-16">
+            <div class="flex max-w-lg">
+              <NuxtImg class="h-[150px]" src="/images/lesion_example.png" />
+              <div class="flex items-center pr-8">
+                <span class="text-xl text-left font-alegreya pl-6">Contoh pengambilan gambar yang direkomendasikan</span>
+              </div>
+            </div>
+            <div class="flex justify-start w-full mt-2">
+<!--              <span class="text-left">sumber: https://dermnetz.org/</span>-->
+              <p class="text-lg font-alegreya">sumber: https://dermnetz.org</p>
+            </div>
+          </div>
+
+          <input
+              type="file"
+              accept="image/*"
+              :class="imageUrl?'mt-6':'mt-8'"
+              class="w-full max-w-sm cursor-pointer rounded-lg border border-gray-300 p-3 text-gray-700 bg-white shadow-sm hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 mt-8"
+              @change="onImageChange"
+          />
+          <div v-if="imageUrl" class="preview mb-8 mt-10">
+            <img :src="imageUrl" class="max-h-[300px]" alt="Image preview" />
+          </div>
+
+          <AuthState v-slot="{loggedIn, user}">
+          <div v-if="imageUrl">
+            <flat-form
+              class="mt-12"
+              type="radio"
+              :options="JENIS_KELAMIN"
+              label="Jenis Kelamin"
+              v-model="formAnamnesys['jenis_kelamin']"
+              />
+            <flat-form
+                class="mt-12"
+                type="number"
+                label="Usia"
+                v-model="formAnamnesys['usia']"
+            />
+            <flat-form
+                class="mt-12"
+                type="text"
+                label="Keluhan Utama dan Onset"
+                is-multiline
+                v-model="formAnamnesys['keluhan_utama_dan_onset']"
+            />
+            <flat-form
+                class="mt-12"
+                type="radio"
+                :options="RIWAYAT_KONTAK"
+                label="Riwayat Kontak dengan bahan Alergen atau Iritan"
+                v-model="formAnamnesys['riwayat_kontak_dengan_bahan_alergen_atau_iritan']"
+            />
+            <flat-form
+                class="mt-12"
+                type="checkbox"
+                :options="SUMBER_INFEKSI"
+                label="Sumber Infeksi"
+                v-model="formAnamnesys['sumber_infeksi']"
+            />
+            <flat-form
+                v-if="formAnamnesys['sumber_infeksi'].includes('Lain-lain (sebutkan pada kolom berikutnya)')"
+              class="mt-12"
+              type="text"
+              label="Sumber Infeksi Lainnya"
+              v-model="formAnamnesys['sumber_infeksi_lainnya']"
+            />
+            <flat-form
+              class="mt-12"
+              type="text"
+              label="Faktor Pencetus Penyakit Sekarang"
+              v-model="formAnamnesys['faktor_pencetus_penyakit_sekarang']"
+            />
+            <flat-form
+              class="mt-12"
+              type="radio"
+              :options="LAMA_SAKIT"
+              label="Lama Sakit"
+              v-model="formAnamnesys['lama_sakit']"
+            />
+            <flat-form
+              class="mt-12"
+              type="text"
+              label="Lokasi Lesi"
+              v-model="formAnamnesys['lokasi_lesi']"
+            />
+            <flat-form
+              class="mt-12"
+              type="checkbox"
+              :options="KRITERIA_MAYOR"
+              label="Kriteria Mayor"
+              v-model="formAnamnesys['kriteria_mayor']"
+            />
+            <flat-form
+                class="mt-12"
+                type="checkbox"
+                :options="KRITERIA_MINOR"
+                label="Kriteria Minor"
+                v-model="formAnamnesys['kriteria_minor']"
+            />
+            <flat-form
+              class="mt-12"
+              type="checkbox"
+              :options="RIWAYAT_PENYAKIT_DAHULU"
+              label="Riwayat Penyakit Dahulu"
+              v-model="formAnamnesys['riwayat_penyakit_dahulu']"
+            />
+            <flat-form
+              class="mt-12"
+              type="checkbox"
+              :options="RIWAYAT_PENYAKIT_KELUARGA"
+              label="Riwayat Penyakit Keluarga"
+              v-model="formAnamnesys['riwayat_penyakit_keluarga']"
+            />
+          </div>
+          </AuthState>
+        </div>
+        <button
+            v-if="isFormFilled"
+            @click="handleSubmit"
+            :disabled="isLoading"
+            :class="isLoading ? 'bg-gray-400' : 'bg-[#3954a3]'"
+            class="mt-24 px-28 py-6 text-white font-opensans text-2xl font-bold rounded-[40px]">
+          KIRIM
+        </button>
+      </div>
+    </section>
   </div>
 </template>
 
-<script setup>
-import { SAMPLES } from "~/constants/samples.ts";
-import {nextTick, ref} from "vue";
-// Page meta
-useHead({
-  title: "AI Dermatitis Research",
-  meta: [
-    {
-      name: "description",
-      content: "Research on AI application for atopic dermatitis diagnosis",
-    },
-  ],
+<script setup lang="ts">
+import {
+  JENIS_KELAMIN,
+  RIWAYAT_KONTAK,
+  SUMBER_INFEKSI,
+  LAMA_SAKIT,
+  KRITERIA_MAYOR,
+  KRITERIA_MINOR,
+  RIWAYAT_PENYAKIT_DAHULU,
+  RIWAYAT_PENYAKIT_KELUARGA
+} from "~/constants/options";
+import type AnamnesysForm from "~/types/anamnesys";
+const runtimeConfig = useRuntimeConfig();
+const { loggedIn } = useUserSession()
+
+const formAnamnesys = ref<AnamnesysForm>({
+  jenis_kelamin: "",
+  usia: "",
+  keluhan_utama_dan_onset: "",
+  riwayat_kontak_dengan_bahan_alergen_atau_iritan: "",
+  sumber_infeksi_lainnya: "",
+  faktor_pencetus_penyakit_sekarang: "",
+  lama_sakit: "",
+  lokasi_lesi: "",
+  sumber_infeksi: [],
+  kriteria_mayor: [],
+  kriteria_minor: [],
+  riwayat_penyakit_dahulu: [],
+  riwayat_penyakit_keluarga: [],
 });
+const imageUrl = ref("");
+const filePath = ref("");
+const isLoading = ref(false);
+const error = ref(null);
+const showResult = ref(false);
+const result = ref<{ classname: string; confidence: number } | null>(null);
 
-const isQuistionare1Submited = ref(false);
-const isCasePredicted = ref(false);
+const isFormFilled = computed((): boolean => {
+  // Define string fields
+  const stringFields: (keyof AnamnesysForm)[] = [
+    'jenis_kelamin',
+    'usia',
+    'keluhan_utama_dan_onset',
+    'riwayat_kontak_dengan_bahan_alergen_atau_iritan',
+    'faktor_pencetus_penyakit_sekarang',
+    'lama_sakit',
+    'lokasi_lesi',
+  ];
 
-const samples = ref(SAMPLES);
-// Form data using ref
-const formData = ref({
-  // Bagian 1: Informasi Responden
-  profession: "",
-  experience: "",
-  internship: "",
-  internshipDuration: "",
+  // Check if all string fields are non-empty
+  const areStringsFilled = stringFields.every(key => {
+        const str = formAnamnesys.value[key] as string;
+        return str.trim() !== '';
+      }
+  );
 
-  // Bagian 2: Pengalaman Penggunaan Sistem AI
-  aiUsage: "",
-});
+  // Define array fields
+  const arrayFields: (keyof AnamnesysForm)[] = [
+    'sumber_infeksi',
+    'kriteria_mayor',
+    'kriteria_minor',
+    'riwayat_penyakit_dahulu',
+    'riwayat_penyakit_keluarga',
+  ];
 
-// Reactive state
-const selectedImage = ref(null);
-const selectedCases = ref([]);
-const predictionResult = ref(null)
-const imageDetailRef = ref(null);
-const imagePredictRef = ref(null);
-
-// Form submission handler
-const submitForm = () => {
-  console.log(formData.value);
-  // Validate required fields
-  if (
-    !formData.value.profession ||
-    !formData.value.experience ||
-    !formData.value.aiUsage
-  ) {
-    alert("Mohon lengkapi semua pertanyaan yang wajib diisi");
-    return;
-  }
-
-  // Additional validation for internship questions if profession is "dokter_umum"
-  if (
-    formData.value.profession === "dokter_umum" &&
-    !formData.value.internship
-  ) {
-    alert("Mohon jawab pertanyaan tentang internship");
-    return;
-  }
-
-  // If internship is "ya", then internshipDuration is required
-  if (
-    formData.value.internship === "ya" &&
-    !formData.value.internshipDuration
-  ) {
-    alert("Mohon jawab pertanyaan tentang durasi internship");
-    return;
-  }
-
-  isQuistionare1Submited.value = true;
-  // Auto scroll to image detail after a short delay to ensure DOM is updated
-  nextTick(() => {
-    if (imagePredictRef.value) {
-      imagePredictRef.value.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
+  // Check if all array fields are non-empty and contain no empty strings
+  const areArraysFilled = arrayFields.every(key => {
+    const array = formAnamnesys.value[key] as string[]; // Type assertion since these keys are string[]
+    return array.length > 0;
   });
 
-  // Log form data (in real app, you would send this to an API)
-  console.log("Form Data:", formData.value);
-
-  // Show success message
-  // alert('Terima kasih! Kuesioner Anda telah berhasil dikirim.')
-
-  // Reset form
-  // resetForm()
-};
-
-// Reset form function
-const resetForm = () => {
-  formData.value = {
-    profession: "",
-    experience: "",
-    internship: "",
-    internshipDuration: "",
-    aiUsage: "",
-  };
-};
-
-// Computed property to check if form is valid
-const isFormValid = computed(() => {
-  const baseValid =
-    formData.value.profession &&
-    formData.value.experience &&
-    formData.value.aiUsage;
-
-  if (formData.value.profession === "dokter_umum") {
-    if (!formData.value.internship) return false;
-    if (
-      formData.value.internship === "ya" &&
-      !formData.value.internshipDuration
-    )
-      return false;
-  }
-
-  return baseValid;
+  return areStringsFilled && areArraysFilled;
 });
 
-// Methods
-const selectImage = (sample) => {
-  selectedImage.value = sample
-
-  // Auto scroll to image detail after a short delay to ensure DOM is updated
-  nextTick(() => {
-    if (imageDetailRef.value) {
-      imageDetailRef.value.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
-    }
-  })
-}
-
-const closeDetail = () => {
-  selectedImage.value = null
-}
-
-const selectCase = (sample) => {
-  // Call your custom function here
-  onCaseSelected(sample)
-
-  // Optionally close the detail view
-  // closeDetail()
-}
-
-const removeSelectedCase = (caseId) => {
-  selectedCases.value = selectedCases.value.filter(id => id !== caseId)
-}
-
-const clearSelectedCases = () => {
-  selectedCases.value = []
-}
-
-const removePredictionResult = (caseId) => {
-  predictionResult.value = null
-}
-
-const clearPredictionResult = () => {
-  predictionResult.value = null
-}
-
-const handleImageError = (event) => {
-  // Replace broken image with placeholder
-  event.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+'
-}
-
-// Custom function that gets called when a case is selected
-const onCaseSelected = async (sample) => {
-  console.log('Case selected:', sample)
-
-  // Add to selected cases if not already selected
-  if (!selectedCases.value.includes(sample.id)) {
-    selectedCases.value.push(sample.id)
+const createSummary = (form: typeof formAnamnesys.value): string => {
+  let sumber_infeksi = form.sumber_infeksi;
+  if(sumber_infeksi.includes("Lain-lain (sebutkan pada kolom berikutnya)")){
+    sumber_infeksi = sumber_infeksi.filter(item => item !== 'Lain-lain (sebutkan pada kolom berikutnya)');
+    sumber_infeksi.push(form.sumber_infeksi_lainnya);
   }
 
-  // Clear previous result and set new one (only one result at a time)
-  predictionResult.value = null
+  return (
+      `Pasien dengan jenis kelamin: ${form.jenis_kelamin}, ` +
+      `usia: ${form.usia}. ` +
+      `Keluhan utama dan onset: ${form.keluhan_utama_dan_onset}. ` +
+      `Riwayat kontak dengan bahan alergen atau iritan: ${form.riwayat_kontak_dengan_bahan_alergen_atau_iritan}. ` +
+      `Sumber infeksi: ${sumber_infeksi.join(', ')}. ` +
+      `Faktor pencetus penyakit saat ini: ${form.faktor_pencetus_penyakit_sekarang}. ` +
+      `Lama sakit: ${form.lama_sakit}. ` +
+      `Lokasi lesi: ${form.lokasi_lesi}. ` +
+      // `Apakah terdapat lesi di area tubuh lainnya: ${form.apakah_terdapat_lesi_di_area_tubuh_lainnya}. ` +
+      `Kriteria mayor: ${form.kriteria_mayor.join(', ')}. ` +
+      `Kriteria minor: ${form.kriteria_minor.join(', ')}. ` +
+      `Riwayat penyakit dahulu: ${form.riwayat_penyakit_dahulu.join(', ')}. ` +
+      `Riwayat penyakit keluarga: ${form.riwayat_penyakit_keluarga.join(', ')}.`
+  );
+};
 
-  // Simulate AI prediction process
+const handleSubmit = async () => {
   try {
-    // Here you would normally call your AI prediction API
-    // const newPredictionResult = await predictCase(sample)
+    // const externalUrl = `${runtimeConfig.public.backendUrl}/predict2?text=${createSummary(formAnamnesys.value)}&image_path=${file_path.value}`;
+    const payload = {
+      text: createSummary(formAnamnesys.value),
+      image_path: filePath.value,
+    };
 
-    // Mock prediction result for demonstration
-    const mockPredictionResult = {
-      caseId: sample.id,
-      originalImage: sample.image,
-      gradcamImage: `/gradcam/gradcam_case_${sample.id}.png`, // Path to GradCAM heatmap
-      forceBarImage: `/forcebar/forcebar_case_${sample.id}.png`, // Path to force bar chart
-      predictedClass: sample.id <= 4 ? 'Non-Dermatitis Atopik' : 'Dermatitis Atopik',
-      confidence: 0.85 + Math.random() * 0.14, // Random confidence between 0.85-0.99
-      classProbabilities: [
-        {
-          class: 'Dermatitis Atopik',
-          probability: sample.id > 4 ? 0.85 + Math.random() * 0.14 : 0.1 + Math.random() * 0.3
-        },
-        {
-          class: 'Non-Dermatitis Atopik',
-          probability: sample.id <= 4 ? 0.85 + Math.random() * 0.14 : 0.1 + Math.random() * 0.3
-        }
-      ],
-      xaiExplanation: {
-        decision: `The AI model classified this case as ${sample.id <= 4 ? 'Non-Dermatitis Atopik' : 'Dermatitis Atopik'} based on analysis of skin texture, lesion patterns, and morphological features.`,
-        keyFeatures: sample.id > 4
-            ? 'Eczematous patches, lichenification in flexural areas, erythematous lesions with scaling'
-            : 'Isolated lesions, absence of typical atopic distribution, different morphological characteristics',
-        reasoning: `High confidence due to clear presence of ${sample.id > 4 ? 'typical atopic dermatitis features including chronic inflammation patterns and characteristic distribution' : 'non-atopic features with distinct lesion morphology'}.`,
-        alternatives: sample.id > 4
-            ? 'Alternative diagnoses like contact dermatitis were considered but ruled out due to distribution pattern and chronicity.'
-            : 'Psoriasis and contact dermatitis were considered as differential diagnoses based on lesion characteristics.'
-      }
+    const res = await fetch("/api/predict", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    console.log(data)
+
+    // Assuming the response has { classname: string, confidence: number }
+    result.value = {
+      classname: data.result,
+      confidence: data.percentage,
+    };
+
+    showResult.value = true;
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    alert("Failed to submit form. Please try again later.");
+  }
+};
+
+const onImageChange = async (event: any) => {
+  const backendUrl = "https://dermatutus.alif.top";
+  const file = event.target.files[0];
+
+  if(!file) return;
+
+  isLoading.value = true;
+  error.value = null;
+  imageUrl.value = "";
+  filePath.value = "";
+
+  try{
+    const formData = new FormData();
+    formData.append("file", file);
+    const externalUrl = `${runtimeConfig.public.backendUrl}/upload-image`;///api/upload-image`;
+
+    const res = await fetch(externalUrl, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err?.message || "Upload failed");
     }
 
-    // Set the new result (replaces any previous result)
-    predictionResult.value = mockPredictionResult
-
-    console.log('Prediction completed:', mockPredictionResult)
-
-  } catch (error) {
-    console.error('Prediction failed:', error)
-    alert('Failed to get AI prediction. Please try again.')
+    const data = await res.json();
+    console.log(data);
+    imageUrl.value = `${backendUrl}/${data.url}`;
+    filePath.value = data.file_path;
+    console.log(imageUrl.value);
+  } catch (e) {
+    error.value = e.message;
+  } finally {
+    isLoading.value = false;
   }
 }
 
-// Watch for profession changes to reset internship fields
+watch(loggedIn, (isLoggedIn) => {
+  console.log(isLoggedIn)
+}, { immediate: true })
+
 watch(
-  () => formData.value.profession,
-  (newVal) => {
-    if (newVal !== "dokter_umum") {
-      formData.value.internship = "";
-      formData.value.internshipDuration = "";
-    }
-  }
+    [
+      () => formAnamnesys.value.sumber_infeksi,
+      () => formAnamnesys.value.kriteria_mayor,
+      () => formAnamnesys.value.kriteria_minor,
+      () => formAnamnesys.value.riwayat_penyakit_dahulu,
+      () => formAnamnesys.value.riwayat_penyakit_keluarga
+    ],
+    (
+        [newSumberInfeksi, newKriteriaMayor, newKriteriaMinor, newRiwayatDahulu, newRiwayatKeluarga],
+        [oldSumberInfeksi, oldKriteriaMayor, oldKriteriaMinor, oldRiwayatDahulu, oldRiwayatKeluarga],
+    ) => {
+      // Sumber Infeksi
+      if(oldSumberInfeksi.includes('Tidak Ada') && newSumberInfeksi.length > 1){
+        formAnamnesys.value.sumber_infeksi = newSumberInfeksi.filter(item => item !== 'Tidak Ada');
+      }
+      if(!oldSumberInfeksi.includes('Tidak Ada') && newSumberInfeksi.includes('Tidak Ada')){
+        formAnamnesys.value.sumber_infeksi = newSumberInfeksi.filter(item => item === 'Tidak Ada');
+      }
+
+      // Kriteria Mayor
+      if(oldKriteriaMayor.includes('Tidak Ada') && newKriteriaMayor.length > 1){
+        formAnamnesys.value.kriteria_mayor = newKriteriaMayor.filter(item => item !== 'Tidak Ada');
+      }
+      if(!oldKriteriaMayor.includes('Tidak Ada') && newKriteriaMayor.includes('Tidak Ada')){
+        formAnamnesys.value.kriteria_mayor = newKriteriaMayor.filter(item => item === 'Tidak Ada');
+      }
+
+      // Kriteria Minor
+      if(oldKriteriaMinor.includes('Tidak Ada') && newKriteriaMinor.length > 1){
+        formAnamnesys.value.kriteria_minor = newKriteriaMinor.filter(item => item !== 'Tidak Ada');
+      }
+      if(!oldKriteriaMinor.includes('Tidak Ada') && newKriteriaMinor.includes('Tidak Ada')){
+        formAnamnesys.value.kriteria_minor = newKriteriaMinor.filter(item => item === 'Tidak Ada');
+      }
+
+      // Riwayat Dahulu
+      if(oldRiwayatDahulu.includes('Tidak ada riwayat') && newRiwayatDahulu.length > 1){
+        formAnamnesys.value.riwayat_penyakit_dahulu = newRiwayatDahulu.filter(item => item !== 'Tidak ada riwayat');
+      }
+      if(!oldRiwayatDahulu.includes('Tidak ada riwayat') && newRiwayatDahulu.includes('Tidak ada riwayat')){
+        formAnamnesys.value.riwayat_penyakit_dahulu = newRiwayatDahulu.filter(item => item === 'Tidak ada riwayat');
+      }
+
+      // Riwayat Keluarga
+      if(oldRiwayatKeluarga.includes('Tidak ada riwayat') && newRiwayatKeluarga.length > 1){
+        formAnamnesys.value.riwayat_penyakit_keluarga = newRiwayatKeluarga.filter(item => item !== 'Tidak ada riwayat');
+      }
+      if(!oldRiwayatKeluarga.includes('Tidak ada riwayat') && newRiwayatKeluarga.includes('Tidak ada riwayat')){
+        formAnamnesys.value.riwayat_penyakit_keluarga = newRiwayatKeluarga.filter(item => item === 'Tidak ada riwayat');
+      }
+    },
+    { deep: true }
 );
-
-// Watch for internship changes to reset duration if "tidak"
-watch(
-  () => formData.value.internship,
-  (newVal) => {
-    if (newVal === "tidak") {
-      formData.value.internshipDuration = "";
-    }
-  }
-);
-
-// Optional: Watch for changes in selected cases
-watch(selectedCases, (newCases) => {
-  console.log('Selected cases updated:', newCases)
-}, {deep: true})
-
-// Watch for changes in prediction result
-watch(predictionResult, (newResult) => {
-  console.log('Prediction result updated:', newResult)
-}, {deep: true})
 </script>
 
 <style scoped>
-/* Additional custom styles if needed */
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
+
 </style>

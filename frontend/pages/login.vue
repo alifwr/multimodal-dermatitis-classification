@@ -5,7 +5,7 @@
       <p class="subtitle">Silahkan Login untuk mendapatkan akses ke aplikasi Multimodal Dermatitis AI</p>
     </header>
 
-    <AuthButton />
+    <AuthButton label="Login dengan Google" />
 
     <!-- Protected content that only shows for authenticated users -->
     <AuthState v-slot="{ loggedIn, user }">

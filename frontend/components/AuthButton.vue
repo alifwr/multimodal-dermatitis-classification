@@ -1,5 +1,5 @@
 <template>
-  <div class="auth-container">
+  <div>
     <AuthState v-slot="{ loggedIn, user, clear }">
       <!-- Logged in state -->
       <div v-if="loggedIn" class="user-section">
@@ -35,8 +35,12 @@
 <!--        </button>-->
 
         <!-- Alternative: Login with popup -->
-        <button @click="loginWithPopup" class="google-login-popup">
-          Login dengan Google
+<!--            class="google-login-popup"-->
+        <button
+            @click="loginWithPopup"
+            class="bg-[#f0cdff] hover:shadow-2xl hover:border shadow-md font-bold px-16 py-3 rounded-full"
+        >
+          {{ label }}
         </button>
       </div>
 
@@ -52,6 +56,13 @@
 
 <script setup>
 const { openInPopup } = useUserSession()
+
+const props = defineProps({
+  label: {
+    type: String,
+    required: true,
+  }
+})
 
 const login = () => {
   return navigateTo('/auth/google')
@@ -69,121 +80,5 @@ const formatTime = (timestamp) => {
 </script>
 
 <style scoped>
-.auth-container {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #fefefe;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-}
 
-.login-section h2 {
-  margin-bottom: 1.5rem;
-  text-align: center;
-  color: #1f2937;
-}
-
-.google-login-btn, .google-login-popup {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.875rem 1rem;
-  margin-bottom: 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background: white;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.google-login-btn:hover, .google-login-popup:hover {
-  background: #f9fafb;
-  border-color: #9ca3af;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px -2px rgb(0 0 0 / 0.1);
-}
-
-.google-login-popup {
-  background: #f8fafc;
-  color: #475569;
-  font-size: 0.9rem;
-}
-
-.user-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  text-align: left;
-}
-
-.user-avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: 2px solid #e5e7eb;
-}
-
-.user-details h3 {
-  margin: 0 0 0.25rem 0;
-  color: #1f2937;
-}
-
-.user-email {
-  margin: 0 0 0.25rem 0;
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-.login-time {
-  margin: 0;
-  color: #9ca3af;
-  font-size: 0.8rem;
-}
-
-.logout-btn {
-  padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.logout-btn:hover {
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px -2px rgb(239 68 68 / 0.3);
-}
-
-.loading-state {
-  text-align: center;
-}
-
-.skeleton-btn {
-  width: 100%;
-  height: 48px;
-  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
-  background-size: 200% 100%;
-  border-radius: 8px;
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
 </style>

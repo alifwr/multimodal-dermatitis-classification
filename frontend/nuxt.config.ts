@@ -1,8 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
+  ssr: false,
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/icon', '@formkit/nuxt', 'nuxt-auth-utils'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxt/icon',
+    '@formkit/nuxt',
+    'nuxt-auth-utils',
+    '@nuxt/fonts',
+    '@nuxt/image'
+  ],
+  css: ['~/assets/css/fonts.css'],
   formkit:{
     autoImport: true,
   },
@@ -19,6 +28,5 @@ export default defineNuxtConfig({
         redirectURL: process.env.NUXT_PUBLIC_AUTH_URL
       }
     }
-  },
-
+  }
 })
