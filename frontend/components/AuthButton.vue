@@ -10,8 +10,8 @@
               :alt="user.name || 'User'"
               class="user-avatar"
           >
-          <input :value="user">
-          <div class="bg-blue-300 px-8 py-6">
+          <input :value="user.name">
+          <div class="bg-blue-300 px-8 py-6 rounded-[25px] mt-10 border-2 border-gray-200">
             <span class="text-xl font-bold font-alegreya">Welcome, {{ user?.name }}!</span>
 <!--            <p class="user-email">{{ user?.email }}</p>-->
             <p class="text-xl font-bold font-opensauce">Logged in {{ formatTime(user?.loggedInAt) }}</p>
@@ -19,7 +19,7 @@
         </div>
         <button
             @click="clear"
-            class="bg-[#aa2222] hover:shadow-2xl hover:border shadow-md font-bold px-16 py-3 rounded-full">
+            class="bg-[#aa2222] mt-12 hover:shadow-2xl hover:border shadow-md font-bold px-16 py-3 rounded-full">
           Sign Out
         </button>
       </div>

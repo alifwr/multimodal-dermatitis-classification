@@ -259,7 +259,7 @@ import {
 } from "~/constants/options";
 import type AnamnesysForm from "~/types/anamnesys";
 const runtimeConfig = useRuntimeConfig();
-const { loggedIn } = useUserSession()
+const { loggedIn, user } = useUserSession()
 
 const formAnamnesys = ref<AnamnesysForm>({
   jenis_kelamin: "",
@@ -415,6 +415,11 @@ const onImageChange = async (event: any) => {
 watch(loggedIn, (isLoggedIn) => {
   console.log(isLoggedIn)
 }, { immediate: true })
+
+watch(user, (newUser, oldUser) => {
+  console.log(newUser)
+  console.log(oldUser)
+})
 
 watch(
     [
