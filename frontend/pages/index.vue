@@ -100,7 +100,7 @@
       </div>
     </section>
 
-    <section id="ai-forms" class="relative bg-[#fbf6f3] z-0 pt-12 md:pt-24 pb-12">
+    <section v-if="loggedIn" id="ai-forms" class="relative bg-[#fbf6f3] z-0 pt-12 md:pt-24 pb-12">
       <NuxtImg class="absolute top-0 rotate-180 w-screen -z-10" src="/images/derm.svg" />
       <div class="flex flex-col h-3/4 mx-auto items-center text-center mb-32 md:mb-64 z-10 px-4">
         <div class="max-w-3xl">
