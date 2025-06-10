@@ -100,7 +100,7 @@
       </div>
     </section>
 
-    <section v-if="loggedIn" id="ai-forms" class="relative bg-[#fbf6f3] z-0 pt-12 md:pt-24 pb-12">
+    <section id="ai-forms" class="relative bg-[#fbf6f3] z-0 pt-12 md:pt-24 pb-12">
       <NuxtImg class="absolute top-0 rotate-180 w-screen -z-10" src="/images/derm.svg" />
       <div class="flex flex-col h-3/4 mx-auto items-center text-center mb-32 md:mb-64 z-10 px-4">
         <div class="max-w-3xl">
@@ -236,25 +236,25 @@
             v-if="isFormFilled"
             @click="handleSubmit"
             :disabled="isLoading"
-            :class="isLoading ? 'bg-gray-400' : 'bg-[#3954a3]'"
+            :class="isLoading ? 'bg-gray-400' : 'hover:bg-[#193483] active:bg-[#5974c3] bg-[#3954a3]'"
             class="mt-16 md:mt-24 px-16 md:px-28 py-4 md:py-6 text-white font-opensans text-xl md:text-2xl font-bold rounded-[40px]">
           KIRIM
         </button>
       </div>
-      <div
-          v-if="result"
-          class="flex justify-center bg-[#fbf6f3] py-8 md:py-16 px-4"
-      >
-        <div
-            class="flex flex-col justify-center items-center text-center px-8 md:px-12 py-4 min-h-48 max-w-80 md:max-w-96 rounded-[40px]"
-            :class="result.classname==='DA'?'bg-[#b1d8b7]':'bg-[#b83143]'"
-        >
-          <span class="text-2xl md:text-3xl font-opensans font-bold">Hasil Prediksi</span>
-          <span class="text-lg md:text-xl font-opensans">Klasifikasi penyakit termasuk</span>
-          <span class="text-lg md:text-xl font-opensans">{{trimTwoDecimal(result?.classname)}}</span>
-          <span class="text-lg md:text-xl font-opensans">Multimodal AI menghasilkan jawaban tersebut dengan persentase {{result?.confidence}}%</span>
-        </div>
-      </div>
+<!--      <div-->
+<!--          v-if="result"-->
+<!--          class="flex justify-center bg-[#fbf6f3] py-8 md:py-16 px-4"-->
+<!--      >-->
+<!--        <div-->
+<!--            class="flex flex-col justify-center items-center text-center px-8 md:px-12 py-4 min-h-48 max-w-80 md:max-w-96 rounded-[40px]"-->
+<!--            :class="result.classname==='DA'?'bg-[#b1d8b7]':'bg-[#b83143]'"-->
+<!--        >-->
+<!--          <span class="text-2xl md:text-3xl font-opensans font-bold">Hasil Prediksi</span>-->
+<!--          <span class="text-lg md:text-xl font-opensans">Klasifikasi penyakit termasuk</span>-->
+<!--          <span class="text-lg md:text-xl font-opensans">{{trimTwoDecimal(result?.classname)}}</span>-->
+<!--          <span class="text-lg md:text-xl font-opensans">Multimodal AI menghasilkan jawaban tersebut dengan persentase {{result?.confidence}}%</span>-->
+<!--        </div>-->
+<!--      </div>-->
     </section>
 
   </div>
@@ -394,6 +394,7 @@ const createSummary = (form: typeof formAnamnesys.value): string => {
 
 const handleSubmit = async () => {
   try {
+    isLoading.value = true;
     // const externalUrl = `${runtimeConfig.public.backendUrl}/predict2?text=${createSummary(formAnamnesys.value)}&image_path=${file_path.value}`;
     const payload = {
       text: createSummary(formAnamnesys.value),
@@ -420,6 +421,8 @@ const handleSubmit = async () => {
   } catch (error) {
     console.error("Error submitting form:", error);
     alert("Failed to submit form. Please try again later.");
+  }finally {
+    isLoading.value = false;
   }
 };
 
@@ -462,8 +465,8 @@ const onImageChange = async (event: any) => {
 }
 
 const trimTwoDecimal = (input: string) => {
-  const cleaned = input.trim();
-  const num = parseFloat(cleaned);
+  // const cleaned = input.trim();
+  const num = parseFloat(input);
 
   if(isNaN(num)){
     throw new Error('Invalid number string provided');
