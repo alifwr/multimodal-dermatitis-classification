@@ -251,13 +251,46 @@
         >
           <span class="text-2xl md:text-3xl font-opensans font-bold">Hasil Prediksi</span>
           <span class="text-lg md:text-xl font-opensans">Klasifikasi penyakit termasuk</span>
-          <span class="text-lg md:text-xl font-opensans">{{result?.classname}}</span>
+          <span class="text-lg md:text-xl font-opensans">{{trimTwoDecimal(result?.classname)}}</span>
           <span class="text-lg md:text-xl font-opensans">Multimodal AI menghasilkan jawaban tersebut dengan persentase {{result?.confidence}}%</span>
         </div>
       </div>
     </section>
 
   </div>
+
+  <transition name="fade">
+    <div
+        v-if="showModal && result"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        @click.self="showModal = false"
+    >
+      <div class="bg-white rounded-lg shadow-lg p-6 max-w-xl w-full relative">
+        <button
+            class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-xl"
+            @click="showModal = false"
+        >
+          &times;
+        </button>
+
+        <h2 class="text-4xl font-semibold mb-4">Hasil Prediksi</h2>
+        <p class="mb-2 text-xl">
+          Klasifikasi penyakit termasuk
+          <strong
+          >{{ result?.classname }} ({{
+              result?.classname == "DA"
+                  ? "Dermatitis Atopik"
+                  : "Non Dermatitis Atopik"
+            }})</strong
+          >
+        </p>
+        <p class="text-xl">
+          Model AI menghasilkan jawaban tersebut dengan nilai persentase
+          <strong>{{ (result?.confidence).toFixed(2) }} %</strong>
+        </p>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
@@ -295,6 +328,7 @@ const filePath = ref("");
 const isLoading = ref(false);
 const error = ref(null);
 const showResult = ref(false);
+const showModal = ref(false);
 const result = ref<{ classname: string; confidence: number } | null>();
 
 const isFormFilled = computed((): boolean => {
@@ -381,7 +415,8 @@ const handleSubmit = async () => {
       confidence: data.percentage,
     };
 
-    showResult.value = true;
+    // showResult.value = true;
+    showModal.value = true;
   } catch (error) {
     console.error("Error submitting form:", error);
     alert("Failed to submit form. Please try again later.");
@@ -424,6 +459,17 @@ const onImageChange = async (event: any) => {
   } finally {
     isLoading.value = false;
   }
+}
+
+const trimTwoDecimal = (input: string) => {
+  const cleaned = input.trim();
+  const num = parseFloat(cleaned);
+
+  if(isNaN(num)){
+    throw new Error('Invalid number string provided');
+  }
+
+  return (Math.round(num * 100) / 100).toFixed(2);
 }
 
 watch(loggedIn, (isLoggedIn) => {
@@ -492,5 +538,12 @@ watch(
 </script>
 
 <style scoped>
-
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
