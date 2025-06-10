@@ -1,131 +1,130 @@
 <template>
   <div>
 
-    <section id="header" class="bg-[#99aace] h-screen pt-24">
-      <div class="flex flex-col h-3/4 mx-auto max-w-6xl text-center mb-64">
-        <span class="text-8xl text-[#f0cdff] font-opensauce font-bold">
+    <section id="header" class="bg-[#99aace] h-screen pt-12 md:pt-24">
+      <div class="flex flex-col h-3/4 mx-auto max-w-6xl text-center mb-32 md:mb-64 px-4">
+        <span class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-[#f0cdff] font-opensauce font-bold leading-tight">
           MULTIMODAL AI DERMATITIS ATOPIK
         </span>
-        <div class="flex items-center justify-center h-full z-20">
+        <div class="flex items-center justify-center h-full z-20 mt-8 md:mt-0">
           <AuthButton label="MASUK DENGAN GOOGLE" />
         </div>
       </div>
-      <NuxtImg class="absolute bottom-[200px] left-1/2 -translate-x-1/2 w-2/5" src="/images/hands.svg" />
+      <NuxtImg class="absolute bottom-[100px] md:bottom-[200px] left-1/2 -translate-x-1/2 w-3/5 md:w-2/5" src="/images/hands.svg" />
       <NuxtImg class="absolute bottom-0 w-screen z-10" src="/images/derm.svg" />
     </section>
 
-    <section id="introduction" class="bg-[#fbf6f3] h-screen pt-24 pb-12">
-      <div class="flex flex-col h-full mx-auto px-16">
+    <section id="introduction" class="bg-[#fbf6f3] min-h-screen pt-12 md:pt-24 pb-12">
+      <div class="flex flex-col h-full mx-auto px-4 md:px-16">
         <div class="max-w-4xl text-center mx-auto">
-      <span class="text-7xl text-[#f0cdff] font-opensauce font-bold">
-        Apa itu Multimodal AI Dermatitis Atopik?
-      </span>
+          <span class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#f0cdff] font-opensauce font-bold leading-tight">
+            Apa itu Multimodal AI Dermatitis Atopik?
+          </span>
         </div>
-        <div class="flex items-center justify-evenly h-full px-48">
-          <div class="flex items-center justify-center h-full w-1/2 px-8">
+        <div class="flex flex-col lg:flex-row items-center justify-evenly h-full px-4 md:px-12 lg:px-48 mt-8 lg:mt-0">
+          <div class="flex items-center justify-center h-full w-full lg:w-1/2 px-4 md:px-8 mb-8 lg:mb-0">
             <NuxtImg
-                class="h-4/5 w-full object-contain"
+                class="h-64 md:h-80 lg:h-4/5 w-full object-contain"
                 src="/images/digital-diag.png"
             />
           </div>
-          <div class="flex items-center justify-center h-full w-[540px] px-8">
-        <span class="font-alegreya text-xl text-justify">
-          Multimodal AI Dermatitis Atopik adalah aplikasi berbasis kecerdasan buatan yang membantu dokter umum mengidentifikasi kemungkinan dermatitis atopik. Dengan menginput foto lesi dan anamnesis klinis, aplikasi ini mengklasifikasikan kasus sebagai <strong>dermatitis atopik</strong> atau <strong>bukan dermatitis atopik</strong>. Kategori "bukan dermatitis atopik" mencakup kumpulan diagnosis banding seperti psoriasis vulgaris, liken simpleks kronik, dermatitis numularis, dan dermatitis kontak. Hasil yang diberikan bukan diagnosis final, <strong>keputusan akhir tetap bergantung pada penilaian klinis oleh dokter</strong>.
-        </span>
+          <div class="flex items-center justify-center h-full w-full lg:w-[540px] px-4 md:px-8">
+            <span class="font-alegreya text-lg md:text-xl text-justify">
+              Multimodal AI Dermatitis Atopik adalah aplikasi berbasis kecerdasan buatan yang membantu dokter umum mengidentifikasi kemungkinan dermatitis atopik. Dengan menginput foto lesi dan anamnesis klinis, aplikasi ini mengklasifikasikan kasus sebagai <strong>dermatitis atopik</strong> atau <strong>bukan dermatitis atopik</strong>. Kategori "bukan dermatitis atopik" mencakup kumpulan diagnosis banding seperti psoriasis vulgaris, liken simpleks kronik, dermatitis numularis, dan dermatitis kontak. Hasil yang diberikan bukan diagnosis final, <strong>keputusan akhir tetap bergantung pada penilaian klinis oleh dokter</strong>.
+            </span>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="howto" class="bg-[#99aace] h-screen pt-24 pb-12">
-      <div class="flex flex-col h-full mx-auto px-8">
+    <section id="howto" class="bg-[#99aace] min-h-screen pt-12 md:pt-24 pb-12">
+      <div class="flex flex-col h-full mx-auto px-4 md:px-8">
         <div class="max-w-6xl text-center mx-auto">
-          <span class="text-6xl text-[#f0cdff] font-opensauce font-bold">
+          <span class="text-4xl sm:text-5xl md:text-6xl text-[#f0cdff] font-opensauce font-bold leading-tight">
             Bagaimana cara penggunaannya?
           </span>
         </div>
-        <div class="flex items-center justify-around h-full mt-24">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-around h-full mt-12 md:mt-24 space-y-12 lg:space-y-0">
 
-          <div class="flex flex-col h-full text-center items-center mx-7">
-            <div class="bg-[#fbf6f3] h-[240px] w-[240px] rounded-full">
-              <NuxtImg class="w-screen" src="/images/mobile-diag.png" />
+          <div class="flex flex-col h-full text-center items-center mx-4 lg:mx-7">
+            <div class="bg-[#fbf6f3] h-[180px] w-[180px] md:h-[240px] md:w-[240px] rounded-full flex items-center justify-center">
+              <NuxtImg class="w-3/4 md:w-screen object-contain" src="/images/mobile-diag.png" />
             </div>
-            <div class="flex flex-col px-8 mt-20">
-              <span class="text-2xl font-opensauce font-bold">
+            <div class="flex flex-col px-4 md:px-8 mt-8 md:mt-20">
+              <span class="text-xl md:text-2xl font-opensauce font-bold">
                 Ambil gambar lesi kulit
               </span>
-              <span class="text-2xl font-alegreya text-justify mt-8">
+              <span class="text-lg md:text-2xl font-alegreya text-justify mt-4 md:mt-8">
                 Pastikan mengambil foto dari jarak dekat, fokus, dan menampilkan lesi kulit dengan pencahayaan yang optimal
               </span>
             </div>
           </div>
 
-          <div class="flex flex-col h-full text-center items-center mx-7">
-            <div class="bg-[#fbf6f3] h-[240px] w-[240px] rounded-full">
-              <NuxtImg class="w-screen" src="/images/mobile-icon.png" />
+          <div class="flex flex-col h-full text-center items-center mx-4 lg:mx-7">
+            <div class="bg-[#fbf6f3] h-[180px] w-[180px] md:h-[240px] md:w-[240px] rounded-full flex items-center justify-center">
+              <NuxtImg class="w-3/4 md:w-screen object-contain" src="/images/mobile-icon.png" />
             </div>
-            <div class="flex flex-col px-8 mt-20">
-              <span class="text-2xl font-opensauce font-bold">
+            <div class="flex flex-col px-4 md:px-8 mt-8 md:mt-20">
+              <span class="text-xl md:text-2xl font-opensauce font-bold">
                 Unggah gambar & masukkan hasil anamnesis
               </span>
-              <span class="text-2xl font-alegreya text-justify mt-8">
+              <span class="text-lg md:text-2xl font-alegreya text-justify mt-4 md:mt-8">
                 Masukkan foto yang telah diambil atau sudah disimpan kemudian lengkapi data anamnesis sesuai temuan klinis pasien
               </span>
             </div>
           </div>
 
-          <div class="flex flex-col h-full text-center items-center mx-7">
-            <div class="bg-[#fbf6f3] h-[240px] w-[240px] rounded-full">
-              <NuxtImg class="w-screen" src="/images/pc.png" />
+          <div class="flex flex-col h-full text-center items-center mx-4 lg:mx-7">
+            <div class="bg-[#fbf6f3] h-[180px] w-[180px] md:h-[240px] md:w-[240px] rounded-full flex items-center justify-center">
+              <NuxtImg class="w-3/4 md:w-screen object-contain" src="/images/pc.png" />
             </div>
-            <div class="flex flex-col px-8 mt-20">
-              <span class="text-2xl font-opensauce font-bold">
+            <div class="flex flex-col px-4 md:px-8 mt-8 md:mt-20">
+              <span class="text-xl md:text-2xl font-opensauce font-bold">
                 Dapatkan Hasil
               </span>
-              <span class="text-2xl font-alegreya text-justify mt-8">
+              <span class="text-lg md:text-2xl font-alegreya text-justify mt-4 md:mt-8">
                 Hasil akan segera muncul menunjukkan hasil lesi termasuk <strong>dermatitis</strong> atopik atau <strong>bukan dermatitis atopik</strong>
               </span>
             </div>
           </div>
 
         </div>
-        <div class="flex flex-col h-full text-center items-center mx-7 mt-16">
+        <div class="flex flex-col h-full text-center items-center mx-4 lg:mx-7 mt-12 md:mt-16">
           <button
               :disabled="!loggedIn"
               :class="loggedIn ? 'bg-[#f6f6f6] text-black hover:bg-blue-300 active:bg-blue-500' : 'bg-gray-500 text-gray-300'"
-              class="shadow-lg px-16 py-3 rounded-full font-opensauce">
+              class="shadow-lg px-12 md:px-16 py-3 rounded-full font-opensauce text-sm md:text-base">
             MULAI SEKARANG
           </button>
         </div>
       </div>
     </section>
 
-    <section v-if="loggedIn" id="ai-forms" class="relative bg-[#fbf6f3] z-0 pt-24 pb-12">
+    <section v-if="loggedIn" id="ai-forms" class="relative bg-[#fbf6f3] z-0 pt-12 md:pt-24 pb-12">
       <NuxtImg class="absolute top-0 rotate-180 w-screen -z-10" src="/images/derm.svg" />
-      <div class="flex flex-col h-3/4 mx-auto items-center text-center mb-64 z-10">
+      <div class="flex flex-col h-3/4 mx-auto items-center text-center mb-32 md:mb-64 z-10 px-4">
         <div class="max-w-3xl">
-          <span class="text-6xl font-opensauce font-bold">
+          <span class="text-4xl sm:text-5xl md:text-6xl font-opensauce font-bold leading-tight">
             MULTIMODAL AI DERMATITIS ATOPIK
           </span>
         </div>
-        <div class="flex flex-col items-center justify-center h-full mt-32">
-          <span class="text-3xl font-opensauce font-bold">
+        <div class="flex flex-col items-center justify-center h-full mt-16 md:mt-32">
+          <span class="text-2xl md:text-3xl font-opensauce font-bold">
             Silakan unggah foto lesi kulit
           </span>
-          <span class="text-2xl font-alegreya text-center mt-8 max-w-4xl">
+          <span class="text-lg md:text-2xl font-alegreya text-center mt-4 md:mt-8 max-w-4xl px-4">
             Sebagai perhatian, sistem kami hanya menerima foto berupa lesi kulit. Jika Anda mengunggah foto selain foto lesi kulit, akan memengaruhi akurasi prediksi model. Kami tidak akan menyimpan/menggunakan informasi yang sudah Anda unggah/berikan pada website ini.
           </span>
 
-          <div class="flex flex-col items-center justify-center mt-16">
-            <div class="flex max-w-lg">
-              <NuxtImg class="h-[150px]" src="/images/lesion_example.png" />
-              <div class="flex items-center pr-8">
-                <span class="text-xl text-left font-alegreya pl-6">Contoh pengambilan gambar yang direkomendasikan</span>
+          <div class="flex flex-col items-center justify-center mt-8 md:mt-16 px-4">
+            <div class="flex flex-col md:flex-row max-w-lg items-center">
+              <NuxtImg class="h-[120px] md:h-[150px] mb-4 md:mb-0" src="/images/lesion_example.png" />
+              <div class="flex items-center md:pr-8">
+                <span class="text-lg md:text-xl text-center md:text-left font-alegreya md:pl-6">Contoh pengambilan gambar yang direkomendasikan</span>
               </div>
             </div>
-            <div class="flex justify-start w-full mt-2">
-<!--              <span class="text-left">sumber: https://dermnetz.org/</span>-->
-              <p class="text-lg font-alegreya">sumber: https://dermnetz.org</p>
+            <div class="flex justify-start w-full mt-2 px-4">
+              <p class="text-base md:text-lg font-alegreya">sumber: https://dermnetz.org</p>
             </div>
           </div>
 
@@ -133,104 +132,104 @@
               type="file"
               accept="image/*"
               :class="imageUrl?'mt-6':'mt-8'"
-              class="w-full max-w-sm cursor-pointer rounded-lg border border-gray-300 p-3 text-gray-700 bg-white shadow-sm hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 mt-8"
+              class="w-full max-w-sm cursor-pointer rounded-lg border border-gray-300 p-3 text-gray-700 bg-white shadow-sm hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm md:text-base"
               @change="onImageChange"
           />
-          <div v-if="imageUrl" class="preview mb-8 mt-10">
-            <img :src="imageUrl" class="max-h-[300px]" alt="Image preview" />
+          <div v-if="imageUrl" class="preview mb-8 mt-10 px-4">
+            <img :src="imageUrl" class="max-h-[250px] md:max-h-[300px] w-auto" alt="Image preview" />
           </div>
 
           <AuthState v-slot="{loggedIn, user}">
-          <div v-if="imageUrl">
-            <flat-form
-              class="mt-12"
-              type="radio"
-              :options="JENIS_KELAMIN"
-              label="Jenis Kelamin"
-              v-model="formAnamnesys['jenis_kelamin']"
+            <div v-if="imageUrl" class="w-full max-w-2xl px-4">
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="radio"
+                  :options="JENIS_KELAMIN"
+                  label="Jenis Kelamin"
+                  v-model="formAnamnesys['jenis_kelamin']"
               />
-            <flat-form
-                class="mt-12"
-                type="number"
-                label="Usia"
-                v-model="formAnamnesys['usia']"
-            />
-            <flat-form
-                class="mt-12"
-                type="text"
-                label="Keluhan Utama dan Onset"
-                is-multiline
-                v-model="formAnamnesys['keluhan_utama_dan_onset']"
-            />
-            <flat-form
-                class="mt-12"
-                type="radio"
-                :options="RIWAYAT_KONTAK"
-                label="Riwayat Kontak dengan bahan Alergen atau Iritan"
-                v-model="formAnamnesys['riwayat_kontak_dengan_bahan_alergen_atau_iritan']"
-            />
-            <flat-form
-                class="mt-12"
-                type="checkbox"
-                :options="SUMBER_INFEKSI"
-                label="Sumber Infeksi"
-                v-model="formAnamnesys['sumber_infeksi']"
-            />
-            <flat-form
-                v-if="formAnamnesys['sumber_infeksi'].includes('Lain-lain (sebutkan pada kolom berikutnya)')"
-              class="mt-12"
-              type="text"
-              label="Sumber Infeksi Lainnya"
-              v-model="formAnamnesys['sumber_infeksi_lainnya']"
-            />
-            <flat-form
-              class="mt-12"
-              type="text"
-              label="Faktor Pencetus Penyakit Sekarang"
-              v-model="formAnamnesys['faktor_pencetus_penyakit_sekarang']"
-            />
-            <flat-form
-              class="mt-12"
-              type="radio"
-              :options="LAMA_SAKIT"
-              label="Lama Sakit"
-              v-model="formAnamnesys['lama_sakit']"
-            />
-            <flat-form
-              class="mt-12"
-              type="text"
-              label="Lokasi Lesi"
-              v-model="formAnamnesys['lokasi_lesi']"
-            />
-            <flat-form
-              class="mt-12"
-              type="checkbox"
-              :options="KRITERIA_MAYOR"
-              label="Kriteria Mayor"
-              v-model="formAnamnesys['kriteria_mayor']"
-            />
-            <flat-form
-                class="mt-12"
-                type="checkbox"
-                :options="KRITERIA_MINOR"
-                label="Kriteria Minor"
-                v-model="formAnamnesys['kriteria_minor']"
-            />
-            <flat-form
-              class="mt-12"
-              type="checkbox"
-              :options="RIWAYAT_PENYAKIT_DAHULU"
-              label="Riwayat Penyakit Dahulu"
-              v-model="formAnamnesys['riwayat_penyakit_dahulu']"
-            />
-            <flat-form
-              class="mt-12"
-              type="checkbox"
-              :options="RIWAYAT_PENYAKIT_KELUARGA"
-              label="Riwayat Penyakit Keluarga"
-              v-model="formAnamnesys['riwayat_penyakit_keluarga']"
-            />
-          </div>
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="number"
+                  label="Usia"
+                  v-model="formAnamnesys['usia']"
+              />
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="text"
+                  label="Keluhan Utama dan Onset"
+                  is-multiline
+                  v-model="formAnamnesys['keluhan_utama_dan_onset']"
+              />
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="radio"
+                  :options="RIWAYAT_KONTAK"
+                  label="Riwayat Kontak dengan bahan Alergen atau Iritan"
+                  v-model="formAnamnesys['riwayat_kontak_dengan_bahan_alergen_atau_iritan']"
+              />
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="checkbox"
+                  :options="SUMBER_INFEKSI"
+                  label="Sumber Infeksi"
+                  v-model="formAnamnesys['sumber_infeksi']"
+              />
+              <flat-form
+                  v-if="formAnamnesys['sumber_infeksi'].includes('Lain-lain (sebutkan pada kolom berikutnya)')"
+                  class="mt-8 md:mt-12"
+                  type="text"
+                  label="Sumber Infeksi Lainnya"
+                  v-model="formAnamnesys['sumber_infeksi_lainnya']"
+              />
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="text"
+                  label="Faktor Pencetus Penyakit Sekarang"
+                  v-model="formAnamnesys['faktor_pencetus_penyakit_sekarang']"
+              />
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="radio"
+                  :options="LAMA_SAKIT"
+                  label="Lama Sakit"
+                  v-model="formAnamnesys['lama_sakit']"
+              />
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="text"
+                  label="Lokasi Lesi"
+                  v-model="formAnamnesys['lokasi_lesi']"
+              />
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="checkbox"
+                  :options="KRITERIA_MAYOR"
+                  label="Kriteria Mayor"
+                  v-model="formAnamnesys['kriteria_mayor']"
+              />
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="checkbox"
+                  :options="KRITERIA_MINOR"
+                  label="Kriteria Minor"
+                  v-model="formAnamnesys['kriteria_minor']"
+              />
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="checkbox"
+                  :options="RIWAYAT_PENYAKIT_DAHULU"
+                  label="Riwayat Penyakit Dahulu"
+                  v-model="formAnamnesys['riwayat_penyakit_dahulu']"
+              />
+              <flat-form
+                  class="mt-8 md:mt-12"
+                  type="checkbox"
+                  :options="RIWAYAT_PENYAKIT_KELUARGA"
+                  label="Riwayat Penyakit Keluarga"
+                  v-model="formAnamnesys['riwayat_penyakit_keluarga']"
+              />
+            </div>
           </AuthState>
         </div>
         <button
@@ -238,22 +237,22 @@
             @click="handleSubmit"
             :disabled="isLoading"
             :class="isLoading ? 'bg-gray-400' : 'bg-[#3954a3]'"
-            class="mt-24 px-28 py-6 text-white font-opensans text-2xl font-bold rounded-[40px]">
+            class="mt-16 md:mt-24 px-16 md:px-28 py-4 md:py-6 text-white font-opensans text-xl md:text-2xl font-bold rounded-[40px]">
           KIRIM
         </button>
       </div>
       <div
           v-if="result"
-          class="flex justify-center bg-[#fbf6f3] py-16"
+          class="flex justify-center bg-[#fbf6f3] py-8 md:py-16 px-4"
       >
         <div
-            class="flex flex-col justify-center items-center text-center px-12 py-4 min-h-48 max-w-96 rounded-[40px]"
+            class="flex flex-col justify-center items-center text-center px-8 md:px-12 py-4 min-h-48 max-w-80 md:max-w-96 rounded-[40px]"
             :class="result.classname==='DA'?'bg-[#b1d8b7]':'bg-[#b83143]'"
         >
-          <span class="text-3xl font-opensans font-bold">Hasil Prediksi</span>
-          <span class="text-xl font-opensans">Klasifikasi penyakit termasuk</span>
-          <span class="text-xl font-opensans">{{result?.classname}}</span>
-          <span class="text-xl font-opensans">Multimodal AI menghasilkan jawaban tersebut dengan persentase {{result?.confidence}}%</span>
+          <span class="text-2xl md:text-3xl font-opensans font-bold">Hasil Prediksi</span>
+          <span class="text-lg md:text-xl font-opensans">Klasifikasi penyakit termasuk</span>
+          <span class="text-lg md:text-xl font-opensans">{{result?.classname}}</span>
+          <span class="text-lg md:text-xl font-opensans">Multimodal AI menghasilkan jawaban tersebut dengan persentase {{result?.confidence}}%</span>
         </div>
       </div>
     </section>
