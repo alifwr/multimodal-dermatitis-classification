@@ -91,7 +91,7 @@
         </div>
         <div class="flex flex-col h-full text-center items-center mx-4 lg:mx-7 mt-12 md:mt-16">
           <button
-              @click="() => isStarted = true"
+              @click="startAssessment"
               :disabled="!loggedIn"
               :class="loggedIn ? 'bg-[#f6f6f6] text-black hover:bg-blue-300 active:bg-blue-500' : 'bg-gray-500 text-gray-300'"
               class="shadow-lg px-12 md:px-16 py-3 rounded-full font-opensauce text-sm md:text-base">
@@ -371,6 +371,14 @@ const isFormFilled = computed((): boolean => {
 
   return areStringsFilled && areArraysFilled;
 });
+
+const startAssessment = () => {
+  isStarted.value = true;
+  window.scrollTo({
+    top: document.documentElement.scrollHeight,
+    behavior: 'smooth'
+  })
+}
 
 const createSummary = (form: typeof formAnamnesys.value): string => {
   let sumber_infeksi = form.sumber_infeksi;
