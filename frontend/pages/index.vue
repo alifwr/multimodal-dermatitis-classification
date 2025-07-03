@@ -91,6 +91,7 @@
         </div>
         <div class="flex flex-col h-full text-center items-center mx-4 lg:mx-7 mt-12 md:mt-16">
           <button
+              @click="() => isStarted = true"
               :disabled="!loggedIn"
               :class="loggedIn ? 'bg-[#f6f6f6] text-black hover:bg-blue-300 active:bg-blue-500' : 'bg-gray-500 text-gray-300'"
               class="shadow-lg px-12 md:px-16 py-3 rounded-full font-opensauce text-sm md:text-base">
@@ -100,7 +101,7 @@
       </div>
     </section>
 
-    <section v-if="loggedIn" id="ai-forms" class="relative bg-[#fbf6f3] z-0 pt-12 md:pt-24 pb-12">
+    <section v-if="isStarted" id="ai-forms" class="relative bg-[#fbf6f3] z-0 pt-12 md:pt-24 pb-12">
       <NuxtImg class="absolute top-0 rotate-180 w-screen -z-10" src="/images/derm.svg" />
       <div class="flex flex-col h-3/4 mx-auto items-center text-center mb-32 md:mb-64 z-10 px-4">
         <div class="max-w-3xl">
@@ -326,6 +327,7 @@ const formAnamnesys = ref<AnamnesysForm>({
 const imageUrl = ref("");
 const filePath = ref("");
 const isLoading = ref(false);
+const isStarted = ref(false);
 const error = ref(null);
 const showResult = ref(false);
 const showModal = ref(false);
