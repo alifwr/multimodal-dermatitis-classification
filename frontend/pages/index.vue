@@ -309,7 +309,7 @@ import type AnamnesysForm from "~/types/anamnesys";
 const runtimeConfig = useRuntimeConfig();
 const { loggedIn, user } = useUserSession()
 
-const formAnamnesys = ref<AnamnesysForm>({
+const createDefaultAnamnesysForm = () => ({
   jenis_kelamin: "",
   usia: "",
   keluhan_utama_dan_onset: "",
@@ -324,6 +324,8 @@ const formAnamnesys = ref<AnamnesysForm>({
   riwayat_penyakit_dahulu: [],
   riwayat_penyakit_keluarga: [],
 });
+
+const formAnamnesys = ref<AnamnesysForm>(createDefaultAnamnesysForm());
 const imageUrl = ref("");
 const filePath = ref("");
 const isLoading = ref(false);
@@ -417,6 +419,8 @@ const handleSubmit = async () => {
       classname: data.result,
       confidence: data.percentage,
     };
+
+    formAnamnesys.value = createDefaultAnamnesysForm()
 
     // showResult.value = true;
     showModal.value = true;
