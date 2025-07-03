@@ -7,12 +7,14 @@ import uuid
 from PIL import Image
 from io import BytesIO
 import logging
-
+from pillow_heif import register_heif_opener
 from utils import Predictor
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+register_heif_opener()
 
 predictor = Predictor()
 app = FastAPI()
@@ -38,6 +40,69 @@ class Answer(BaseModel):
 UPLOAD_DIR = "public"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 app.mount("/public", StaticFiles(directory=UPLOAD_DIR), name="public")
+
+def convert_heic_to_jpeg(image_bytes):
+    """Convert HEIC image bytes to JPEG format"""    
+    try:
+        # Method 1: Using pillow-heif (recommended)
+        try:
+            image = Image.open(BytesIO(image_bytes))
+            # Convert to RGB if not already
+            if image.mode != 'RGB':
+                image = image.convert('RGB')
+            
+            # Save as JPEG
+            jpeg_buffer = BytesIO()
+            image.save(jpeg_buffer, format='JPEG', quality=95)
+            jpeg_buffer.seek(0)
+            return jpeg_buffer.getvalue()
+            
+        except Exception as e:
+            logger.warning(f"pillow-heif failed, trying pyheif: {e}")
+            
+            # Method 2: Using pyheif (fallback)
+            import pyheif
+            heif_file = pyheif.read_heif(image_bytes)
+            image = Image.frombytes(
+                heif_file.mode,
+                heif_file.size,
+                heif_file.data,
+                "raw",
+                heif_file.mode,
+                heif_file.stride,
+            )
+            
+            # Convert to RGB if not already
+            if image.mode != 'RGB':
+                image = image.convert('RGB')
+            
+            # Save as JPEG
+            jpeg_buffer = BytesIO()
+            image.save(jpeg_buffer, format='JPEG', quality=95)
+            jpeg_buffer.seek(0)
+            return jpeg_buffer.getvalue()
+            
+    except Exception as e:
+        logger.error(f"HEIC conversion failed: {e}")
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Failed to convert HEIC image: {str(e)}"
+        )
+
+
+def is_heic_file(filename, content_type):
+    """Check if the file is a HEIC file"""
+    if not filename:
+        return False
+    
+    filename_lower = filename.lower()
+    heic_extensions = ['.heic', '.heif']
+    heic_mimetypes = ['image/heic', 'image/heif']
+    
+    return (
+        any(filename_lower.endswith(ext) for ext in heic_extensions) or
+        content_type in heic_mimetypes
+    )
 
 
 @app.get("/")
@@ -83,34 +148,43 @@ async def upload_image(file: UploadFile = File(...)):
             f"Received file upload: {file.filename}, content_type: {file.content_type}"
         )
 
-        # Basic MIME type check
-        if not file.content_type or not file.content_type.startswith("image/"):
-            logger.error(f"Invalid content type: {file.content_type}")
-            raise HTTPException(status_code=400, detail="Only image files are allowed.")
-
         # Read file bytes into memory
         contents = await file.read()
         logger.info(f"File size: {len(contents)} bytes")
 
-        # Validate file is an image using Pillow
-        try:
-            # Reset file position for validation
-            image_buffer = BytesIO(contents)
-            image = Image.open(image_buffer)
-            image.verify()  # Verify will raise exception if not an image
-            logger.info(f"Image validation successful: {image.format}")
-        except Exception as e:
-            logger.error(f"Image validation failed: {e}")
-            raise HTTPException(
-                status_code=400, detail="Uploaded file is not a valid image."
-            )
-
-        # Generate unique filename with original extension
-        if file.filename:
-            file_extension = os.path.splitext(file.filename)[1]
+        # Check if it's a HEIC file
+        is_heic = is_heic_file(file.filename, file.content_type)
+        
+        if is_heic:
+            logger.info("HEIC file detected, converting to JPEG")
+            # Convert HEIC to JPEG
+            contents = convert_heic_to_jpeg(contents)
+            file_extension = ".jpg"  # Always save as JPEG after conversion
         else:
-            file_extension = ".jpg"  # default extension
+            # Basic MIME type check for non-HEIC files
+            if not file.content_type or not file.content_type.startswith("image/"):
+                logger.error(f"Invalid content type: {file.content_type}")
+                raise HTTPException(status_code=400, detail="Only image files are allowed.")
 
+            # Validate file is an image using Pillow
+            try:
+                image_buffer = BytesIO(contents)
+                image = Image.open(image_buffer)
+                image.verify()  # Verify will raise exception if not an image
+                logger.info(f"Image validation successful: {image.format}")
+            except Exception as e:
+                logger.error(f"Image validation failed: {e}")
+                raise HTTPException(
+                    status_code=400, detail="Uploaded file is not a valid image."
+                )
+
+            # Get original file extension
+            if file.filename:
+                file_extension = os.path.splitext(file.filename)[1]
+            else:
+                file_extension = ".jpg"  # default extension
+
+        # Generate unique filename
         unique_filename = f"{uuid.uuid4().hex}{file_extension}"
         file_path = os.path.join(UPLOAD_DIR, unique_filename)
 
@@ -123,6 +197,7 @@ async def upload_image(file: UploadFile = File(...)):
             "filename": unique_filename,
             "url": f"public/{unique_filename}",
             "file_path": file_path,
+            "converted_from_heic": is_heic
         }
 
         logger.info(f"File upload successful: {response}")

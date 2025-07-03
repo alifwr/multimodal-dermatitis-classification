@@ -49,3 +49,4 @@ class Predictor:
     def ensemble_forward(self, model1_preds, model2_preds):
         ensemble_preds = (model1_preds + model2_preds) / 2
         return ensemble_preds
+
