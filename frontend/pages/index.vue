@@ -325,7 +325,21 @@ const createDefaultAnamnesysForm = () => ({
   riwayat_penyakit_keluarga: [],
 });
 
-const formAnamnesys = ref<AnamnesysForm>(createDefaultAnamnesysForm());
+const formAnamnesys = ref<AnamnesysForm>({
+  jenis_kelamin: "",
+  usia: "",
+  keluhan_utama_dan_onset: "",
+  riwayat_kontak_dengan_bahan_alergen_atau_iritan: "",
+  sumber_infeksi_lainnya: "",
+  faktor_pencetus_penyakit_sekarang: "",
+  lama_sakit: "",
+  lokasi_lesi: "",
+  sumber_infeksi: [],
+  kriteria_mayor: [],
+  kriteria_minor: [],
+  riwayat_penyakit_dahulu: [],
+  riwayat_penyakit_keluarga: [],
+});
 const imageUrl = ref("");
 const filePath = ref("");
 const isLoading = ref(false);
@@ -428,7 +442,21 @@ const handleSubmit = async () => {
       confidence: data.percentage,
     };
 
-    formAnamnesys.value = createDefaultAnamnesysForm()
+    formAnamnesys.value = {
+      jenis_kelamin: "",
+      usia: "",
+      keluhan_utama_dan_onset: "",
+      riwayat_kontak_dengan_bahan_alergen_atau_iritan: "",
+      sumber_infeksi_lainnya: "",
+      faktor_pencetus_penyakit_sekarang: "",
+      lama_sakit: "",
+      lokasi_lesi: "",
+      sumber_infeksi: [],
+      kriteria_mayor: [],
+      kriteria_minor: [],
+      riwayat_penyakit_dahulu: [],
+      riwayat_penyakit_keluarga: [],
+    };
 
     // showResult.value = true;
     showModal.value = true;
