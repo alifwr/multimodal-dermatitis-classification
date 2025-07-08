@@ -9,6 +9,7 @@ from io import BytesIO
 import logging
 from pillow_heif import register_heif_opener
 from utils import Predictor
+from cams import SmoothGradCAMpp
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -209,3 +210,34 @@ async def upload_image(file: UploadFile = File(...)):
     except Exception as e:
         logger.error(f"Unexpected error during file upload: {e}")
         raise HTTPException(status_code=500, detail=f"File upload failed: {str(e)}")
+
+@app.post("/xai")
+async def generate_xai(text: str, image_path: str):
+    if not os.path.exists(image_path):
+        raise HTTPException(status_code=404, detail="Image not found.")
+    
+    img = Image.open(image_path).convert("RGB")
+    input_tensor = predictor.transform(img).unsqueeze(0).to(predictor.device)
+
+    predictor.image_model.eval()
+    with torch.no_grad():
+        cam = SmoothGradCAMpp(predictor.image_model, predictor.image_target_layer)
+        heatmap, pred_idx = cam(input_tensor)
+
+    heatmap_np = heatmap.squeeze().cpu().numpy()
+    heatmap_np = np.clip(heatmap_np, 0, 1)
+    heatmap_np = cv2.resize(heatmap_np, img.size)
+    heatmap_color = cv2.applyColorMap(np.uint8(255 * heatmap_np), cv2.COLORMAP_JET)
+
+    img_np = np.array(img)
+    overlay = cv2.addWeighted(img_np, 0.6, heatmap_color, 0.4, 0)
+
+    _, buffer = cv2.imencode('.jpg', overlay)
+    xai_bytes = buffer.tobytes()
+    xai_base64 = base64.b64encode(xai_bytes).decode()
+
+    return {
+        "predicted_class": int(pred_idx),
+        "heatmap_base64": xai_base64
+    }
+
