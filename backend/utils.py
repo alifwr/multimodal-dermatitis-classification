@@ -29,7 +29,7 @@ class Predictor:
         )
         self.tokenizer = MPNetTokenizer.from_pretrained("microsoft/mpnet-base")
         self.device = device
-        self.class_names = ["DA", "Non-DA"]
+        self.class_names = ["DA", "Bukan DA"]
 
     def predict(self, text, image):
         with torch.no_grad():
