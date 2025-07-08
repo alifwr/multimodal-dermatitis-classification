@@ -184,3 +184,6 @@ class SkinImageModel(nn.Module):
     def forward(self, x):
         x = self.model(x)
         return x
+    
+    def get_target_layer(self):
+        return self.model.layer4[-1]  # return the last layer of the ResNet model

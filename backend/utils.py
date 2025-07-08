@@ -20,6 +20,7 @@ class Predictor:
         )
         self.text_model = AnamnesysModel(num_classes=2).to(device)
         self.image_model = SkinImageModel(num_classes=2).to(device)
+        self.image_target_layer = self.image_model.get_target_layer()
         self.text_model.load_state_dict(
             torch.load("model/AnamnesysModel.pth", map_location=device)
         )
