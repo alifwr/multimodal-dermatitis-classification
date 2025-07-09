@@ -122,10 +122,10 @@ async def predict(content: MultimodalInput):
 
     image = Image.open(image_path).convert("RGB")
 
-    result, percentage = predictor.predict(message, image)
+    result, percentages = predictor.predict(message, image)
     print(result)
 
-    return {"result": result, "percentage": percentage}
+    return {"result": result, "percentage_image": percentages[0], "percentage_text": percentages[1]}
 
 
 @app.post("/predict2")
