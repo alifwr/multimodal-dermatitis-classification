@@ -287,7 +287,9 @@
         </p>
         <p class="text-xl">
           Model AI menghasilkan jawaban tersebut dengan nilai persentase
-          <strong>{{ (result?.confidence).toFixed(2) }} %</strong>
+          <strong>{{ (result?.confidence).toFixed(2) }} %</strong><br>
+          With confidence level of image input is <strong>{{ (result?.image_confidence).toFixed(2) }} % </strong>
+          and the confidence level of text input is <strong>{{ (result?.text_confidence).toFixed(2) }} % </strong>
         </p>
       </div>
     </div>
@@ -347,7 +349,7 @@ const isStarted = ref(false);
 const error = ref(null);
 const showResult = ref(false);
 const showModal = ref(false);
-const result = ref<{ classname: string; confidence: number } | null>();
+const result = ref<{ classname: string; image_confidence: string; text_confidence: string; confidence: number } | null>();
 
 const isFormFilled = computed((): boolean => {
   // Define string fields
@@ -439,7 +441,9 @@ const handleSubmit = async () => {
     // Assuming the response has { classname: string, confidence: number }
     result.value = {
       classname: data.result,
-      confidence: data.percentage,
+      image_confidence: data.percentage_image,
+      text_confidence: data.percentage_text,
+      confidence: (data.percentage_image + data.percentage_text)/2,
     };
 
     formAnamnesys.value = {
