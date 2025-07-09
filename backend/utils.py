@@ -39,12 +39,13 @@ class Predictor:
             image_output = self.image_model(image)
             output = self.ensemble_forward(text_output, image_output)
         
-        probabilities = F.softmax(output, dim=1)
-        confidence, predicted_idx = torch.max(probabilities, dim=1)
+        image_confidence, _ = torch.max(F.softmax(image_output, dim=1))
+        text_confidence, _ = torch.max(F.softmax(text_output, dim=1))
+        confidence, predicted_idx = torch.max(F.softmax(output, dim=1), dim=1)
         predicted_class = self.class_names[predicted_idx.item()]
-        confidence_percent = confidence.item() * 100
+        # confidence_percent = confidence.item() * 100
         
-        return predicted_class, (image_output.item() * 100, text_output.item() * 100)
+        return predicted_class, (image_confidence.item() * 100, text_confidence.item() * 100)
 
         # return predicted_class, confidence_percent
 
