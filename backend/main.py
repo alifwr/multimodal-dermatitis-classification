@@ -4,12 +4,28 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import os
 import uuid
+import base64
+import numpy as np
+import cv2
+import torch
+import httpx
+from fastapi.responses import JSONResponse
+from fastapi import Request
+from fastapi import Response
+from torchvision import transforms
+from torchvision.transforms import functional as F
 from PIL import Image
 from io import BytesIO
+from dotenv import load_dotenv
 import logging
 from pillow_heif import register_heif_opener
 from utils import Predictor
 from cams import SmoothGradCAMpp
+
+load_dotenv()
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_API_URL = os.getenv("GROQ_API_URL")
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -41,6 +57,61 @@ class Answer(BaseModel):
 UPLOAD_DIR = "public"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 app.mount("/public", StaticFiles(directory=UPLOAD_DIR), name="public")
+
+async def check_human_skin(image_path: str):
+    """ Check if an image contains human skin using Groq's vision model
+    Returns True if human skin is detected, False otherwise.
+    """
+    try:
+        with open(image_path, "rb") as image_file:
+            image_data = base64.b64encode(image_file.read()).decode('utf-8')
+        
+        payload = {
+            "model": "meta-llama/llama-4-scout-17b-16e-instruct",  
+            "messages": [{
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": "Analyze this image and determine if it contains human skin. Respond with only 'yes' if human skin is visible, or 'no' if no human skin is present."
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{image_data}"
+                        }
+                    }
+                ]
+            }],
+            "max_completion_tokens": 1024,
+            "temperature": 0
+        }
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {GROQ_API_KEY}"
+        }
+
+        async with httpx.AsyncClient(timeout=30) as client:
+            response = await client.post(GROQ_API_URL, json=payload, headers=headers)
+        
+        if response.status_code == 200:
+            result = response.json()
+            content = result["choices"][0]["message"]["content"].strip().lower()
+            logger.info(f"Groq skin detection result: {content}")
+            return content == "yes"
+        else:
+            logger.error(f"Groq API error: {response.status_code} - {response.text}")
+            raise HTTPException(
+                status_code=503, 
+                detail="Skin detection service temporarily unavailable. Please try again later."
+            )
+    except Exception as e:
+        logger.error(f"Error checking human skin: {e}")
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Failed to check human skin in image: {str(e)}"
+        )
 
 def convert_heic_to_jpeg(image_bytes):
     """Convert HEIC image bytes to JPEG format"""    
@@ -119,6 +190,14 @@ async def predict(content: MultimodalInput):
     # Check if image exists
     if not os.path.exists(image_path):
         raise HTTPException(status_code=404, detail="Image not found.")
+    
+    # Check for human skin using Groq
+    has_human_skin = await check_human_skin(image_path)
+    if not has_human_skin:
+        raise HTTPException(
+            status_code=400, 
+            detail="Invalid image: No human skin detected. Please upload a valid image containing human skin."
+        )
 
     image = Image.open(image_path).convert("RGB")
 
@@ -133,6 +212,14 @@ async def predict2(text: str, image_path: str):
     # Check if image exists
     if not os.path.exists(image_path):
         raise HTTPException(status_code=404, detail="Image not found.")
+    
+    # Check for human skin using Groq
+    has_human_skin = await check_human_skin(image_path)
+    if not has_human_skin:
+        raise HTTPException(
+            status_code=400, 
+            detail="Invalid image: No human skin detected. Please upload a valid image containing human skin."
+        )
 
     image = Image.open(image_path).convert("RGB")
 
