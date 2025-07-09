@@ -3,25 +3,25 @@ export const SAMPLES = [
         id: 1,
         image: "/samples/69_NonDA_Pso_AIP_K1_tungkai-kanan.jpeg",
         description: "Perempuan berusia 24 tahun, datang untuk kontrol pasca foto terapi, saat ini keluhan bercak merah terasa gatal di area paha dan perut. Keluhan pertama kali muncul berupa bercak kemerahan yang gatal di badan sejak usia 18 tahun (5 tahun yang lalu(> 4minggu)). Faktor pencetus tidak diketahui. Riwayat keluhan serupa pada keluarga disangkal.",
-        class: "Non-DA"
+        class: "Bukan DA"
     },
     {
         id: 2,
         image: "/samples/738_NonDA_DN_YKL_K2_punggung-kaki-kiri.jpeg",
         description: "Laki-laki berusia 21 tahun datang untuk kontrol 1 minggu dengan keluhan gatal pada punggung kaki kiri sudah berkurang. Keluhan pertama kali muncul bercak yang gatal pada tungkai dan punggung kaki kiri sejak 1 bulan yang lalu (> 4minggu). Saat ini pasien memiliki riwayat infeksi gigi dan gusi (gingivitis, cheilitis). Riwayat alergi makanan dan asma bronkiale diakui pasien. Riwayat keluhan serupa pada pasien dan asma bronkiale pada keluarga diakui.",
-        class: "Non-DA"
+        class: "Bukan DA"
     },
     {
         id: 3,
         image: "/samples/787_NonDA_DK_JP_K1_telapak-tangan-kiri.jpeg",
         description: "Perempuan usia 41 tahun, datang dengan bercak merah disertai kulit yang kering dan pecah-pecah pada tangan yang memberat sejak 4 bulan terakhir (> 4minggu). Keluhan timbul bila pasien memakai sarung tangan latex, sabun cuci piring cair, detergen cair. Pasien memiliki alergi makanan dan hipertensi. Riwayat alergi dan penyakit serupa pada keluarga disangkal.",
-        class: "Non-DA"
+        class: "Bukan DA"
     },
     {
         id: 4,
         image: "/samples/809_NonDA_LSK_ML2_lutut-kanan.jpeg",
         description: "Laki-laki usia 46 tahun datang dengan keluhan bercak gelap tebal bersisik di kedua lipat lutut dan kedua kaki sejak 4 tahun lalu (> 4minggu). Keluhan awal berupa gatal yang digaruk hingga menebal. Riwayat serupa pada keluarga disangkal.",
-        class: "Non-DA"
+        class: "Bukan DA"
     },
     {
         id: 5,

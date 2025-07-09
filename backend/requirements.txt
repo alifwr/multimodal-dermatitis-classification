@@ -9,3 +9,6 @@ torchvision
 pillow
 pillow-heif
 timm
+groq
+httpx
+opencv-python-headless
