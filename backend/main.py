@@ -279,6 +279,14 @@ async def upload_image(file: UploadFile = File(...)):
         # Write bytes to file
         with open(file_path, "wb") as buffer:
             buffer.write(contents)
+            
+        # Check for human skin using Groq
+        has_human_skin = await check_human_skin(file_path)
+        if not has_human_skin:
+            raise HTTPException(
+                status_code=400, 
+                detail="Invalid image: No human skin detected. Please upload a valid image containing human skin."
+            )
 
         # Return filename and path
         response = {
