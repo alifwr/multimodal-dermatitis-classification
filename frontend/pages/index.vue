@@ -136,6 +136,7 @@
               class="w-full max-w-sm cursor-pointer rounded-lg border border-gray-300 p-3 text-gray-700 bg-white shadow-sm hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm md:text-base"
               @change="onImageChange"
           />
+          <span v-if="isImageErr" class="text-red-600 md:text-lg font-alegreya">Gambar yang Anda upload bukan gambar lesi kulit!!</span>
           <div v-if="imageUrl" class="preview mb-8 mt-10 px-4">
             <img :src="imageUrl" class="max-h-[250px] md:max-h-[300px] w-auto" alt="Image preview" />
           </div>
@@ -342,6 +343,7 @@ const formAnamnesys = ref<AnamnesysForm>({
   riwayat_penyakit_dahulu: [],
   riwayat_penyakit_keluarga: [],
 });
+const isImageErr = ref(false);
 const imageUrl = ref("");
 const filePath = ref("");
 const isLoading = ref(false);
@@ -494,7 +496,7 @@ const onImageChange = async (event: any) => {
     });
 
     if (!res.ok) {
-
+      isImageErr.value = true;
       const err = await res.json();
       console.log(err)
       throw new Error(err?.message || "Upload failed");
