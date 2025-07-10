@@ -494,7 +494,9 @@ const onImageChange = async (event: any) => {
     });
 
     if (!res.ok) {
+
       const err = await res.json();
+      console.log(err)
       throw new Error(err?.message || "Upload failed");
     }
 
