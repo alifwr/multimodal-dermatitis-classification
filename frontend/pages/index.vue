@@ -502,6 +502,7 @@ const onImageChange = async (event: any) => {
       throw new Error(err?.message || "Upload failed");
     }
 
+    isImageErr.value = false;
     const data = await res.json();
     console.log(data);
     imageUrl.value = `${backendUrl}/${data.url}`;
