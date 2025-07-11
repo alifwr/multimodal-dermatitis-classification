@@ -11,8 +11,6 @@ services:
       - 3000:3000
     networks:
       - dermatitis_network
-    volumes:
-      - ./uploads:/app/public
 
   dermatitis_backend:
     build: ./backend
@@ -22,8 +20,6 @@ services:
       - 8081:8000
     networks:
       - dermatitis_network
-    volumes:
-      - ./uploads:/app/public
 
 networks:
   dermatitis_network:

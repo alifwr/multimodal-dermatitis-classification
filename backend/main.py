@@ -201,10 +201,10 @@ async def predict(content: MultimodalInput):
 
     image = Image.open(image_path).convert("RGB")
 
-    result, percentage = predictor.predict(message, image)
+    result, percentages = predictor.predict(message, image)
     print(result)
 
-    return {"result": result, "percentage": percentage}
+    return {"result": result, "percentage_image": percentages[0], "percentage_text": percentages[1]}
 
 
 @app.post("/predict2")
@@ -279,6 +279,14 @@ async def upload_image(file: UploadFile = File(...)):
         # Write bytes to file
         with open(file_path, "wb") as buffer:
             buffer.write(contents)
+            
+        # Check for human skin using Groq
+        has_human_skin = await check_human_skin(file_path)
+        if not has_human_skin:
+            raise HTTPException(
+                status_code=400, 
+                detail="Invalid image: No human skin detected. Please upload a valid image containing human skin."
+            )
 
         # Return filename and path
         response = {

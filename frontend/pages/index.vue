@@ -136,6 +136,7 @@
               class="w-full max-w-sm cursor-pointer rounded-lg border border-gray-300 p-3 text-gray-700 bg-white shadow-sm hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm md:text-base"
               @change="onImageChange"
           />
+          <span v-if="isImageErr" class="text-red-600 md:text-lg font-alegreya">Gambar yang Anda upload bukan gambar lesi kulit!!</span>
           <div v-if="imageUrl" class="preview mb-8 mt-10 px-4">
             <img :src="imageUrl" class="max-h-[250px] md:max-h-[300px] w-auto" alt="Image preview" />
           </div>
@@ -287,7 +288,9 @@
         </p>
         <p class="text-xl">
           Model AI menghasilkan jawaban tersebut dengan nilai persentase
-          <strong>{{ (result?.confidence).toFixed(2) }} %</strong>
+          <strong>{{ (result?.confidence).toFixed(2) }} %</strong><br>
+          With confidence level of image input is <strong>{{ (result?.image_confidence).toFixed(2) }} % </strong>
+          and the confidence level of text input is <strong>{{ (result?.text_confidence).toFixed(2) }} % </strong>
         </p>
       </div>
     </div>
@@ -340,6 +343,7 @@ const formAnamnesys = ref<AnamnesysForm>({
   riwayat_penyakit_dahulu: [],
   riwayat_penyakit_keluarga: [],
 });
+const isImageErr = ref(false);
 const imageUrl = ref("");
 const filePath = ref("");
 const isLoading = ref(false);
@@ -347,7 +351,7 @@ const isStarted = ref(false);
 const error = ref(null);
 const showResult = ref(false);
 const showModal = ref(false);
-const result = ref<{ classname: string; confidence: number } | null>();
+const result = ref<{ classname: string; image_confidence: string; text_confidence: string; confidence: number } | null>();
 
 const isFormFilled = computed((): boolean => {
   // Define string fields
@@ -439,7 +443,9 @@ const handleSubmit = async () => {
     // Assuming the response has { classname: string, confidence: number }
     result.value = {
       classname: data.result,
-      confidence: data.percentage,
+      image_confidence: data.percentage_image,
+      text_confidence: data.percentage_text,
+      confidence: (data.percentage_image + data.percentage_text)/2,
     };
 
     formAnamnesys.value = {
@@ -490,10 +496,13 @@ const onImageChange = async (event: any) => {
     });
 
     if (!res.ok) {
+      isImageErr.value = true;
       const err = await res.json();
+      console.log(err)
       throw new Error(err?.message || "Upload failed");
     }
 
+    isImageErr.value = false;
     const data = await res.json();
     console.log(data);
     imageUrl.value = `${backendUrl}/${data.url}`;

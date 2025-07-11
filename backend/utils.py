@@ -34,18 +34,20 @@ class Predictor:
     def predict(self, text, image):
         with torch.no_grad():
             text_tokens = self.tokenizer(text, return_tensors="pt").to(self.device)
-            print(image)
             image = self.transform(image).unsqueeze(0).to(self.device)
             text_output = self.text_model(**text_tokens)
             image_output = self.image_model(image)
             output = self.ensemble_forward(text_output, image_output)
-
-        probabilities = F.softmax(output, dim=1)
-        confidence, predicted_idx = torch.max(probabilities, dim=1)
+        
+        image_confidence, _ = torch.max(F.softmax(image_output, dim=1), dim=1)
+        text_confidence, _ = torch.max(F.softmax(text_output, dim=1), dim=1)
+        confidence, predicted_idx = torch.max(F.softmax(output, dim=1), dim=1)
         predicted_class = self.class_names[predicted_idx.item()]
-        confidence_percent = confidence.item() * 100
+        # confidence_percent = confidence.item() * 100
+        
+        return predicted_class, (image_confidence.item() * 100, text_confidence.item() * 100)
 
-        return predicted_class, confidence_percent
+        # return predicted_class, confidence_percent
 
     def ensemble_forward(self, model1_preds, model2_preds):
         ensemble_preds = (model1_preds + model2_preds) / 2
