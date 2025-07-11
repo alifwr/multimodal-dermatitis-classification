@@ -307,9 +307,8 @@ async def generate_xai(text: str, image_path: str):
     input_tensor = predictor.transform(img).unsqueeze(0).to(predictor.device)
 
     predictor.image_model.eval()
-    with torch.no_grad():
-        cam = SmoothGradCAMpp(predictor.image_model, predictor.image_target_layer)
-        heatmap, pred_idx = cam(input_tensor)
+    cam = SmoothGradCAMpp(predictor.image_model, predictor.image_target_layer)
+    heatmap, pred_idx = cam(input_tensor)
 
     heatmap_np = heatmap.squeeze().cpu().numpy()
     heatmap_np = np.clip(heatmap_np, 0, 1)
