@@ -292,6 +292,12 @@
           With confidence level of image input is <strong>{{ (result?.image_confidence).toFixed(2) }} % </strong>
           and the confidence level of text input is <strong>{{ (result?.text_confidence).toFixed(2) }} % </strong>
         </p>
+
+        <p class="text-3xl font-semibold">Hasil XAI dari gambar sebagai berikut:</p>
+
+        <div v-if="xaiImageUrl" class="preview mb-8 mt-10 px-4">
+          <img :src="xaiImageUrl" class="max-h-[250px] md:max-h-[300px] w-auto" alt="Image preview" />
+        </div>
       </div>
     </div>
   </transition>
@@ -331,6 +337,7 @@ const createDefaultAnamnesysForm = () => ({
 const formAnamnesys = ref<AnamnesysForm>(createDefaultAnamnesysForm());
 const isImageErr = ref(false);
 const imageUrl = ref("");
+const xaiImageUrl = ref("");
 const filePath = ref("");
 const isLoading = ref(false);
 const isStarted = ref(false);
@@ -432,6 +439,7 @@ const handleSubmit = async () => {
       text_confidence: data.percentage_text,
       confidence: (data.percentage_image + data.percentage_text)/2,
     };
+    xaiImageUrl.value = data.image_xai;
 
     await nextTick();
     formAnamnesys.value = createDefaultAnamnesysForm();
