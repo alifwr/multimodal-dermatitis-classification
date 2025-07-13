@@ -416,6 +416,7 @@ const createSummary = (form: typeof formAnamnesys.value): string => {
 };
 
 const handleSubmit = async () => {
+  const backendUrl = "https://dermatutus.alif.top";
   try {
     isLoading.value = true;
     // const externalUrl = `${runtimeConfig.public.backendUrl}/predict2?text=${createSummary(formAnamnesys.value)}&image_path=${file_path.value}`;
@@ -439,7 +440,7 @@ const handleSubmit = async () => {
       text_confidence: data.percentage_text,
       confidence: (data.percentage_image + data.percentage_text)/2,
     };
-    xaiImageUrl.value = data.image_xai;
+    xaiImageUrl.value = `${backendUrl}/${data.image_xai}`;
 
     await nextTick();
     formAnamnesys.value = createDefaultAnamnesysForm();
