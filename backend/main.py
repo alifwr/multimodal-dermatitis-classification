@@ -112,7 +112,7 @@ async def check_human_skin(image_path: str):
             status_code=500, 
             detail=f"Failed to check human skin in image: {str(e)}"
         )
-
+        
 def convert_heic_to_jpeg(image_bytes):
     """Convert HEIC image bytes to JPEG format"""    
     try:
@@ -190,21 +190,13 @@ async def predict(content: MultimodalInput):
     # Check if image exists
     if not os.path.exists(image_path):
         raise HTTPException(status_code=404, detail="Image not found.")
-    
-    # Check for human skin using Groq
-    has_human_skin = await check_human_skin(image_path)
-    if not has_human_skin:
-        raise HTTPException(
-            status_code=400, 
-            detail="Invalid image: No human skin detected. Please upload a valid image containing human skin."
-        )
 
     image = Image.open(image_path).convert("RGB")
 
-    result, percentages = predictor.predict(message, image)
+    result, percentages, image_xai = predictor.predict(message, image)
     print(result)
 
-    return {"result": result, "percentage_image": percentages[0], "percentage_text": percentages[1]}
+    return {"result": result, "percentage_image": percentages[0], "percentage_text": percentages[1], "image_xai": image_xai}
 
 
 @app.post("/predict2")
