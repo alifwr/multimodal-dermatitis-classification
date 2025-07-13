@@ -7,13 +7,8 @@ import uuid
 import base64
 import numpy as np
 import cv2
-import torch
 import httpx
-from fastapi.responses import JSONResponse
-from fastapi import Request
-from fastapi import Response
-from torchvision import transforms
-from torchvision.transforms import functional as F
+from fastapi.responses import JSONResponse, Response
 from PIL import Image
 from io import BytesIO
 from dotenv import load_dotenv
@@ -196,7 +191,12 @@ async def predict(content: MultimodalInput):
     result, percentages, image_xai = predictor.predict(message, image)
     print(result)
 
-    return {"result": result, "percentage_image": percentages[0], "percentage_text": percentages[1], "image_xai": image_xai}
+    return Response({
+        "result": result, 
+        "percentage_image": percentages[0], 
+        "percentage_text": percentages[1], 
+        "image_xai": image_xai
+    })
 
 
 @app.post("/predict2")

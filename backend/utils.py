@@ -48,7 +48,7 @@ class Predictor:
         heatmap_np = np.clip(heatmap_np, 0, 1)
         heatmap_np = cv2.resize(heatmap_np, image.size)
         heatmap_color = cv2.applyColorMap(np.uint8(255 * heatmap_np), cv2.COLORMAP_JET)
-        img_np = np.array(input_tensor)
+        img_np = np.array(image)
         overlay = cv2.addWeighted(img_np, 0.6, heatmap_color, 0.4, 0)
         _, buffer = cv2.imencode('.jpg', overlay)
         xai_bytes = buffer.tobytes()
