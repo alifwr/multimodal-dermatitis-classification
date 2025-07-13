@@ -202,7 +202,7 @@ async def predict(content: MultimodalInput):
         "result": result, 
         "percentage_image": percentages[0], 
         "percentage_text": percentages[1], 
-        "image_xai": unique_filename
+        "image_xai": file_path
     }
 
 
