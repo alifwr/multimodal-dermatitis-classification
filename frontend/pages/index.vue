@@ -440,7 +440,8 @@ const handleSubmit = async () => {
       text_confidence: data.percentage_text,
       confidence: (data.percentage_image + data.percentage_text)/2,
     };
-    xaiImageUrl.value = `${backendUrl}/${data.image_xai}`;
+    xaiImageUrl.value = `${runtimeConfig.public.backendUrl}/${data.image_xai}`;
+    console.log(xaiImageUrl.value);
 
     await nextTick();
     formAnamnesys.value = createDefaultAnamnesysForm();
