@@ -38,25 +38,25 @@ class Predictor:
         self.class_names = ["DA", "Bukan DA"]
 
     def predict(self, text, image):
-        with torch.no_grad():
-            text_tokens = self.tokenizer(text, return_tensors="pt").to(self.device)
-            input_tensor = self.transform(image).unsqueeze(0).to(self.device)
-            
-            cam = SmoothGradCAMpp(self.image_model, self.image_target_layer)
-            heatmap, pred_idx = cam(input_tensor)
-            heatmap_np = heatmap.squeeze().cpu().numpy()
-            heatmap_np = np.clip(heatmap_np, 0, 1)
-            heatmap_np = cv2.resize(heatmap_np, image.size)
-            heatmap_color = cv2.applyColorMap(np.uint8(255 * heatmap_np), cv2.COLORMAP_JET)
-            img_np = np.array(input_tensor)
-            overlay = cv2.addWeighted(img_np, 0.6, heatmap_color, 0.4, 0)
-            _, buffer = cv2.imencode('.jpg', overlay)
-            xai_bytes = buffer.tobytes()
-            xai_base64 = base64.b64encode(xai_bytes).decode()
-            
-            text_output = self.text_model(**text_tokens)
-            image_output = self.image_model(input_tensor)
-            output = self.ensemble_forward(text_output, image_output)
+        # with torch.no_grad():
+        text_tokens = self.tokenizer(text, return_tensors="pt").to(self.device)
+        input_tensor = self.transform(image).unsqueeze(0).to(self.device)
+        
+        cam = SmoothGradCAMpp(self.image_model, self.image_target_layer)
+        heatmap, pred_idx = cam(input_tensor)
+        heatmap_np = heatmap.squeeze().cpu().numpy()
+        heatmap_np = np.clip(heatmap_np, 0, 1)
+        heatmap_np = cv2.resize(heatmap_np, image.size)
+        heatmap_color = cv2.applyColorMap(np.uint8(255 * heatmap_np), cv2.COLORMAP_JET)
+        img_np = np.array(input_tensor)
+        overlay = cv2.addWeighted(img_np, 0.6, heatmap_color, 0.4, 0)
+        _, buffer = cv2.imencode('.jpg', overlay)
+        xai_bytes = buffer.tobytes()
+        xai_base64 = base64.b64encode(xai_bytes).decode()
+        
+        text_output = self.text_model(**text_tokens)
+        image_output = self.image_model(input_tensor)
+        output = self.ensemble_forward(text_output, image_output)
         
         image_confidence, _ = torch.max(F.softmax(image_output, dim=1), dim=1)
         text_confidence, _ = torch.max(F.softmax(text_output, dim=1), dim=1)
