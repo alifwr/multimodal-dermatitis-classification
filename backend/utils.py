@@ -52,7 +52,7 @@ class Predictor:
         overlay = cv2.addWeighted(img_np, 0.6, heatmap_color, 0.4, 0)
         _, buffer = cv2.imencode('.jpg', overlay)
         xai_bytes = buffer.tobytes()
-        xai_base64 = base64.b64encode(xai_bytes).decode()
+        # xai_base64 = base64.b64encode(xai_bytes).decode()
         
         text_output = self.text_model(**text_tokens)
         image_output = self.image_model(input_tensor)
@@ -64,7 +64,7 @@ class Predictor:
         predicted_class = self.class_names[predicted_idx.item()]
         # confidence_percent = confidence.item() * 100
         
-        return predicted_class, (image_confidence.item() * 100, text_confidence.item() * 100), xai_base64
+        return predicted_class, (image_confidence.item() * 100, text_confidence.item() * 100), xai_bytes
 
         # return predicted_class, confidence_percent
         
