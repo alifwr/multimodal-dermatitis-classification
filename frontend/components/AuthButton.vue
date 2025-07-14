@@ -2,8 +2,7 @@
   <div>
     <AuthState v-slot="{ loggedIn, user, clear }">
       <!-- Logged in state -->
-      <div v-if="loggedIn" class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 max-w-md w-full shadow-2xl shadow-blue-500/20 hover:shadow-blue-400/30 transition-all duration-500 hover:-translate-y-1">
-
+      <div v-if="loggedIn" class="mb-40 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 max-w-md w-full shadow-2xl shadow-blue-500/20 hover:shadow-blue-400/30 transition-all duration-500 hover:-translate-y-1">
         <!-- User Info Section -->
         <div class="user-info text-center">
 
@@ -94,6 +93,9 @@ const login = () => {
 const loginWithPopup = () => {
   openInPopup('/auth/google')
 }
+
+const isLocal = typeof window !== 'undefined' && window.location.hostname === 'localhost'
+const loginAction = login
 
 const formatTime = (timestamp) => {
   if (!timestamp) return ''
