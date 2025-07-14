@@ -7,13 +7,8 @@ import uuid
 import base64
 import numpy as np
 import cv2
-import torch
 import httpx
-from fastapi.responses import JSONResponse
-from fastapi import Request
-from fastapi import Response
-from torchvision import transforms
-from torchvision.transforms import functional as F
+from fastapi.responses import JSONResponse, Response
 from PIL import Image
 from io import BytesIO
 from dotenv import load_dotenv
@@ -112,7 +107,7 @@ async def check_human_skin(image_path: str):
             status_code=500, 
             detail=f"Failed to check human skin in image: {str(e)}"
         )
-
+        
 def convert_heic_to_jpeg(image_bytes):
     """Convert HEIC image bytes to JPEG format"""    
     try:
@@ -190,43 +185,48 @@ async def predict(content: MultimodalInput):
     # Check if image exists
     if not os.path.exists(image_path):
         raise HTTPException(status_code=404, detail="Image not found.")
-    
-    # Check for human skin using Groq
-    has_human_skin = await check_human_skin(image_path)
-    if not has_human_skin:
-        raise HTTPException(
-            status_code=400, 
-            detail="Invalid image: No human skin detected. Please upload a valid image containing human skin."
-        )
 
     image = Image.open(image_path).convert("RGB")
 
-    result, percentages = predictor.predict(message, image)
-    print(result)
-
-    return {"result": result, "percentage_image": percentages[0], "percentage_text": percentages[1]}
-
-
-@app.post("/predict2")
-async def predict2(text: str, image_path: str):
-    # Check if image exists
-    if not os.path.exists(image_path):
-        raise HTTPException(status_code=404, detail="Image not found.")
+    result, percentages, image_xai = predictor.predict(message, image)
     
-    # Check for human skin using Groq
-    has_human_skin = await check_human_skin(image_path)
-    if not has_human_skin:
-        raise HTTPException(
-            status_code=400, 
-            detail="Invalid image: No human skin detected. Please upload a valid image containing human skin."
-        )
+    # Generate unique filename
+    unique_filename = f"{uuid.uuid4().hex}.png"
+    file_path = os.path.join(UPLOAD_DIR, unique_filename)
 
-    image = Image.open(image_path).convert("RGB")
+    # Write bytes to file
+    with open(file_path, "wb") as buffer:
+        buffer.write(image_xai)
 
-    result, percentage = predictor.predict(text, image)
-    print(result)
+    return {
+        "result": result, 
+        "percentage_image": percentages[0], 
+        "percentage_text": percentages[1], 
+        "image_xai": file_path
+    }
 
-    return {"result": result, "percentage": percentage}
+
+# @app.post("/predict2")
+# async def predict2(text: str, image_path: str):
+#     # Check if image exists
+#     if not os.path.exists(image_path):
+#         raise HTTPException(status_code=404, detail="Image not found.")
+    
+#     # Check for human skin using Groq
+#     has_human_skin = await check_human_skin(image_path)
+#     if not has_human_skin:
+#         raise HTTPException(
+#             status_code=400, 
+#             detail="Invalid image: No human skin detected. Please upload a valid image containing human skin."
+#         )
+
+#     image = Image.open(image_path).convert("RGB")
+
+#     result, percentage = predictor.predict(text, image)
+    
+#     print(result)
+
+#     return {"result": result, "percentage": percentage}
 
 
 @app.post("/upload-image")

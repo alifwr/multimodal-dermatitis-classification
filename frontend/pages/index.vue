@@ -289,9 +289,15 @@
         <p class="text-xl">
           Model AI menghasilkan jawaban tersebut dengan nilai persentase
           <strong>{{ (result?.confidence).toFixed(2) }} %</strong><br>
-          With confidence level of image input is <strong>{{ (result?.image_confidence).toFixed(2) }} % </strong>
-          and the confidence level of text input is <strong>{{ (result?.text_confidence).toFixed(2) }} % </strong>
+          Dengan nilai confidence pada input gambar sebesar <strong>{{ (result?.image_confidence).toFixed(2) }} % </strong>
+          dan nilai confidence pada input text sebesar <strong>{{ (result?.text_confidence).toFixed(2) }} % </strong>
         </p>
+
+        <p class="text-3xl font-semibold mt-10">Hasil XAI dari gambar sebagai berikut:</p>
+
+        <div v-if="xaiImageUrl" class="preview mb-8 px-4">
+          <img :src="xaiImageUrl" class="max-h-[250px] md:max-h-[300px] w-auto" alt="Image preview" />
+        </div>
       </div>
     </div>
   </transition>
@@ -328,23 +334,10 @@ const createDefaultAnamnesysForm = () => ({
   riwayat_penyakit_keluarga: [],
 });
 
-const formAnamnesys = ref<AnamnesysForm>({
-  jenis_kelamin: "",
-  usia: "",
-  keluhan_utama_dan_onset: "",
-  riwayat_kontak_dengan_bahan_alergen_atau_iritan: "",
-  sumber_infeksi_lainnya: "",
-  faktor_pencetus_penyakit_sekarang: "",
-  lama_sakit: "",
-  lokasi_lesi: "",
-  sumber_infeksi: [],
-  kriteria_mayor: [],
-  kriteria_minor: [],
-  riwayat_penyakit_dahulu: [],
-  riwayat_penyakit_keluarga: [],
-});
+const formAnamnesys = ref<AnamnesysForm>(createDefaultAnamnesysForm());
 const isImageErr = ref(false);
 const imageUrl = ref("");
+const xaiImageUrl = ref("");
 const filePath = ref("");
 const isLoading = ref(false);
 const isStarted = ref(false);
@@ -423,6 +416,7 @@ const createSummary = (form: typeof formAnamnesys.value): string => {
 };
 
 const handleSubmit = async () => {
+  const backendUrl = "https://dermatutus.alif.top";
   try {
     isLoading.value = true;
     // const externalUrl = `${runtimeConfig.public.backendUrl}/predict2?text=${createSummary(formAnamnesys.value)}&image_path=${file_path.value}`;
@@ -439,7 +433,6 @@ const handleSubmit = async () => {
     const data = await res.json();
 
     console.log(data)
-
     // Assuming the response has { classname: string, confidence: number }
     result.value = {
       classname: data.result,
@@ -447,22 +440,14 @@ const handleSubmit = async () => {
       text_confidence: data.percentage_text,
       confidence: (data.percentage_image + data.percentage_text)/2,
     };
+    xaiImageUrl.value = `${runtimeConfig.public.backendUrl}/${data.image_xai}`;
+    console.log(xaiImageUrl.value);
 
-    formAnamnesys.value = {
-      jenis_kelamin: "",
-      usia: "",
-      keluhan_utama_dan_onset: "",
-      riwayat_kontak_dengan_bahan_alergen_atau_iritan: "",
-      sumber_infeksi_lainnya: "",
-      faktor_pencetus_penyakit_sekarang: "",
-      lama_sakit: "",
-      lokasi_lesi: "",
-      sumber_infeksi: [],
-      kriteria_mayor: [],
-      kriteria_minor: [],
-      riwayat_penyakit_dahulu: [],
-      riwayat_penyakit_keluarga: [],
-    };
+    await nextTick();
+    formAnamnesys.value = createDefaultAnamnesysForm();
+
+    imageUrl.value = "";
+    filePath.value = "";
 
     // showResult.value = true;
     showModal.value = true;
