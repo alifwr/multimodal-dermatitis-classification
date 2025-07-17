@@ -119,13 +119,10 @@
 
           <div class="flex flex-col items-center justify-center mt-8 md:mt-16 px-4">
             <div class="flex flex-col md:flex-row max-w-lg items-center">
-              <NuxtImg class="h-[120px] md:h-[150px] mb-4 md:mb-0" src="/images/lesion_example.png" />
+              <NuxtImg class="h-[120px] md:h-[150px] mb-4 md:mb-0" src="/images/frontend/public/images/211_NonDA_Pso_LCP_lutut copy.jpg"/>
               <div class="flex items-center md:pr-8">
                 <span class="text-lg md:text-xl text-center md:text-left font-alegreya md:pl-6">Contoh pengambilan gambar yang direkomendasikan</span>
               </div>
-            </div>
-            <div class="flex justify-start w-full mt-2 px-4">
-              <p class="text-base md:text-lg font-alegreya">sumber: https://dermnetz.org</p>
             </div>
           </div>
 
