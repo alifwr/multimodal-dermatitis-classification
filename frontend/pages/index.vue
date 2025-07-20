@@ -205,12 +205,12 @@
                 <div class="flex flex-col gap-4">
                   <div
                     v-for="item in KRITERIA_MAYOR"
-                    :key="item.value"
+                    :key="idx"
                     class="flex items-start gap-3"
                   >
                     <input
                       type="checkbox"
-                      :value="item.value"
+                      :value="item"
                       v-model="formAnamnesys['kriteria_mayor']"
                       class="mt-1"
                     />
@@ -226,12 +226,12 @@
                 <div class="flex flex-col gap-4">
                   <div
                     v-for="item in KRITERIA_MINOR"
-                    :key="item.value"
+                    :key="idx"
                     class="flex items-start gap-3"
                   >
                     <input
                       type="checkbox"
-                      :value="item.value"
+                      :value="item"
                       v-model="formAnamnesys['kriteria_minor']"
                       class="mt-1"
                     />
@@ -247,12 +247,12 @@
                 <div class="flex flex-col gap-4">
                   <div
                     v-for="item in RIWAYAT_PENYAKIT_DAHULU"
-                    :key="item.value"
+                    :key="idx"
                     class="flex items-start gap-3"
                   >
                     <input
                       type="checkbox"
-                      :value="item.value"
+                      :value="item"
                       v-model="formAnamnesys['riwayat_penyakit_dahulu']"
                       class="mt-1"
                     />
@@ -268,12 +268,12 @@
               <div class="flex flex-col gap-4">
                 <div
                   v-for="item in RIWAYAT_PENYAKIT_KELUARGA"
-                  :key="item.value"
+                  :key="idx"
                   class="flex items-start gap-3"
                 >
                   <input
                     type="checkbox"
-                    :value="item.value"
+                    :value="item"
                     v-model="formAnamnesys['riwayat_penyakit_keluarga']"
                     class="mt-1"
                   />
