@@ -200,34 +200,89 @@
                   label="Lokasi Lesi"
                   v-model="formAnamnesys['lokasi_lesi']"
               />
-              <flat-form
-                  class="mt-8 md:mt-12"
-                  type="checkbox"
-                  :options="KRITERIA_MAYOR"
-                  label="Kriteria Mayor"
-                  v-model="formAnamnesys['kriteria_mayor']"
-              />
-              <flat-form
-                  class="mt-8 md:mt-12"
-                  type="checkbox"
-                  :options="KRITERIA_MINOR"
-                  label="Kriteria Minor"
-                  v-model="formAnamnesys['kriteria_minor']"
-              />
-              <flat-form
-                  class="mt-8 md:mt-12"
-                  type="checkbox"
-                  :options="RIWAYAT_PENYAKIT_DAHULU"
-                  label="Riwayat Penyakit Dahulu"
-                  v-model="formAnamnesys['riwayat_penyakit_dahulu']"
-              />
-              <flat-form
-                  class="mt-8 md:mt-12"
-                  type="checkbox"
-                  :options="RIWAYAT_PENYAKIT_KELUARGA"
-                  label="Riwayat Penyakit Keluarga"
-                  v-model="formAnamnesys['riwayat_penyakit_keluarga']"
-              />
+              <div class="mt-8 md:mt-12">
+                <label class="font-semibold text-base mb-2 block">Kriteria Mayor</label>
+                <div class="flex flex-col gap-4">
+                  <div
+                    v-for="item in KRITERIA_MAYOR"
+                    :key="item.value"
+                    class="flex items-start gap-3"
+                  >
+                    <input
+                      type="checkbox"
+                      :value="item.value"
+                      v-model="formAnamnesys['kriteria_mayor']"
+                      class="mt-1"
+                    />
+                    <label class="text-left text-base leading-relaxed">
+                      {{ item }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 md:mt-12">
+                <label class="font-semibold text-base mb-2 block">Kriteria Minor</label>
+                <div class="flex flex-col gap-4">
+                  <div
+                    v-for="item in KRITERIA_MINOR"
+                    :key="item.value"
+                    class="flex items-start gap-3"
+                  >
+                    <input
+                      type="checkbox"
+                      :value="item.value"
+                      v-model="formAnamnesys['kriteria_minor']"
+                      class="mt-1"
+                    />
+                    <label class="text-left text-base leading-relaxed">
+                      {{ item }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 md:mt-12">
+                <label class="font-semibold text-base mb-2 block">Riwayat Penyakit Dahulu</label>
+                <div class="flex flex-col gap-4">
+                  <div
+                    v-for="item in RIWAYAT_PENYAKIT_DAHULU"
+                    :key="item.value"
+                    class="flex items-start gap-3"
+                  >
+                    <input
+                      type="checkbox"
+                      :value="item.value"
+                      v-model="formAnamnesys['riwayat_penyakit_dahulu']"
+                      class="mt-1"
+                    />
+                    <label class="text-left text-base leading-relaxed">
+                      {{ item }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 md:mt-12">
+              <label class="font-semibold text-base mb-2 block">Riwayat Penyakit Keluarga</label>
+              <div class="flex flex-col gap-4">
+                <div
+                  v-for="item in RIWAYAT_PENYAKIT_KELUARGA"
+                  :key="item.value"
+                  class="flex items-start gap-3"
+                >
+                  <input
+                    type="checkbox"
+                    :value="item.value"
+                    v-model="formAnamnesys['riwayat_penyakit_keluarga']"
+                    class="mt-1"
+                  />
+                  <label class="text-left text-base leading-relaxed">
+                    {{ item }}
+                  </label>
+                </div>
+              </div>
+            </div>
             </div>
           </AuthState>
         </div>
