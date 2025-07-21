@@ -9,6 +9,9 @@ export const SUMBER_INFEKSI = [
     "Lain-lain (sebutkan pada kolom berikutnya)"
 ];
 export const LAMA_SAKIT = ["1 minggu", "2 minggu", "3 minggu", "4 minggu", "> 4 minggu"];
+
+export const LESI_AREA_TUBUH_LAINNYA = ["Tidak Ada", "Ada (sebutkan pada kolom berikutnya)"];
+
 export const KRITERIA_MAYOR = [
     "Tidak Ada",
     "Pruritus",
