@@ -81,7 +81,7 @@ const handleCheckboxChange = (event: any) => {
       <label
           v-for="option in options"
           :key="option"
-          class="flex items-center gap-2"
+          class="flex gap-2 items-start mb-4"
       >
         <input
             v-if="type==='checkbox'"
@@ -89,7 +89,7 @@ const handleCheckboxChange = (event: any) => {
             :value="option"
             :checked="isCheckboxChecked(option)"
             @change="handleCheckboxChange"
-            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 flex-shrink-0 mt-0.5"
         />
         <input
             v-else
@@ -97,9 +97,9 @@ const handleCheckboxChange = (event: any) => {
             :value="option"
             :checked="modelValue === option"
             @change="handleChange"
-            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 flex-shrink-0 mt-0.5"
         />
-        <label class="text-xl font-opensans">{{option}}</label>
+        <span class="text-xl font-opensans text-left">{{option}}</span>
       </label>
     </div>
   </div>
