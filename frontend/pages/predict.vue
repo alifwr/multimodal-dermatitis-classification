@@ -502,7 +502,7 @@ const handleSubmit = async () => {
             >{{ result?.classname }} ({{
               result?.classname == "DA"
                 ? "Dermatitis Atopik"
-                : "Non Dermatitis Atopik"
+                : "Bukan Dermatitis Atopik"
             }})</strong
           >
         </p>
