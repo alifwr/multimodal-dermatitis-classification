@@ -278,19 +278,19 @@
   <transition name="fade">
     <div
         v-if="showModal && result"
-        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
         @click.self="showModal = false"
     >
-      <div class="bg-white rounded-lg shadow-lg p-6 max-w-xl w-full relative">
+      <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-4xl max-h-[90vh] overflow-y-auto relative">
         <button
-            class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-xl"
+            class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-xl z-10"
             @click="showModal = false"
         >
           &times;
         </button>
 
-        <h2 class="text-4xl font-semibold mb-4">Hasil Prediksi</h2>
-        <p class="mb-2 text-xl">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 pr-8">Hasil Prediksi</h2>
+        <p class="mb-2 text-base sm:text-lg lg:text-xl">
           Klasifikasi penyakit termasuk
           <strong
           >{{ result?.classname }} ({{
@@ -307,7 +307,7 @@
           dan nilai confidence pada input text sebesar <strong>{{ (result?.text_confidence).toFixed(2) }} % </strong>
         </p>
 
-        <p class="text-3xl font-semibold mt-10">Hasil XAI dari gambar sebagai berikut:</p>
+        <p class="text-3xl font-semibold mt-10 mb-4 sm:mb-6 lg:mb-8">Hasil XAI dari gambar sebagai berikut:</p>
 
         <div v-if="xaiImageUrl" class="preview mb-8 px-4">
           <img :src="xaiImageUrl" class="max-h-[250px] md:max-h-[300px] w-auto" alt="Image preview" />
