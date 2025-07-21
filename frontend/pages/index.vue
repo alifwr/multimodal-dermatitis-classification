@@ -201,6 +201,20 @@
                   v-model="formAnamnesys['lokasi_lesi']"
               />
               <flat-form
+                  class="mt-8 md:mt-12"
+                  type="checkbox"
+                  :options="LESI_AREA_TUBUH_LAINNYA"
+                  label="Apakah Terdapat Lesi di Area Tubuh Lainnya"
+                  v-model="formAnamnesys['apakah_terdapat_lesi_di_area_tubuh_lainnya']"
+              />
+              <flat-form
+                  v-if="formAnamnesys['apakah_terdapat_lesi_di_area_tubuh_lainnya'].includes('Ada (sebutkan pada kolom berikutnya)')"
+                  class="mt-8 md:mt-12"
+                  type="text"
+                  label="Lesi di Area Tubuh Lainnya"
+                  v-model="formAnamnesys['lesi_area_tubuh_lainnya']"
+              />
+              <flat-form
                   class="mt-8 md:mt-12 text-left-override"
                   type="checkbox"
                   :options="KRITERIA_MAYOR"
@@ -309,6 +323,7 @@ import {
   RIWAYAT_KONTAK,
   SUMBER_INFEKSI,
   LAMA_SAKIT,
+  LESI_AREA_TUBUH_LAINNYA,
   KRITERIA_MAYOR,
   KRITERIA_MINOR,
   RIWAYAT_PENYAKIT_DAHULU,
@@ -327,6 +342,8 @@ const createDefaultAnamnesysForm = () => ({
   faktor_pencetus_penyakit_sekarang: "",
   lama_sakit: "",
   lokasi_lesi: "",
+  apakah_terdapat_lesi_di_area_tubuh_lainnya: "",
+  lesi_area_tubuh_lainnya: "",
   sumber_infeksi: [],
   kriteria_mayor: [],
   kriteria_minor: [],
@@ -398,6 +415,12 @@ const createSummary = (form: typeof formAnamnesys.value): string => {
     sumber_infeksi.push(form.sumber_infeksi_lainnya);
   }
 
+  let apakah_terdapat_lesi_di_area_tubuh_lainnya = form.apakah_terdapat_lesi_di_area_tubuh_lainnya;
+  if(apakah_terdapat_lesi_di_area_tubuh_lainnya.includes("Ada (sebutkan pada kolom berikutnya)")){
+    apakah_terdapat_lesi_di_area_tubuh_lainnya = apakah_terdapat_lesi_di_area_tubuh_lainnya.filter(item => item !== 'Ada (sebutkan pada kolom berikutnya)');
+    apakah_terdapat_lesi_di_area_tubuh_lainnya.push(form.lesi_area_tubuh_lainnya);
+  }
+
   return (
       `Pasien dengan jenis kelamin: ${form.jenis_kelamin}, ` +
       `usia: ${form.usia}. ` +
@@ -407,7 +430,7 @@ const createSummary = (form: typeof formAnamnesys.value): string => {
       `Faktor pencetus penyakit saat ini: ${form.faktor_pencetus_penyakit_sekarang}. ` +
       `Lama sakit: ${form.lama_sakit}. ` +
       `Lokasi lesi: ${form.lokasi_lesi}. ` +
-      // `Apakah terdapat lesi di area tubuh lainnya: ${form.apakah_terdapat_lesi_di_area_tubuh_lainnya}. ` +
+      `Apakah terdapat lesi di area tubuh lainnya: ${form.apakah_terdapat_lesi_di_area_tubuh_lainnya}. ` +
       `Kriteria mayor: ${form.kriteria_mayor.join(', ')}. ` +
       `Kriteria minor: ${form.kriteria_minor.join(', ')}. ` +
       `Riwayat penyakit dahulu: ${form.riwayat_penyakit_dahulu.join(', ')}. ` +
@@ -523,14 +546,15 @@ watch(user, (newUser, oldUser) => {
 watch(
     [
       () => formAnamnesys.value.sumber_infeksi,
+      () => formAnamnesys.value.apakah_terdapat_lesi_di_area_tubuh_lainnya,
       () => formAnamnesys.value.kriteria_mayor,
       () => formAnamnesys.value.kriteria_minor,
       () => formAnamnesys.value.riwayat_penyakit_dahulu,
       () => formAnamnesys.value.riwayat_penyakit_keluarga
     ],
     (
-        [newSumberInfeksi, newKriteriaMayor, newKriteriaMinor, newRiwayatDahulu, newRiwayatKeluarga],
-        [oldSumberInfeksi, oldKriteriaMayor, oldKriteriaMinor, oldRiwayatDahulu, oldRiwayatKeluarga],
+        [newSumberInfeksi, newApakahTerdapatLesiDiAreaTubuhLainnya, newKriteriaMayor, newKriteriaMinor, newRiwayatDahulu, newRiwayatKeluarga],
+        [oldSumberInfeksi, oldApakahTerdapatLesiDiAreaTubuhLainnya, oldKriteriaMayor, oldKriteriaMinor, oldRiwayatDahulu, oldRiwayatKeluarga],
     ) => {
       // Sumber Infeksi
       if(oldSumberInfeksi.includes('Tidak Ada') && newSumberInfeksi.length > 1){
@@ -538,6 +562,14 @@ watch(
       }
       if(!oldSumberInfeksi.includes('Tidak Ada') && newSumberInfeksi.includes('Tidak Ada')){
         formAnamnesys.value.sumber_infeksi = newSumberInfeksi.filter(item => item === 'Tidak Ada');
+      }
+
+      // Apakah Terdapat Lesi di Area Tubuh Lainnya
+      if(oldApakahTerdapatLesiDiAreaTubuhLainnya.includes('Tidak Ada') && newApakahTerdapatLesiDiAreaTubuhLainnya.length > 1){
+        formAnamnesys.value.apakah_terdapat_lesi_di_area_tubuh_lainnya = newApakahTerdapatLesiDiAreaTubuhLainnya.filter(item => item !== 'Tidak Ada');
+      }
+      if(!oldApakahTerdapatLesiDiAreaTubuhLainnya.includes('Tidak Ada') && newApakahTerdapatLesiDiAreaTubuhLainnya.includes('Tidak Ada')){
+        formAnamnesys.value.apakah_terdapat_lesi_di_area_tubuh_lainnya = newApakahTerdapatLesiDiAreaTubuhLainnya.filter(item => item === 'Tidak Ada');
       }
 
       // Kriteria Mayor

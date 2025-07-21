@@ -8,7 +8,7 @@ export default interface AnamnesysForm {
     faktor_pencetus_penyakit_sekarang: string;
     lama_sakit: string;
     lokasi_lesi: string;
-    // apakah_terdapat_lesi_di_area_tubuh_lainnya: boolean;
+    apakah_terdapat_lesi_di_area_tubuh_lainnya: boolean;
     kriteria_mayor: string[];
     kriteria_minor: string[];
     riwayat_penyakit_dahulu: string[];
