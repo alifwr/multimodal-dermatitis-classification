@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/image'
   ],
-  css: ['~/assets/css/fonts.css'],
+  css: ['~/assets/css/fonts.css', '~/assets/css/components.css'],
   formkit:{
     autoImport: true,
   },

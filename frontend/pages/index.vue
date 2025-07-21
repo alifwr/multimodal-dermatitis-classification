@@ -119,13 +119,10 @@
 
           <div class="flex flex-col items-center justify-center mt-8 md:mt-16 px-4">
             <div class="flex flex-col md:flex-row max-w-lg items-center">
-              <NuxtImg class="h-[120px] md:h-[150px] mb-4 md:mb-0" src="/images/lesion_example.png" />
+              <NuxtImg class="h-[120px] md:h-[150px] mb-4 md:mb-0" src="/images/211_NonDA_Pso_LCP_lututcopy.jpg"/>
               <div class="flex items-center md:pr-8">
                 <span class="text-lg md:text-xl text-center md:text-left font-alegreya md:pl-6">Contoh pengambilan gambar yang direkomendasikan</span>
               </div>
-            </div>
-            <div class="flex justify-start w-full mt-2 px-4">
-              <p class="text-base md:text-lg font-alegreya">sumber: https://dermnetz.org</p>
             </div>
           </div>
 
@@ -204,28 +201,31 @@
                   v-model="formAnamnesys['lokasi_lesi']"
               />
               <flat-form
-                  class="mt-8 md:mt-12"
+                  class="mt-8 md:mt-12 text-left-override"
                   type="checkbox"
                   :options="KRITERIA_MAYOR"
                   label="Kriteria Mayor"
                   v-model="formAnamnesys['kriteria_mayor']"
               />
+
               <flat-form
-                  class="mt-8 md:mt-12"
+                  class="mt-8 md:mt-12 text-left-override"
                   type="checkbox"
                   :options="KRITERIA_MINOR"
                   label="Kriteria Minor"
                   v-model="formAnamnesys['kriteria_minor']"
               />
+
               <flat-form
-                  class="mt-8 md:mt-12"
+                  class="mt-8 md:mt-12 text-left-override"
                   type="checkbox"
                   :options="RIWAYAT_PENYAKIT_DAHULU"
                   label="Riwayat Penyakit Dahulu"
                   v-model="formAnamnesys['riwayat_penyakit_dahulu']"
               />
+
               <flat-form
-                  class="mt-8 md:mt-12"
+                  class="mt-8 md:mt-12 text-left-override"
                   type="checkbox"
                   :options="RIWAYAT_PENYAKIT_KELUARGA"
                   label="Riwayat Penyakit Keluarga"

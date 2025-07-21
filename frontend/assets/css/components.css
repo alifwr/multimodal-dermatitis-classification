@@ -1,0 +1,8 @@
+.text-left-override label {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+}
+
+.text-left-override .flex.items-center {
+    align-items: flex-start !important;
+}
