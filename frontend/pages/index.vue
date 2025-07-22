@@ -149,7 +149,7 @@
               />
               <flat-form
                   class="mt-8 md:mt-12"
-                  type="number"
+                  type="text"
                   label="Usia"
                   v-model="formAnamnesys['usia']"
               />
