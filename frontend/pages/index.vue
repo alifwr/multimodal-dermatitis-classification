@@ -303,8 +303,8 @@
         <p class="text-xl">
           Model AI menghasilkan jawaban tersebut dengan nilai persentase
           <strong>{{ (result?.confidence).toFixed(2) }} %</strong><br>
-          Dengan nilai confidence pada input gambar sebesar <strong>{{ (result?.image_confidence).toFixed(2) }} % </strong>
-          dan nilai confidence pada input text sebesar <strong>{{ (result?.text_confidence).toFixed(2) }} % </strong>
+          Dengan nilai keyakinan model pada input gambar sebesar <strong>{{ (result?.image_confidence).toFixed(2) }} % </strong>
+          dan nilai keyakinan model pada input teks sebesar <strong>{{ (result?.text_confidence).toFixed(2) }} % </strong>
         </p>
 
         <p class="text-3xl font-semibold mt-10 mb-4 sm:mb-6 lg:mb-8">Hasil XAI dari gambar sebagai berikut:</p>
